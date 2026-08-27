@@ -1,0 +1,46 @@
+{
+  "last_sync_timestamp": "2026-08-25 22:00:00",
+  "last_processed_file": null,
+  "processed_files": {
+    "1.LINE NO.2_Log Sheet_2025 in JAN 2026.xlsx": {
+      "mtime": 1787602560.0,
+      "processed_at": "2026-08-26T11:28:57.844763",
+      "record_count": 720
+    },
+    "2.LINE NO.2_Log Sheet_2026 in FEB 2026.xlsx": {
+      "mtime": 1787602560.0,
+      "processed_at": "2026-08-26T11:28:57.844763",
+      "record_count": 672
+    },
+    "3.LINE NO.2_Log Sheet_2026 in march 2026.xlsx": {
+      "mtime": 1787602560.0,
+      "processed_at": "2026-08-26T11:28:57.844763",
+      "record_count": 216
+    },
+    "4.LINE NO.2_Log Sheet_2026 in APR 2026.xlsx": {
+      "mtime": 1787602560.0,
+      "processed_at": "2026-08-26T11:28:57.844763",
+      "record_count": 360
+    },
+    "5.LINE NO.2_Log Sheet_2026 in MAY 2026.xlsx": {
+      "mtime": 1787602560.0,
+      "processed_at": "2026-08-26T11:28:57.844763",
+      "record_count": 408
+    },
+    "6.LINE NO.2_Log Sheet_ in JUN 2026 Rev.01.xlsx": {
+      "mtime": 1787602560.0,
+      "processed_at": "2026-08-26T11:28:57.844763",
+      "record_count": 720
+    },
+    "7.LINE NO.2_Log Sheet_ in JUL 2026.xlsx": {
+      "mtime": 1787602560.0,
+      "processed_at": "2026-08-26T11:28:57.844763",
+      "record_count": 744
+    },
+    "8.LINE NO.2_Log Sheet_ in Aug 2026.xlsx": {
+      "mtime": 1787602560.0,
+      "processed_at": "2026-08-26T11:28:57.844763",
+      "record_count": 744
+    }
+  }
+}

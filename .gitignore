@@ -1,0 +1,16 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Data, Excel log books, and zip archives
+*.zip
+*.xlsx
+*.xls
+onedrive_to_pi/OneDrive_*
+
+# OS & IDE
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

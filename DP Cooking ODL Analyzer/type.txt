@@ -1,0 +1,38 @@
+กำลังเริ่มดปรเจกต์ต่อจากคนเก่า ในโฟลเดอร์ชื่อ DP cooking DL ANALYZER มันคืออะไร และต้องการอะไร และตอนนี้อยู่เฟสไหน ความรุ้ที่ควรมี คำศัพท์สำคัญ สิ่งที่เป็นปัญหา
+ลองดู ใช้เวลาเต็มที่
+
+ช่วยอธิบาย process หน่อย ตอนนี้ไม่ค่อยเข้าใจ ยังประติดประต่อภาพไม่ออก
+
+Production Rate ของอะไร ทำไมดรอปลงใกล้นิวเคลีย
+และนิวเคลียคืออะไร
+คือหม้อต้มสะดุดมากน้อยแค่ไหน ODL ก้ยังทำงานเท่าเดิม ใช่มั้ย
+ยกตัวอย่างทำไม specific consumption เพิ่มสูงขึ้น3000%
+แล้วจะแก้ปัญหาอะไรเป็นหลัก
+สารเคมีที่ต้องควบคุม มีมั้ย อะไร
+และสิ่งที่บต้องทำให้ดี คืออะไร เดินนิ่งตลอด? หรือเพิ่มลดอัตราการใช้ไอน้ำ
+
+แล้วตอนนี้ทำถึงตรงไหนแล้ว
+
+อธิบายการอ่าน ไฟล์ Excel สรุปสถิติ
+
+ประชุมมา
+DP Cooking Focus on line 2
+Read kappa, pulp consistency value
+In this phase, just visualize, not optimize.
+Pulling data to PI. Find a solution to move from OneDrive to PI
+เหลือแค่เชื่อมค่าแลป เพราะมันอยู่บน SharePoint มันเป็นแบบ timeseries
+variation ของ batch 4 มันแกว่งสูง
+*ข้อมูลเก็บ เช่น 10:00, 11:00 แล้วถ้า 10:30 เป็นของอันไหน อาจจะต้องลอง อาจจะทำrule base ทั่วไป
+ใน
+in analytic pattern
+แต่ละ batch มี range ของมัน
+เอาbatchนั้นมาเก็บทั้งเดือนแล้วดูว่าเป็นยังไง
+หลังจากvisualize แล้ว ก็ ค่อยไฟphase analyze ต่อ ลองสรุปดู
+
+i would like to know about how to read data fromexce; in onedrive realtime and insert to PI system
+
+คือโปรเจกต์นี้ไม่ได้มีdatabase sourceตั้งแต่แรกหรอ
+แล้วเราจะดึงเรียลไทม์มาเก็บมั้ยจาก ondrive ยังไง
+แล้วจะดึงขึ้นPIยังไงได้บ้างแบบ realtimeคือโปรเจกต์นี้ไม่ได้มีdatabase sourceตั้งแต่แรกหรอ
+แล้วเราจะดึงเรียลไทม์มาเก็บมั้ยจาก ondrive ยังไง
+แล้วจะดึงขึ้นPIยังไงได้บ้างแบบ realtime
