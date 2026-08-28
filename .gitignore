@@ -8,6 +8,8 @@ __pycache__/
 *.xlsx
 *.xls
 onedrive_to_pi/OneDrive_*
+onedrive_to_pi/temp_downloads/
+onedrive_to_pi/sync_log.log
 
 # OS & IDE
 .vscode/
