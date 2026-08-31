@@ -48,8 +48,8 @@ COL_BRIGHT_PRESS3 = 16 # Col Q: Brightness Press 3
 COL_BRIGHT_D0 = 17     # Col R: Brightness D0
 COL_BRIGHT_EOP = 18     # Col S: Brightness Eop
 
-# Historical PI Write API Configuration
-WRITE_OLD_API_URL = "http://10.28.58.72:8123/write_old"
+# Historical PI Write API Configuration (Local Gateway app_pro on port 5707)
+WRITE_OLD_API_URL = "http://127.0.0.1:5707/write_old"
 WRITE_OLD_API_TOKEN = "A9r2T8#kZp2@Vxg9!QwLm4&FjN7Yc$HPs3B5eUaDS1G0oXmIQpqz0Oo8LI"
 
 # MI Cube API Configuration (Fallback)

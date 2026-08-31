@@ -76,33 +76,44 @@ def parse_sheet_data(df_sheet: pd.DataFrame, sheet_name: str, file_name: str = "
 
     records = []
     
-    # 1. Extract Date from header rows (Row 1 to 5) or fallback to sheet_name + file_name
+    # 1. Extract Date from sheet_name + file_name to prevent copy-paste date errors in Cell B4
     date_str = None
     base_date = None
 
-    for r in range(1, 6):
-        if r < len(df_sheet):
-            val = df_sheet.iloc[r, config.COL_TIME]
-            if pd.notna(val):
-                if isinstance(val, pd.Timestamp):
-                    base_date = val.to_pydatetime().date()
-                    break
-                elif isinstance(val, datetime):
-                    base_date = val.date()
-                    break
-                elif isinstance(val, date):
-                    base_date = val
-                    break
-                else:
-                    sval = str(val).strip()
-                    for dfmt in ['%d-%m-%y', '%d-%m-%Y', '%d/%m/%y', '%d/%m/%Y', '%Y-%m-%d %H:%M:%S', '%Y-%m-%d']:
-                        try:
-                            base_date = datetime.strptime(sval[:10], dfmt).date()
-                            break
-                        except ValueError:
-                            pass
-                    if base_date:
+    y_fname, m_fname = infer_year_month_from_fname(file_name)
+    if sheet_name.isdigit():
+        day_num = int(sheet_name)
+        if y_fname and m_fname:
+            try:
+                base_date = date(y_fname, m_fname, day_num)
+            except ValueError:
+                base_date = None
+
+    # Fallback to header inspection if filename inference didn't work
+    if not base_date:
+        for r in range(1, 6):
+            if r < len(df_sheet):
+                val = df_sheet.iloc[r, config.COL_TIME]
+                if pd.notna(val):
+                    if isinstance(val, pd.Timestamp):
+                        base_date = val.to_pydatetime().date()
                         break
+                    elif isinstance(val, datetime):
+                        base_date = val.date()
+                        break
+                    elif isinstance(val, date):
+                        base_date = val
+                        break
+                    else:
+                        sval = str(val).strip()
+                        for dfmt in ['%d-%m-%y', '%d-%m-%Y', '%d/%m/%y', '%d/%m/%Y', '%Y-%m-%d %H:%M:%S', '%Y-%m-%d']:
+                            try:
+                                base_date = datetime.strptime(sval[:10], dfmt).date()
+                                break
+                            except ValueError:
+                                pass
+                        if base_date:
+                            break
 
     # If base_date wasn't found or month mismatches file name, infer from sheet name and file name
     y_fname, m_fname = infer_year_month_from_fname(file_name)
