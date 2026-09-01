@@ -46,7 +46,14 @@ COL_VISC_D2 = 13     # Col N: Viscosity D2
 COL_BRIGHT_PRESS1 = 15 # Col P: Brightness Press 1
 COL_BRIGHT_PRESS3 = 16 # Col Q: Brightness Press 3
 COL_BRIGHT_D0 = 17     # Col R: Brightness D0
-COL_BRIGHT_EOP = 18     # Col S: Brightness Eop
+COL_BRIGHT_EOP = 18    # Col S: Brightness Eop
+COL_BRIGHT_D1 = 19     # Col T: Brightness D1
+COL_BRIGHT_D2 = 21     # Col V: Brightness D2
+
+COL_PH_D0 = 26         # Col AA: pH D0
+COL_PH_EOP = 27        # Col AB: pH Eop
+COL_PH_D1 = 28         # Col AC: pH D1
+COL_PH_D2 = 29         # Col AD: pH D2
 
 # Historical PI Write API Configuration (Local Gateway app_pro on port 5707)
 WRITE_OLD_API_URL = "http://127.0.0.1:5707/write_old"
@@ -76,4 +83,11 @@ PI_TAG_MAPPING = {
     "Brightness_Press3": "PULP-LINE2-BRIGHTNESS-PRESS3",
     "Brightness_D0": "PULP-LINE2-BRIGHTNESS-D0",
     "Brightness_Eop": "PULP-LINE2-BRIGHTNESS-EOP",
+    "Brightness_D1": "PULP-LINE2-BRIGHTNESS-D1",
+    "Brightness_D2": "PULP-LINE2-BRIGHTNESS-D2",
+    # pH
+    "pH_D0": "PULP-LINE2-PH-D0",
+    "pH_Eop": "PULP-LINE2-PH-EOP",
+    "pH_D1": "PULP-LINE2-PH-D1",
+    "pH_D2": "PULP-LINE2-PH-D2",
 }

@@ -1,16 +1,15 @@
 @echo off
-REM Windows Task Scheduler Runner for OneDrive to PI Sync Pipeline
-REM Displays execution output in visible CMD window for monitoring
+TITLE Pulp Line 2 - OneDrive to PI Hourly Sync Service
 cd /d "%~dp0"
 
 echo ======================================================================
-echo Starting OneDrive / SharePoint to PI Sync Pipeline...
+echo    Pulp Line 2 - OneDrive to PI Live Hourly Sync Service
 echo ======================================================================
-
-python main_sync.py
-
+echo  This window will stay open and run automatically every 1 hour.
+echo  To stop the sync service, simply close this window or press Ctrl+C.
+echo ======================================================================
 echo.
-echo ======================================================================
-echo Sync finished at %DATE% %TIME%
-echo ======================================================================
-timeout /t 10
+
+python main_sync.py --loop
+
+pause

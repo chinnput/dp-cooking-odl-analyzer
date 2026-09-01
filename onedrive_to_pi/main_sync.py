@@ -3,14 +3,16 @@ Main Orchestrator: OneDrive / SharePoint to PI Sync Pipeline.
 Executes Step 0 -> Step 1 -> Step 2 -> Step 3 sequentially.
 
 Supported Execution Modes:
-1. mode="hourly"   : Real-time automation mode. Fetches latest logbook from SharePoint & checks for new hourly lab updates.
-2. mode="backfill" : Historical mode. Parses all monthly Excel files and pushes historical records.
+1. mode="hourly"        : Real-time automation mode. Checks for new hourly lab updates.
+2. mode="new_tags_only" : Fast backfill for 6 NEW tags only (pH & Brightness D1/D2) across history.
+3. mode="backfill"      : Complete historical backfill for ALL 19 tags across all files.
 
 Dry-Run Toggle:
 - dry_run=True  : Test Preview mode (prints log preview to terminal, NO live API requests).
 - dry_run=False : Live Production mode (sends HTTP POST requests to write_old API endpoint).
 """
 
+import time
 import config
 from step0_download_sharepoint import download_latest_from_sharepoint
 from step1_fetch_onedrive import fetch_onedrive_data
@@ -32,7 +34,7 @@ def run_pipeline(mode: str = "hourly", dry_run: bool = True, auto_download_share
 
     # Step 1: Fetch data from Excel Log Book files
     print("\n--- [Step 1] Reading and Extracting Excel Log Book Data ---")
-    process_all = (mode == "backfill")
+    process_all = (mode in ("backfill", "new_tags_only"))
     df_raw = fetch_onedrive_data(process_all_files=process_all)
 
     if df_raw.empty:
@@ -46,6 +48,13 @@ def run_pipeline(mode: str = "hourly", dry_run: bool = True, auto_download_share
     if df_proc.empty:
         print("[Pipeline] No lab records to send in this cycle. Pipeline finished.")
         return
+
+    # Display preview sample of new records found (5 to 10 rows)
+    show_count = min(10, len(df_proc))
+    print(f"\n🔍 [New Data Found] Sample preview of new lab record(s) ({show_count} of {len(df_proc)} rows):")
+    show_cols = ["File_Name", "Date_Str", "Time_Str", "Timestamp", "Kappa_Press1", "Viscosity_Press1", "Brightness_Press1"]
+    avail_cols = [c for c in show_cols if c in df_proc.columns]
+    print(df_proc[avail_cols].head(show_count).to_string(index=False))
 
     # Extract latest timestamp in this processed batch
     latest_timestamp = df_proc["Timestamp"].max()
@@ -64,16 +73,42 @@ def run_pipeline(mode: str = "hourly", dry_run: bool = True, auto_download_share
         print("[Pipeline] No payloads generated. Pipeline finished.")
 
 
-if __name__ == "__main__":
-    # EASY TOGGLE FOR TESTING & RUNNING:
-    # -----------------------------------------------------------------------------------
-    # Option A (Test Hourly Preview)    : run_pipeline(mode="hourly", dry_run=True)
-    # Option B (Test Backfill Preview)  : run_pipeline(mode="backfill", dry_run=True)
-    # Option C (Live Hourly Automation) : run_pipeline(mode="hourly", dry_run=False)
-    # Option D (Live Backfill Run)     : run_pipeline(mode="backfill", dry_run=False)
-    # -----------------------------------------------------------------------------------
+def run_continuous_loop(interval_seconds: int = 3600, dry_run: bool = False):
+    """
+    Runs the pipeline continuously in an infinite loop for CMD background automation.
+    Waits interval_seconds (default 1 hour = 3600s) between execution cycles.
+    """
+    cycle = 1
+    while True:
+        print("\n" + "=" * 70)
+        print(f" HOURLY SYNC CYCLE #{cycle} STARTED AT {time.strftime('%Y-%m-%d %H:%M:%S')}")
+        print("=" * 70)
+        
+        try:
+            run_pipeline(mode="hourly", dry_run=dry_run)
+        except Exception as e:
+            print(f"❌ Exception in cycle #{cycle}: {e}")
 
-    run_pipeline(mode="hourly", dry_run=False)
+        print("\n" + "-" * 70)
+        print(f" Cycle #{cycle} completed. Waiting {interval_seconds // 60} minutes ({interval_seconds}s) until next check...")
+        print("   (Press Ctrl+C anytime in this window to stop the service)")
+        print("-" * 70 + "\n")
+        
+        time.sleep(interval_seconds)
+        cycle += 1
+
+
+if __name__ == "__main__":
+    import sys
+    
+    # If called with --loop argument from .bat file, run continuous hourly loop
+    if "--loop" in sys.argv or "-l" in sys.argv:
+        # Check if dry_run flag is passed
+        is_dry = "--dry-run" in sys.argv
+        run_continuous_loop(interval_seconds=3600, dry_run=is_dry)
+    else:
+        # Single execution run for testing / manual invocation
+        run_pipeline(mode="hourly", dry_run=False)
 
 
 

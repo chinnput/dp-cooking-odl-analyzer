@@ -49,7 +49,7 @@ def download_latest_from_sharepoint(target_dir: str = None, headless: bool = Fal
 
             # Check if redirected to login page
             if "login" in page.url.lower() or "signin" in page.url.lower() or "Sign in" in page.title():
-                print("\n⚠️ SCG Microsoft Login required in browser window!")
+                print(" SCG Microsoft Login required in browser window!")
                 print("   Please complete login in the opened browser window within 25 seconds...")
                 time.sleep(25)
 
@@ -65,53 +65,87 @@ def download_latest_from_sharepoint(target_dir: str = None, headless: bool = Fal
                 download_triggered = False
                 time.sleep(3)
                 
-                # Locate file rows in SharePoint list
+                # Locate file rows in SharePoint list (.xlsx / .xls files)
                 rows = page.query_selector_all("div[role='row']")
                 print(f"[Step 0] Found {len(rows)} row(s) on SharePoint folder page.")
 
+                # Filter rows that represent Excel logbook files
+                excel_rows = []
                 for row in rows:
                     txt = row.inner_text()
-                    if "Aug 2026" in txt or "8.LINE" in txt:
-                        print(f"[Step 0] Found target file row: '{txt[:50].strip()}...'")
-                        
-                        # Strategy A: Right-click row to open context menu and click Download
-                        try:
-                            row.click(button="right")
-                            time.sleep(1)
-                            context_dl = page.query_selector("button[name='Download'], button[aria-label*='Download'], span:has-text('Download')")
-                            if context_dl:
-                                print("[Step 0] Clicking 'Download' from context menu...")
-                                with page.expect_download(timeout=35000) as download_info:
-                                    context_dl.click()
-                                download = download_info.value
-                                save_file_path = os.path.join(dest_dir, download.suggested_filename)
-                                download.save_as(save_file_path)
-                                print(f"[Step 0] ✅ READ-ONLY DOWNLOAD SUCCESS: Saved '{download.suggested_filename}' ({os.path.getsize(save_file_path)} bytes)")
-                                download_triggered = True
-                                break
-                        except Exception as e_ctx:
-                            print(f"[Step 0] Context menu trigger note: {e_ctx}")
+                    if (".xlsx" in txt or ".xls" in txt or "Log Sheet" in txt) and "LINE" in txt:
+                        excel_rows.append((row, txt))
 
-                        # Strategy B: Select row checkbox and click top bar Download button
-                        if not download_triggered:
-                            checkbox = row.query_selector("div[role='checkbox'], i[data-icon-name='CheckMark']")
-                            if checkbox:
-                                checkbox.click()
-                            else:
-                                row.click()
-                            time.sleep(1.5)
+                if excel_rows:
+                    # Pick the latest logbook file row (highest month number / newest file)
+                    # Sort helper: look for month keywords or month numbers in row text
+                    def get_row_month_score(row_tuple):
+                        row_txt = row_tuple[1].lower()
+                        for m_str, m_num in [
+                            ('dec', 12), ('nov', 11), ('oct', 10), ('sep', 9), ('aug', 8),
+                            ('jul', 7), ('jun', 6), ('may', 5), ('apr', 4), ('mar', 3), ('feb', 2), ('jan', 1)
+                        ]:
+                            if m_str in row_txt:
+                                return m_num
+                        return 0
 
-                            dl_btn = page.query_selector("button[data-automation-id='downloadCommand']")
-                            if dl_btn:
-                                print("[Step 0] Clicking 'Download' from command bar...")
-                                with page.expect_download(timeout=35000) as download_info:
-                                    dl_btn.click()
-                                download = download_info.value
-                                save_file_path = os.path.join(dest_dir, download.suggested_filename)
-                                download.save_as(save_file_path)
-print(f"[Step 0] [SUCCESS] Saved '{download.suggested_filename}' ({os.path.getsize(save_file_path)} bytes)")
+                    excel_rows.sort(key=get_row_month_score, reverse=True)
+                    target_row, target_txt = excel_rows[0]
+                    print(f"[Step 0] Selected latest logbook row: '{target_txt[:50].strip()}...'")
+
+                    # Strategy A: Right-click row to open context menu and click Download
+                    try:
+                        target_row.click(button="right")
+                        time.sleep(1)
+                        context_dl = page.query_selector("button[name='Download'], button[aria-label*='Download'], span:has-text('Download')")
+                        if context_dl:
+                            print("[Step 0] Clicking 'Download' from context menu...")
+                            with page.expect_download(timeout=35000) as download_info:
+                                context_dl.click()
+                            download = download_info.value
+                            save_file_path = os.path.join(dest_dir, download.suggested_filename)
+                            temp_save_path = save_file_path + ".tmp"
+                            download.save_as(temp_save_path)
+                            
+                            # Safe atomic file replacement to prevent Windows Permission denied errors
+                            if os.path.exists(save_file_path):
+                                try:
+                                    os.chmod(save_file_path, 0o777)
+                                except Exception:
+                                    pass
+                            os.replace(temp_save_path, save_file_path)
+                            print(f"[Step 0] READ-ONLY DOWNLOAD SUCCESS: Saved '{download.suggested_filename}' ({os.path.getsize(save_file_path)} bytes)")
                             download_triggered = True
-                            break
+                    except Exception as e_ctx:
+                        print(f"[Step 0] Context menu trigger note: {e_ctx}")
+
+                    # Strategy B: Select row checkbox and click top bar Download button
+                    if not download_triggered:
+                        checkbox = target_row.query_selector("div[role='checkbox'], i[data-icon-name='CheckMark']")
+                        if checkbox:
+                            checkbox.click()
+                        else:
+                            target_row.click()
+                        time.sleep(1.5)
+
+                        dl_btn = page.query_selector("button[data-automation-id='downloadCommand']")
+                        if dl_btn:
+                            print("[Step 0] Clicking 'Download' from command bar...")
+                            with page.expect_download(timeout=35000) as download_info:
+                                dl_btn.click()
+                            download = download_info.value
+                            save_file_path = os.path.join(dest_dir, download.suggested_filename)
+                            temp_save_path = save_file_path + ".tmp"
+                            download.save_as(temp_save_path)
+                            
+                            if os.path.exists(save_file_path):
+                                try:
+                                    os.chmod(save_file_path, 0o777)
+                                except Exception:
+                                    pass
+                            os.replace(temp_save_path, save_file_path)
+                            print(f"[Step 0] READ-ONLY DOWNLOAD SUCCESS: Saved '{download.suggested_filename}' ({os.path.getsize(save_file_path)} bytes)")
+                            download_triggered = True
 
                 if not download_triggered:
                     print("[Step 0] Retrying folder command bar download...")

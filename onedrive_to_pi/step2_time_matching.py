@@ -12,7 +12,7 @@ from step1_fetch_onedrive import load_sync_state
 
 def process_lab_data(df_lab: pd.DataFrame, mode: str = "hourly") -> pd.DataFrame:
     """
-    Filters and prepares lab measurements based on selected mode ("hourly" or "backfill").
+    Filters and prepares lab measurements based on selected mode ("hourly", "backfill", or "new_tags_only").
     """
     print(f"[Step 2] Processing lab measurements (Mode: '{mode}')...")
 
@@ -26,6 +26,16 @@ def process_lab_data(df_lab: pd.DataFrame, mode: str = "hourly") -> pd.DataFrame
     if mode == "backfill":
         print(f"[Step 2] Backfill Mode: Prepared all {len(df_sorted)} historical records sorted chronologically.")
         return df_sorted
+
+    if mode == "new_tags_only":
+        print(f"[Step 2] New Tags Only Mode: Filtering historical records for 6 new tags (pH & Brightness D1/D2)...")
+        # Keep only columns matching new tags: pH_D0, pH_Eop, pH_D1, pH_D2, Brightness_D1, Brightness_D2
+        new_tag_cols = ["File_Name", "Sheet_Name", "Date_Str", "Time_Str", "Timestamp",
+                        "pH_D0", "pH_Eop", "pH_D1", "pH_D2", "Brightness_D1", "Brightness_D2"]
+        avail = [c for c in new_tag_cols if c in df_sorted.columns]
+        df_new_tags = df_sorted[avail].dropna(subset=[c for c in avail if c.startswith(("pH_", "Brightness_"))], how="all").reset_index(drop=True)
+        print(f"[Step 2] Found {len(df_new_tags)} historical record(s) containing new tag values.")
+        return df_new_tags
 
     # Hourly Mode (Real-Time Automation)
     state = load_sync_state()

@@ -61,14 +61,15 @@ def save_sync_state(state: dict):
 def parse_sheet_data(df_sheet: pd.DataFrame, sheet_name: str, file_name: str = "") -> pd.DataFrame:
     """
     Parses a single day's sheet from Line 2 Log Book.
-    Extracts Date, Time, Kappa, Viscosity, and Brightness values.
+    Extracts Date, Time, Kappa, Viscosity, Brightness, and pH values.
     """
-    # Check if sheet has enough columns (Col S is index 18)
+    # Check if sheet has enough columns (Col AD is index 29)
     max_required_col = max([
         config.COL_TIME, config.COL_KAPPA_PRESS1, config.COL_KAPPA_PRESS3, config.COL_KAPPA_EOP,
         config.COL_VISC_PRESS1, config.COL_VISC_PRESS3, config.COL_VISC_D0, config.COL_VISC_EOP,
         config.COL_VISC_D1, config.COL_VISC_D2, config.COL_BRIGHT_PRESS1, config.COL_BRIGHT_PRESS3,
-        config.COL_BRIGHT_D0, config.COL_BRIGHT_EOP
+        config.COL_BRIGHT_D0, config.COL_BRIGHT_EOP, config.COL_BRIGHT_D1, config.COL_BRIGHT_D2,
+        config.COL_PH_D0, config.COL_PH_EOP, config.COL_PH_D1, config.COL_PH_D2
     ])
 
     if df_sheet.shape[1] <= max_required_col:
@@ -182,6 +183,13 @@ def parse_sheet_data(df_sheet: pd.DataFrame, sheet_name: str, file_name: str = "
         bright_press3 = pd.to_numeric(row.iloc[config.COL_BRIGHT_PRESS3], errors='coerce')
         bright_d0 = pd.to_numeric(row.iloc[config.COL_BRIGHT_D0], errors='coerce')
         bright_eop = pd.to_numeric(row.iloc[config.COL_BRIGHT_EOP], errors='coerce')
+        bright_d1 = pd.to_numeric(row.iloc[config.COL_BRIGHT_D1], errors='coerce')
+        bright_d2 = pd.to_numeric(row.iloc[config.COL_BRIGHT_D2], errors='coerce')
+
+        ph_d0 = pd.to_numeric(row.iloc[config.COL_PH_D0], errors='coerce')
+        ph_eop = pd.to_numeric(row.iloc[config.COL_PH_EOP], errors='coerce')
+        ph_d1 = pd.to_numeric(row.iloc[config.COL_PH_D1], errors='coerce')
+        ph_d2 = pd.to_numeric(row.iloc[config.COL_PH_D2], errors='coerce')
 
         # Construct Timestamp
         timestamp = None
@@ -221,6 +229,12 @@ def parse_sheet_data(df_sheet: pd.DataFrame, sheet_name: str, file_name: str = "
             "Brightness_Press3": bright_press3,
             "Brightness_D0": bright_d0,
             "Brightness_Eop": bright_eop,
+            "Brightness_D1": bright_d1,
+            "Brightness_D2": bright_d2,
+            "pH_D0": ph_d0,
+            "pH_Eop": ph_eop,
+            "pH_D1": ph_d1,
+            "pH_D2": ph_d2,
         }
         records.append(record)
 
@@ -296,7 +310,7 @@ def fetch_onedrive_data(target_path: str = None, sheet_names: list = None, proce
     df_concat = pd.concat(all_dfs, ignore_index=True)
 
     # Clean data: drop rows where all lab values are NaN
-    lab_cols = [c for c in df_concat.columns if c.startswith(("Kappa_", "Viscosity_", "Brightness_"))]
+    lab_cols = [c for c in df_concat.columns if c.startswith(("Kappa_", "Viscosity_", "Brightness_", "pH_"))]
     df_clean = df_concat.dropna(subset=lab_cols, how="all").reset_index(drop=True)
 
     print(f"[Step 1] Successfully loaded {len(df_clean)} lab measurement rows across {len(files_to_process)} file(s).")
