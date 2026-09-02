@@ -3,6 +3,7 @@ Step 3 & 4: Payload formatting and pushing data to AVEVA PI Server via Historica
 """
 
 import time
+from datetime import datetime, timedelta
 import pandas as pd
 import requests
 import config
@@ -91,6 +92,8 @@ def push_to_pi_server(payload_list: list, dry_run: bool = True, batch_size: int 
 
     success_count = 0
     fail_count = 0
+    pushed_items = []
+    now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     print("-" * 100)
     for i, payload in enumerate(payload_list, 1):
@@ -108,6 +111,12 @@ def push_to_pi_server(payload_list: list, dry_run: bool = True, batch_size: int 
 
             if response.status_code in (200, 201):
                 success_count += 1
+                pushed_items.append({
+                    "timestamp": ts,
+                    "tag": tag,
+                    "value": val,
+                    "pushed_at": now_str
+                })
                 print(f"[{i}/{total}] {ts} | Tag: {tag:<30} | Value: {val:<8} | Status: {response.status_code} OK")
             else:
                 fail_count += 1
@@ -120,13 +129,38 @@ def push_to_pi_server(payload_list: list, dry_run: bool = True, batch_size: int 
     print("-" * 100)
     print(f"[Step 3] Push completed. Total Success: {success_count}, Total Failed: {fail_count}")
 
-    # Update sync_state.json with latest timestamp if successful and enabled
-    if config.SAVE_STATE and success_count > 0 and latest_timestamp:
+    # Summary table of pushed items
+    if pushed_items:
+        print("\n📊 [Summary of Pushed Tags to PI Server]:")
+        for item in pushed_items:
+            print(f"  • {item['timestamp']} -> Tag: {item['tag']:<30} | Value: {item['value']}")
+        print()
+
+    # Update sync_state.json with latest timestamp and maintain 3-day history
+    if config.SAVE_STATE and success_count > 0:
         from step1_fetch_onedrive import load_sync_state, save_sync_state
         state = load_sync_state()
-        state["last_sync_timestamp"] = str(latest_timestamp)
+        if latest_timestamp:
+            state["last_sync_timestamp"] = str(latest_timestamp)
+
+        # Append to 3-day rolling history
+        history = state.get("pushed_history_3days", [])
+        history.extend(pushed_items)
+
+        # Filter out items older than 3 days
+        cutoff_dt = datetime.now() - timedelta(days=3)
+        filtered_history = []
+        for h in history:
+            try:
+                h_ts = datetime.fromisoformat(h.get("timestamp", ""))
+                if h_ts >= cutoff_dt:
+                    filtered_history.append(h)
+            except Exception:
+                filtered_history.append(h)
+
+        state["pushed_history_3days"] = filtered_history
         save_sync_state(state)
-        print(f"[Step 3] Updated sync_state.json with last_sync_timestamp: {latest_timestamp}")
+        print(f"[Step 3] Saved sync state (Last TS: {latest_timestamp}, 3-Day History: {len(filtered_history)} records).")
 
     return fail_count == 0
 

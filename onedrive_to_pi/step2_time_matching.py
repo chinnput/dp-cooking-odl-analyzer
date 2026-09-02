@@ -7,6 +7,7 @@ Supports two clean execution modes:
 
 import pandas as pd
 from datetime import datetime
+import config
 from step1_fetch_onedrive import load_sync_state
 
 
@@ -37,40 +38,58 @@ def process_lab_data(df_lab: pd.DataFrame, mode: str = "hourly") -> pd.DataFrame
         print(f"[Step 2] Found {len(df_new_tags)} historical record(s) containing new tag values.")
         return df_new_tags
 
-    # Hourly Mode (Real-Time Automation)
+    # Hourly Mode (Real-Time Automation with 3-Day Lookback Window)
     state = load_sync_state()
-    last_sync_str = state.get("last_sync_timestamp")
+    pushed_history = state.get("pushed_history_3days", [])
+    
+    # Create a fast lookup set of (timestamp, tag) pairs that were already pushed
+    already_pushed_pairs = {
+        (item.get("timestamp"), item.get("tag"))
+        for item in pushed_history
+        if item.get("timestamp") and item.get("tag")
+    }
+
     current_check_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     latest_excel_ts = df_sorted["Timestamp"].max()
 
-    print(f"[Step 2] Checking Excel for new hourly entries (Current Check Time: {current_check_time})...")
-    print(f"[Step 2] Latest Timestamp available in Excel: {latest_excel_ts}")
+    print(f"[Step 2] Checking Excel for new/backfilled hourly entries (Check Time: {current_check_time})...")
+    print(f"[Step 2] Latest Timestamp in Excel : {latest_excel_ts}")
+    print(f"[Step 2] Pushed history items count : {len(already_pushed_pairs)}")
 
-    if last_sync_str:
-        try:
-            last_sync_dt = datetime.fromisoformat(last_sync_str)
-            print(f"[Step 2] Last synced timestamp in state : {last_sync_dt}")
+    # Filter df_sorted to rows within 3-day lookback window
+    cutoff_3days = datetime.now() - pd.Timedelta(days=3)
+    df_recent = df_sorted[df_sorted["Timestamp"] >= cutoff_3days].copy().reset_index(drop=True)
 
-            df_new = df_sorted[df_sorted["Timestamp"] > last_sync_dt].copy().reset_index(drop=True)
-            
-            if not df_new.empty:
-                latest_ts = df_new.iloc[-1]["Timestamp"]
-                print(f"[Step 2] Found {len(df_new)} new hourly lab update(s) up to {latest_ts}.")
-                return df_new
-            else:
-                print(f"[Step 2]  No new lab entries found newer than {last_sync_dt}. Waiting for next hourly trigger.")
-                return pd.DataFrame()
-        except Exception as e:
-            print(f"[Step 2] Warning parsing last_sync_timestamp ({e}). Defaulting to latest entry.")
+    if df_recent.empty:
+        df_recent = df_sorted.tail(24).copy().reset_index(drop=True)
 
-    # First-time run in hourly mode: Return only the most recent 1 record to avoid accidental backfill dump
-    if not df_sorted.empty:
-        latest_row = df_sorted.tail(1).copy().reset_index(drop=True)
-        latest_ts = latest_row.iloc[0]["Timestamp"]
-        print(f"[Step 2] First-time hourly run: Selected latest single entry at {latest_ts}.")
-        return latest_row
+    # Check for unpushed values even if their timestamp is earlier than max timestamp
+    unpushed_rows = []
+    for idx, row in df_recent.iterrows():
+        ts_str = row["Timestamp"].strftime("%Y-%m-%d %H:%M:%S") if hasattr(row["Timestamp"], "strftime") else str(row["Timestamp"])
+        
+        # Check if any mapped tag value in this row has not been pushed yet
+        has_new_val = False
+        for param_key, tag_name in config.PI_TAG_MAPPING.items():
+            for col in df_recent.columns:
+                if col == param_key or col.replace("_", "") == param_key.replace("_", ""):
+                    if pd.notna(row[col]) and (ts_str, tag_name) not in already_pushed_pairs:
+                        has_new_val = True
+                        break
+            if has_new_val:
+                break
 
-    return pd.DataFrame()
+        if has_new_val:
+            unpushed_rows.append(row)
+
+    if unpushed_rows:
+        df_new = pd.DataFrame(unpushed_rows).reset_index(drop=True)
+        latest_ts = df_new.iloc[-1]["Timestamp"]
+        print(f"[Step 2] ✅ Found {len(df_new)} row(s) with new/backfilled lab values up to {latest_ts}.")
+        return df_new
+    else:
+        print("[Step 2] ℹ️ All recent lab values have already been pushed to PI Server. Waiting for next hourly trigger.")
+        return pd.DataFrame()
 
 
 # Backward compatibility alias

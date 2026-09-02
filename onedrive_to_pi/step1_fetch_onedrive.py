@@ -9,7 +9,7 @@ import glob
 import json
 import re
 import warnings
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 import pandas as pd
 import numpy as np
 import config
@@ -191,24 +191,24 @@ def parse_sheet_data(df_sheet: pd.DataFrame, sheet_name: str, file_name: str = "
         ph_d1 = pd.to_numeric(row.iloc[config.COL_PH_D1], errors='coerce')
         ph_d2 = pd.to_numeric(row.iloc[config.COL_PH_D2], errors='coerce')
 
-        # Construct Timestamp
+        # Construct Timestamp (Hours < 08:00 roll over to the next calendar day)
         timestamp = None
-        if base_date and t_obj:
-            b_date_obj = base_date.date() if isinstance(base_date, datetime) else base_date
-            timestamp = datetime.combine(b_date_obj, t_obj)
-        elif date_str and t_obj:
-            try:
-                parsed_bdate = None
-                for dfmt in ["%d-%m-%y", "%d-%m-%Y", "%d/%m/%y", "%d/%m/%Y", "%Y-%m-%d %H:%M:%S", "%Y-%m-%d"]:
-                    try:
-                        parsed_bdate = datetime.strptime(date_str[:10], dfmt)
-                        break
-                    except ValueError:
-                        pass
-                if parsed_bdate:
-                    timestamp = datetime.combine(parsed_bdate.date(), t_obj)
-            except Exception:
-                timestamp = None
+        target_date = None
+        if base_date:
+            target_date = base_date.date() if isinstance(base_date, datetime) else base_date
+        elif date_str:
+            for dfmt in ["%d-%m-%y", "%d-%m-%Y", "%d/%m/%y", "%d/%m/%Y", "%Y-%m-%d %H:%M:%S", "%Y-%m-%d"]:
+                try:
+                    target_date = datetime.strptime(date_str[:10], dfmt).date()
+                    break
+                except ValueError:
+                    pass
+
+        if target_date and t_obj:
+            # Shift hours between 00:00 and 07:59 to the next day
+            if t_obj.hour < 8:
+                target_date = target_date + timedelta(days=1)
+            timestamp = datetime.combine(target_date, t_obj)
 
         record = {
             "File_Name": file_name,
