@@ -280,11 +280,22 @@ def fetch_onedrive_data(target_path: str = None, sheet_names: list = None, proce
         print(f"[Step 1] File/Folder not found: '{path_to_use}'")
         return pd.DataFrame()
 
-    # Gather list of Excel files
+    # Gather list of Excel files (include .xlsx, .xls, and .tmp files downloaded from SharePoint)
     if os.path.isdir(path_to_use):
-        excel_files = sorted(
-            glob.glob(os.path.join(path_to_use, "*.xlsx")) + glob.glob(os.path.join(path_to_use, "*.xls"))
+        all_raw_files = sorted(
+            glob.glob(os.path.join(path_to_use, "*.xlsx")) +
+            glob.glob(os.path.join(path_to_use, "*.xls")) +
+            glob.glob(os.path.join(path_to_use, "*.tmp")),
+            key=os.path.getmtime
         )
+        
+        # Prefer fresh .tmp files if a main .xlsx file has a corresponding fresh .tmp file
+        excel_files_map = {}
+        for f in all_raw_files:
+            clean_name = os.path.basename(f).replace(".tmp", "")
+            excel_files_map[clean_name] = f
+            
+        excel_files = sorted(list(excel_files_map.values()))
     else:
         excel_files = [path_to_use]
 
