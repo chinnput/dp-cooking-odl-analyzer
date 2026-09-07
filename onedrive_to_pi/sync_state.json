@@ -1,1109 +1,3491 @@
 {
-  "last_sync_timestamp": "2026-09-02 08:00:00",
+  "last_sync_timestamp": "2026-09-06 22:00:00",
   "pushed_history_3days": [
     {
-      "timestamp": "2026-09-01 08:00:00",
+      "timestamp": "2026-09-04 00:00:00",
       "tag": "PULP-LINE2-KAPPA-PRESS1",
-      "value": "11.5",
-      "pushed_at": "2026-09-02 08:33:57"
+      "value": "9.4",
+      "pushed_at": "2026-09-04 01:48:01"
     },
     {
-      "timestamp": "2026-09-01 08:00:00",
+      "timestamp": "2026-09-04 00:00:00",
       "tag": "PULP-LINE2-KAPPA-PRESS3",
-      "value": "3.2",
-      "pushed_at": "2026-09-02 08:33:57"
+      "value": "3.6",
+      "pushed_at": "2026-09-04 01:48:01"
     },
     {
-      "timestamp": "2026-09-01 08:00:00",
-      "tag": "PULP-LINE2-KAPPA-EOP",
-      "value": "0.7",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 08:00:00",
-      "tag": "PULP-LINE2-VISCOSITY-PRESS1",
-      "value": "783.0",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 08:00:00",
-      "tag": "PULP-LINE2-VISCOSITY-PRESS3",
-      "value": "641.0",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 08:00:00",
-      "tag": "PULP-LINE2-VISCOSITY-D0",
-      "value": "544.0",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 08:00:00",
-      "tag": "PULP-LINE2-VISCOSITY-EOP",
-      "value": "500.0",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 08:00:00",
-      "tag": "PULP-LINE2-VISCOSITY-D1",
-      "value": "466.0",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 08:00:00",
-      "tag": "PULP-LINE2-VISCOSITY-D2",
-      "value": "483.0",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 08:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-PRESS1",
-      "value": "35.7",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 08:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-PRESS3",
-      "value": "54.9",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 08:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-D0",
-      "value": "78.4",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 08:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-EOP",
-      "value": "87.7",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 08:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-D1",
-      "value": "88.5",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 08:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-D2",
-      "value": "89.1",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 08:00:00",
-      "tag": "PULP-LINE2-PH-D0",
-      "value": "1.9",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 08:00:00",
-      "tag": "PULP-LINE2-PH-EOP",
-      "value": "10.8",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 08:00:00",
-      "tag": "PULP-LINE2-PH-D1",
-      "value": "2.3",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 08:00:00",
-      "tag": "PULP-LINE2-PH-D2",
-      "value": "2.5",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 10:00:00",
-      "tag": "PULP-LINE2-VISCOSITY-D1",
-      "value": "461.0",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 10:00:00",
-      "tag": "PULP-LINE2-VISCOSITY-D2",
-      "value": "466.0",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 10:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-PRESS1",
-      "value": "36.7",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 10:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-PRESS3",
-      "value": "53.5",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 10:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-D0",
-      "value": "77.2",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 10:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-EOP",
-      "value": "86.0",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 10:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-D1",
-      "value": "88.7",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 10:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-D2",
-      "value": "89.1",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 12:00:00",
-      "tag": "PULP-LINE2-KAPPA-PRESS1",
-      "value": "11.4",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 12:00:00",
-      "tag": "PULP-LINE2-KAPPA-PRESS3",
-      "value": "3.7",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 12:00:00",
-      "tag": "PULP-LINE2-VISCOSITY-PRESS1",
-      "value": "797.0",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 12:00:00",
-      "tag": "PULP-LINE2-VISCOSITY-PRESS3",
-      "value": "628.0",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 12:00:00",
-      "tag": "PULP-LINE2-VISCOSITY-EOP",
-      "value": "517.0",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 12:00:00",
-      "tag": "PULP-LINE2-VISCOSITY-D1",
-      "value": "464.0",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 12:00:00",
-      "tag": "PULP-LINE2-VISCOSITY-D2",
-      "value": "460.0",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 12:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-PRESS1",
-      "value": "33.5",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 12:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-PRESS3",
-      "value": "48.3",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 12:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-D0",
-      "value": "76.6",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 12:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-EOP",
-      "value": "85.4",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 12:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-D1",
-      "value": "88.0",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 12:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-D2",
-      "value": "89.4",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 12:00:00",
-      "tag": "PULP-LINE2-PH-D0",
-      "value": "1.9",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 12:00:00",
-      "tag": "PULP-LINE2-PH-EOP",
-      "value": "10.6",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 12:00:00",
-      "tag": "PULP-LINE2-PH-D1",
-      "value": "2.3",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 12:00:00",
-      "tag": "PULP-LINE2-PH-D2",
-      "value": "2.5",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 14:00:00",
-      "tag": "PULP-LINE2-VISCOSITY-D1",
-      "value": "488.0",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 14:00:00",
-      "tag": "PULP-LINE2-VISCOSITY-D2",
-      "value": "479.0",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 14:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-PRESS1",
-      "value": "34.8",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 14:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-PRESS3",
-      "value": "47.8",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 14:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-D0",
-      "value": "75.7",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 14:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-EOP",
-      "value": "85.0",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 14:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-D1",
-      "value": "87.4",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 14:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-D2",
-      "value": "88.7",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 16:00:00",
-      "tag": "PULP-LINE2-KAPPA-PRESS1",
-      "value": "11.1",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 16:00:00",
-      "tag": "PULP-LINE2-KAPPA-PRESS3",
-      "value": "4.8",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 16:00:00",
-      "tag": "PULP-LINE2-KAPPA-EOP",
-      "value": "0.7",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 16:00:00",
-      "tag": "PULP-LINE2-VISCOSITY-PRESS1",
-      "value": "778.0",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 16:00:00",
-      "tag": "PULP-LINE2-VISCOSITY-PRESS3",
-      "value": "612.0",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 16:00:00",
-      "tag": "PULP-LINE2-VISCOSITY-D0",
-      "value": "589.0",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 16:00:00",
-      "tag": "PULP-LINE2-VISCOSITY-EOP",
-      "value": "536.0",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 16:00:00",
-      "tag": "PULP-LINE2-VISCOSITY-D1",
-      "value": "476.0",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 16:00:00",
-      "tag": "PULP-LINE2-VISCOSITY-D2",
-      "value": "490.0",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 16:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-PRESS1",
-      "value": "34.0",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 16:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-PRESS3",
-      "value": "50.7",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 16:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-D0",
-      "value": "71.9",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 16:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-EOP",
-      "value": "85.2",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 16:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-D1",
-      "value": "87.7",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 16:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-D2",
-      "value": "88.5",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 16:00:00",
-      "tag": "PULP-LINE2-PH-D0",
-      "value": "1.9",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 16:00:00",
-      "tag": "PULP-LINE2-PH-EOP",
-      "value": "10.4",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 16:00:00",
-      "tag": "PULP-LINE2-PH-D1",
-      "value": "2.3",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 16:00:00",
-      "tag": "PULP-LINE2-PH-D2",
-      "value": "2.4",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 18:00:00",
-      "tag": "PULP-LINE2-VISCOSITY-D1",
-      "value": "489.0",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 18:00:00",
-      "tag": "PULP-LINE2-VISCOSITY-D2",
-      "value": "470.0",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 18:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-PRESS1",
-      "value": "31.5",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 18:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-PRESS3",
-      "value": "51.0",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 18:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-D0",
-      "value": "70.4",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 18:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-EOP",
-      "value": "82.3",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 18:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-D1",
-      "value": "86.8",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 18:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-D2",
-      "value": "87.9",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 20:00:00",
-      "tag": "PULP-LINE2-KAPPA-PRESS1",
-      "value": "10.8",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 20:00:00",
-      "tag": "PULP-LINE2-KAPPA-PRESS3",
-      "value": "4.4",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 20:00:00",
-      "tag": "PULP-LINE2-VISCOSITY-PRESS1",
-      "value": "811.0",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 20:00:00",
-      "tag": "PULP-LINE2-VISCOSITY-PRESS3",
-      "value": "640.0",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 20:00:00",
-      "tag": "PULP-LINE2-VISCOSITY-EOP",
-      "value": "551.0",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 20:00:00",
-      "tag": "PULP-LINE2-VISCOSITY-D1",
-      "value": "497.0",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 20:00:00",
-      "tag": "PULP-LINE2-VISCOSITY-D2",
-      "value": "496.0",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 20:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-PRESS1",
-      "value": "34.5",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 20:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-PRESS3",
-      "value": "54.1",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 20:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-D0",
-      "value": "75.8",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 20:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-EOP",
-      "value": "83.8",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 20:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-D1",
-      "value": "86.5",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 20:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-D2",
-      "value": "87.8",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 20:00:00",
-      "tag": "PULP-LINE2-PH-D0",
-      "value": "2.0",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 20:00:00",
-      "tag": "PULP-LINE2-PH-EOP",
-      "value": "10.0",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 20:00:00",
-      "tag": "PULP-LINE2-PH-D1",
-      "value": "2.4",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 20:00:00",
-      "tag": "PULP-LINE2-PH-D2",
-      "value": "2.5",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 22:00:00",
-      "tag": "PULP-LINE2-VISCOSITY-D1",
-      "value": "499.0",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 22:00:00",
-      "tag": "PULP-LINE2-VISCOSITY-D2",
-      "value": "496.0",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 22:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-PRESS1",
-      "value": "33.1",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 22:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-PRESS3",
-      "value": "52.2",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 22:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-D0",
-      "value": "78.2",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 22:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-EOP",
-      "value": "85.5",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 22:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-D1",
-      "value": "86.2",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-01 22:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-D2",
-      "value": "87.7",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-02 02:00:00",
+      "timestamp": "2026-09-04 00:00:00",
       "tag": "PULP-LINE2-KAPPA-EOP",
       "value": "0.6",
-      "pushed_at": "2026-09-02 08:33:57"
+      "pushed_at": "2026-09-04 01:48:01"
     },
     {
-      "timestamp": "2026-09-02 02:00:00",
-      "tag": "PULP-LINE2-VISCOSITY-D0",
-      "value": "553.0",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-02 02:00:00",
-      "tag": "PULP-LINE2-VISCOSITY-EOP",
-      "value": "489.0",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-02 02:00:00",
-      "tag": "PULP-LINE2-VISCOSITY-D1",
-      "value": "485.0",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-02 02:00:00",
-      "tag": "PULP-LINE2-VISCOSITY-D2",
-      "value": "490.0",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-02 02:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-D0",
-      "value": "80.1",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-02 02:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-EOP",
-      "value": "88.4",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-02 02:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-D1",
-      "value": "88.2",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-02 02:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-D2",
-      "value": "88.3",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-02 04:00:00",
-      "tag": "PULP-LINE2-KAPPA-PRESS1",
-      "value": "11.2",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-02 04:00:00",
-      "tag": "PULP-LINE2-KAPPA-PRESS3",
-      "value": "4.0",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-02 04:00:00",
+      "timestamp": "2026-09-04 00:00:00",
       "tag": "PULP-LINE2-VISCOSITY-PRESS1",
-      "value": "744.0",
-      "pushed_at": "2026-09-02 08:33:57"
+      "value": "782.0",
+      "pushed_at": "2026-09-04 01:48:01"
     },
     {
-      "timestamp": "2026-09-02 04:00:00",
+      "timestamp": "2026-09-04 00:00:00",
       "tag": "PULP-LINE2-VISCOSITY-PRESS3",
-      "value": "650.0",
-      "pushed_at": "2026-09-02 08:33:57"
+      "value": "599.0",
+      "pushed_at": "2026-09-04 01:48:01"
     },
     {
-      "timestamp": "2026-09-02 04:00:00",
+      "timestamp": "2026-09-04 00:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D0",
+      "value": "529.0",
+      "pushed_at": "2026-09-04 01:48:01"
+    },
+    {
+      "timestamp": "2026-09-04 00:00:00",
       "tag": "PULP-LINE2-VISCOSITY-EOP",
-      "value": "506.0",
-      "pushed_at": "2026-09-02 08:33:57"
+      "value": "513.0",
+      "pushed_at": "2026-09-04 01:48:01"
     },
     {
-      "timestamp": "2026-09-02 04:00:00",
+      "timestamp": "2026-09-04 00:00:00",
       "tag": "PULP-LINE2-VISCOSITY-D1",
-      "value": "461.0",
-      "pushed_at": "2026-09-02 08:33:57"
+      "value": "491.0",
+      "pushed_at": "2026-09-04 01:48:01"
     },
     {
-      "timestamp": "2026-09-02 04:00:00",
+      "timestamp": "2026-09-04 00:00:00",
       "tag": "PULP-LINE2-VISCOSITY-D2",
-      "value": "481.0",
-      "pushed_at": "2026-09-02 08:33:57"
+      "value": "475.0",
+      "pushed_at": "2026-09-04 01:48:01"
     },
     {
-      "timestamp": "2026-09-02 04:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-PRESS1",
-      "value": "34.0",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-02 04:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-PRESS3",
-      "value": "53.3",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-02 04:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-D0",
-      "value": "80.4",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-02 04:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-EOP",
-      "value": "88.0",
-      "pushed_at": "2026-09-02 08:33:57"
-    },
-    {
-      "timestamp": "2026-09-02 04:00:00",
+      "timestamp": "2026-09-04 00:00:00",
       "tag": "PULP-LINE2-BRIGHTNESS-D1",
-      "value": "88.5",
-      "pushed_at": "2026-09-02 08:33:57"
+      "value": "87.7",
+      "pushed_at": "2026-09-04 01:48:01"
     },
     {
-      "timestamp": "2026-09-02 04:00:00",
+      "timestamp": "2026-09-04 00:00:00",
       "tag": "PULP-LINE2-BRIGHTNESS-D2",
-      "value": "88.6",
-      "pushed_at": "2026-09-02 08:33:57"
+      "value": "88.4",
+      "pushed_at": "2026-09-04 01:48:01"
     },
     {
-      "timestamp": "2026-09-02 04:00:00",
+      "timestamp": "2026-09-04 00:00:00",
       "tag": "PULP-LINE2-PH-D0",
-      "value": "2.0",
-      "pushed_at": "2026-09-02 08:33:57"
+      "value": "1.8",
+      "pushed_at": "2026-09-04 01:48:01"
     },
     {
-      "timestamp": "2026-09-02 04:00:00",
+      "timestamp": "2026-09-04 00:00:00",
       "tag": "PULP-LINE2-PH-EOP",
-      "value": "10.7",
-      "pushed_at": "2026-09-02 08:33:57"
+      "value": "10.4",
+      "pushed_at": "2026-09-04 01:48:01"
     },
     {
-      "timestamp": "2026-09-02 04:00:00",
+      "timestamp": "2026-09-04 00:00:00",
       "tag": "PULP-LINE2-PH-D1",
       "value": "2.3",
-      "pushed_at": "2026-09-02 08:33:57"
+      "pushed_at": "2026-09-04 01:48:01"
     },
     {
-      "timestamp": "2026-09-02 04:00:00",
+      "timestamp": "2026-09-04 00:00:00",
       "tag": "PULP-LINE2-PH-D2",
-      "value": "2.6",
-      "pushed_at": "2026-09-02 08:33:57"
+      "value": "2.5",
+      "pushed_at": "2026-09-04 01:48:01"
     },
     {
-      "timestamp": "2026-09-02 06:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-D1",
-      "value": "88.3",
-      "pushed_at": "2026-09-02 08:33:57"
+      "timestamp": "2026-09-04 00:00:00",
+      "tag": "PULP-LINE2-KAPPA-PRESS1",
+      "value": "9.4",
+      "pushed_at": "2026-09-04 02:48:23"
     },
     {
-      "timestamp": "2026-09-02 06:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-D2",
-      "value": "89.0",
-      "pushed_at": "2026-09-02 08:33:57"
+      "timestamp": "2026-09-04 00:00:00",
+      "tag": "PULP-LINE2-KAPPA-PRESS3",
+      "value": "3.6",
+      "pushed_at": "2026-09-04 02:48:23"
     },
     {
-      "timestamp": "2026-09-02 10:00:00",
+      "timestamp": "2026-09-04 00:00:00",
+      "tag": "PULP-LINE2-KAPPA-EOP",
+      "value": "0.6",
+      "pushed_at": "2026-09-04 02:48:23"
+    },
+    {
+      "timestamp": "2026-09-04 00:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-PRESS1",
+      "value": "782.0",
+      "pushed_at": "2026-09-04 02:48:23"
+    },
+    {
+      "timestamp": "2026-09-04 00:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-PRESS3",
+      "value": "599.0",
+      "pushed_at": "2026-09-04 02:48:23"
+    },
+    {
+      "timestamp": "2026-09-04 00:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D0",
+      "value": "529.0",
+      "pushed_at": "2026-09-04 02:48:23"
+    },
+    {
+      "timestamp": "2026-09-04 00:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-EOP",
+      "value": "513.0",
+      "pushed_at": "2026-09-04 02:48:23"
+    },
+    {
+      "timestamp": "2026-09-04 00:00:00",
       "tag": "PULP-LINE2-VISCOSITY-D1",
-      "value": "443.0",
-      "pushed_at": "2026-09-02 16:31:51"
+      "value": "491.0",
+      "pushed_at": "2026-09-04 02:48:23"
     },
     {
-      "timestamp": "2026-09-02 10:00:00",
+      "timestamp": "2026-09-04 00:00:00",
       "tag": "PULP-LINE2-VISCOSITY-D2",
-      "value": "461.0",
-      "pushed_at": "2026-09-02 16:31:51"
+      "value": "475.0",
+      "pushed_at": "2026-09-04 02:48:23"
     },
     {
-      "timestamp": "2026-09-02 10:00:00",
+      "timestamp": "2026-09-04 00:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS1",
+      "value": "35.9",
+      "pushed_at": "2026-09-04 02:48:23"
+    },
+    {
+      "timestamp": "2026-09-04 00:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS3",
+      "value": "55.7",
+      "pushed_at": "2026-09-04 02:48:23"
+    },
+    {
+      "timestamp": "2026-09-04 00:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D0",
+      "value": "77.5",
+      "pushed_at": "2026-09-04 02:48:23"
+    },
+    {
+      "timestamp": "2026-09-04 00:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-EOP",
+      "value": "87.0",
+      "pushed_at": "2026-09-04 02:48:23"
+    },
+    {
+      "timestamp": "2026-09-04 00:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "87.7",
+      "pushed_at": "2026-09-04 02:48:23"
+    },
+    {
+      "timestamp": "2026-09-04 00:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "88.4",
+      "pushed_at": "2026-09-04 02:48:23"
+    },
+    {
+      "timestamp": "2026-09-04 00:00:00",
+      "tag": "PULP-LINE2-PH-D0",
+      "value": "1.8",
+      "pushed_at": "2026-09-04 02:48:23"
+    },
+    {
+      "timestamp": "2026-09-04 00:00:00",
+      "tag": "PULP-LINE2-PH-EOP",
+      "value": "10.4",
+      "pushed_at": "2026-09-04 02:48:23"
+    },
+    {
+      "timestamp": "2026-09-04 00:00:00",
+      "tag": "PULP-LINE2-PH-D1",
+      "value": "2.3",
+      "pushed_at": "2026-09-04 02:48:23"
+    },
+    {
+      "timestamp": "2026-09-04 00:00:00",
+      "tag": "PULP-LINE2-PH-D2",
+      "value": "2.5",
+      "pushed_at": "2026-09-04 02:48:23"
+    },
+    {
+      "timestamp": "2026-09-04 02:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D1",
+      "value": "474.0",
+      "pushed_at": "2026-09-04 02:48:23"
+    },
+    {
+      "timestamp": "2026-09-04 02:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D2",
+      "value": "468.0",
+      "pushed_at": "2026-09-04 02:48:23"
+    },
+    {
+      "timestamp": "2026-09-04 02:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "88.1",
+      "pushed_at": "2026-09-04 02:48:23"
+    },
+    {
+      "timestamp": "2026-09-04 02:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "88.6",
+      "pushed_at": "2026-09-04 02:48:23"
+    },
+    {
+      "timestamp": "2026-09-04 02:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D1",
+      "value": "474.0",
+      "pushed_at": "2026-09-04 06:49:48"
+    },
+    {
+      "timestamp": "2026-09-04 02:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D2",
+      "value": "468.0",
+      "pushed_at": "2026-09-04 06:49:48"
+    },
+    {
+      "timestamp": "2026-09-04 02:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS1",
+      "value": "36.5",
+      "pushed_at": "2026-09-04 06:49:48"
+    },
+    {
+      "timestamp": "2026-09-04 02:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS3",
+      "value": "53.6",
+      "pushed_at": "2026-09-04 06:49:48"
+    },
+    {
+      "timestamp": "2026-09-04 02:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D0",
+      "value": "79.2",
+      "pushed_at": "2026-09-04 06:49:48"
+    },
+    {
+      "timestamp": "2026-09-04 02:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-EOP",
+      "value": "87.6",
+      "pushed_at": "2026-09-04 06:49:48"
+    },
+    {
+      "timestamp": "2026-09-04 02:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "88.1",
+      "pushed_at": "2026-09-04 06:49:48"
+    },
+    {
+      "timestamp": "2026-09-04 02:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "88.6",
+      "pushed_at": "2026-09-04 06:49:48"
+    },
+    {
+      "timestamp": "2026-09-04 04:00:00",
+      "tag": "PULP-LINE2-KAPPA-PRESS1",
+      "value": "9.4",
+      "pushed_at": "2026-09-04 06:49:48"
+    },
+    {
+      "timestamp": "2026-09-04 04:00:00",
+      "tag": "PULP-LINE2-KAPPA-PRESS3",
+      "value": "3.9",
+      "pushed_at": "2026-09-04 06:49:48"
+    },
+    {
+      "timestamp": "2026-09-04 04:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-PRESS1",
+      "value": "792.0",
+      "pushed_at": "2026-09-04 06:49:48"
+    },
+    {
+      "timestamp": "2026-09-04 04:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-PRESS3",
+      "value": "610.0",
+      "pushed_at": "2026-09-04 06:49:48"
+    },
+    {
+      "timestamp": "2026-09-04 04:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-EOP",
+      "value": "535.0",
+      "pushed_at": "2026-09-04 06:49:48"
+    },
+    {
+      "timestamp": "2026-09-04 04:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D1",
+      "value": "459.0",
+      "pushed_at": "2026-09-04 06:49:48"
+    },
+    {
+      "timestamp": "2026-09-04 04:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D2",
+      "value": "493.0",
+      "pushed_at": "2026-09-04 06:49:48"
+    },
+    {
+      "timestamp": "2026-09-04 04:00:00",
       "tag": "PULP-LINE2-BRIGHTNESS-PRESS1",
       "value": "36.6",
-      "pushed_at": "2026-09-02 16:31:51"
+      "pushed_at": "2026-09-04 06:49:48"
     },
     {
-      "timestamp": "2026-09-02 10:00:00",
+      "timestamp": "2026-09-04 04:00:00",
       "tag": "PULP-LINE2-BRIGHTNESS-PRESS3",
-      "value": "55.1",
-      "pushed_at": "2026-09-02 16:31:51"
+      "value": "55.6",
+      "pushed_at": "2026-09-04 06:49:48"
     },
     {
-      "timestamp": "2026-09-02 10:00:00",
+      "timestamp": "2026-09-04 04:00:00",
       "tag": "PULP-LINE2-BRIGHTNESS-D0",
-      "value": "79.6",
-      "pushed_at": "2026-09-02 16:31:51"
+      "value": "78.1",
+      "pushed_at": "2026-09-04 06:49:48"
     },
     {
-      "timestamp": "2026-09-02 10:00:00",
+      "timestamp": "2026-09-04 04:00:00",
       "tag": "PULP-LINE2-BRIGHTNESS-EOP",
-      "value": "88.0",
-      "pushed_at": "2026-09-02 16:31:51"
+      "value": "87.3",
+      "pushed_at": "2026-09-04 06:49:48"
     },
     {
-      "timestamp": "2026-09-02 10:00:00",
+      "timestamp": "2026-09-04 04:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "89.1",
+      "pushed_at": "2026-09-04 06:49:48"
+    },
+    {
+      "timestamp": "2026-09-04 04:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "89.6",
+      "pushed_at": "2026-09-04 06:49:48"
+    },
+    {
+      "timestamp": "2026-09-04 04:00:00",
+      "tag": "PULP-LINE2-PH-D0",
+      "value": "1.9",
+      "pushed_at": "2026-09-04 06:49:48"
+    },
+    {
+      "timestamp": "2026-09-04 04:00:00",
+      "tag": "PULP-LINE2-PH-EOP",
+      "value": "10.6",
+      "pushed_at": "2026-09-04 06:49:48"
+    },
+    {
+      "timestamp": "2026-09-04 04:00:00",
+      "tag": "PULP-LINE2-PH-D1",
+      "value": "2.4",
+      "pushed_at": "2026-09-04 06:49:48"
+    },
+    {
+      "timestamp": "2026-09-04 04:00:00",
+      "tag": "PULP-LINE2-PH-D2",
+      "value": "2.5",
+      "pushed_at": "2026-09-04 06:49:48"
+    },
+    {
+      "timestamp": "2026-09-04 06:00:00",
       "tag": "PULP-LINE2-BRIGHTNESS-D1",
       "value": "88.5",
-      "pushed_at": "2026-09-02 16:31:51"
+      "pushed_at": "2026-09-04 06:49:48"
     },
     {
-      "timestamp": "2026-09-02 10:00:00",
+      "timestamp": "2026-09-04 06:00:00",
       "tag": "PULP-LINE2-BRIGHTNESS-D2",
-      "value": "89.1",
-      "pushed_at": "2026-09-02 16:31:51"
+      "value": "89.3",
+      "pushed_at": "2026-09-04 06:49:48"
     },
     {
-      "timestamp": "2026-09-02 12:00:00",
+      "timestamp": "2026-09-04 06:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D1",
+      "value": "469.0",
+      "pushed_at": "2026-09-04 07:50:09"
+    },
+    {
+      "timestamp": "2026-09-04 06:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D2",
+      "value": "459.0",
+      "pushed_at": "2026-09-04 07:50:09"
+    },
+    {
+      "timestamp": "2026-09-04 06:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "88.5",
+      "pushed_at": "2026-09-04 07:50:09"
+    },
+    {
+      "timestamp": "2026-09-04 06:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "89.3",
+      "pushed_at": "2026-09-04 07:50:09"
+    },
+    {
+      "timestamp": "2026-09-04 06:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D1",
+      "value": "469.0",
+      "pushed_at": "2026-09-04 14:52:42"
+    },
+    {
+      "timestamp": "2026-09-04 06:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D2",
+      "value": "459.0",
+      "pushed_at": "2026-09-04 14:52:42"
+    },
+    {
+      "timestamp": "2026-09-04 06:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS1",
+      "value": "36.6",
+      "pushed_at": "2026-09-04 14:52:42"
+    },
+    {
+      "timestamp": "2026-09-04 06:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS3",
+      "value": "55.1",
+      "pushed_at": "2026-09-04 14:52:42"
+    },
+    {
+      "timestamp": "2026-09-04 06:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D0",
+      "value": "78.9",
+      "pushed_at": "2026-09-04 14:52:42"
+    },
+    {
+      "timestamp": "2026-09-04 06:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-EOP",
+      "value": "87.0",
+      "pushed_at": "2026-09-04 14:52:42"
+    },
+    {
+      "timestamp": "2026-09-04 06:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "88.5",
+      "pushed_at": "2026-09-04 14:52:42"
+    },
+    {
+      "timestamp": "2026-09-04 06:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "89.3",
+      "pushed_at": "2026-09-04 14:52:42"
+    },
+    {
+      "timestamp": "2026-09-04 08:00:00",
       "tag": "PULP-LINE2-KAPPA-PRESS1",
-      "value": "9.9",
-      "pushed_at": "2026-09-02 16:31:51"
+      "value": "9.0",
+      "pushed_at": "2026-09-04 14:52:42"
     },
     {
-      "timestamp": "2026-09-02 12:00:00",
+      "timestamp": "2026-09-04 08:00:00",
       "tag": "PULP-LINE2-KAPPA-PRESS3",
       "value": "3.0",
-      "pushed_at": "2026-09-02 16:31:51"
+      "pushed_at": "2026-09-04 14:52:42"
     },
     {
-      "timestamp": "2026-09-02 12:00:00",
+      "timestamp": "2026-09-04 08:00:00",
+      "tag": "PULP-LINE2-KAPPA-EOP",
+      "value": "0.6",
+      "pushed_at": "2026-09-04 14:52:42"
+    },
+    {
+      "timestamp": "2026-09-04 08:00:00",
       "tag": "PULP-LINE2-VISCOSITY-PRESS1",
-      "value": "765.0",
-      "pushed_at": "2026-09-02 16:31:51"
+      "value": "795.0",
+      "pushed_at": "2026-09-04 14:52:42"
     },
     {
-      "timestamp": "2026-09-02 12:00:00",
+      "timestamp": "2026-09-04 08:00:00",
       "tag": "PULP-LINE2-VISCOSITY-PRESS3",
-      "value": "608.0",
-      "pushed_at": "2026-09-02 16:31:51"
+      "value": "614.0",
+      "pushed_at": "2026-09-04 14:52:42"
     },
     {
-      "timestamp": "2026-09-02 12:00:00",
+      "timestamp": "2026-09-04 08:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D0",
+      "value": "535.0",
+      "pushed_at": "2026-09-04 14:52:42"
+    },
+    {
+      "timestamp": "2026-09-04 08:00:00",
       "tag": "PULP-LINE2-VISCOSITY-EOP",
-      "value": "504.0",
-      "pushed_at": "2026-09-02 16:31:51"
+      "value": "497.0",
+      "pushed_at": "2026-09-04 14:52:42"
     },
     {
-      "timestamp": "2026-09-02 12:00:00",
+      "timestamp": "2026-09-04 08:00:00",
       "tag": "PULP-LINE2-VISCOSITY-D1",
-      "value": "444.0",
-      "pushed_at": "2026-09-02 16:31:51"
-    },
-    {
-      "timestamp": "2026-09-02 12:00:00",
-      "tag": "PULP-LINE2-VISCOSITY-D2",
       "value": "452.0",
-      "pushed_at": "2026-09-02 16:31:51"
+      "pushed_at": "2026-09-04 14:52:42"
     },
     {
-      "timestamp": "2026-09-02 12:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-PRESS1",
-      "value": "37.0",
-      "pushed_at": "2026-09-02 16:31:51"
-    },
-    {
-      "timestamp": "2026-09-02 12:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-PRESS3",
-      "value": "54.8",
-      "pushed_at": "2026-09-02 16:31:51"
-    },
-    {
-      "timestamp": "2026-09-02 12:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-D0",
-      "value": "79.3",
-      "pushed_at": "2026-09-02 16:31:51"
-    },
-    {
-      "timestamp": "2026-09-02 12:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-EOP",
-      "value": "87.2",
-      "pushed_at": "2026-09-02 16:31:51"
-    },
-    {
-      "timestamp": "2026-09-02 12:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-D1",
-      "value": "89.3",
-      "pushed_at": "2026-09-02 16:31:51"
-    },
-    {
-      "timestamp": "2026-09-02 12:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-D2",
-      "value": "89.7",
-      "pushed_at": "2026-09-02 16:31:51"
-    },
-    {
-      "timestamp": "2026-09-02 12:00:00",
-      "tag": "PULP-LINE2-PH-D0",
-      "value": "1.9",
-      "pushed_at": "2026-09-02 16:31:51"
-    },
-    {
-      "timestamp": "2026-09-02 12:00:00",
-      "tag": "PULP-LINE2-PH-EOP",
-      "value": "10.7",
-      "pushed_at": "2026-09-02 16:31:51"
-    },
-    {
-      "timestamp": "2026-09-02 12:00:00",
-      "tag": "PULP-LINE2-PH-D1",
-      "value": "2.4",
-      "pushed_at": "2026-09-02 16:31:51"
-    },
-    {
-      "timestamp": "2026-09-02 12:00:00",
-      "tag": "PULP-LINE2-PH-D2",
-      "value": "2.6",
-      "pushed_at": "2026-09-02 16:31:51"
-    },
-    {
-      "timestamp": "2026-09-02 06:00:00",
-      "tag": "PULP-LINE2-VISCOSITY-D1",
-      "value": "456.0",
-      "pushed_at": "2026-09-02 16:37:11"
-    },
-    {
-      "timestamp": "2026-09-02 06:00:00",
+      "timestamp": "2026-09-04 08:00:00",
       "tag": "PULP-LINE2-VISCOSITY-D2",
-      "value": "481.0",
-      "pushed_at": "2026-09-02 16:37:11"
+      "value": "460.0",
+      "pushed_at": "2026-09-04 14:52:42"
     },
     {
-      "timestamp": "2026-09-02 06:00:00",
+      "timestamp": "2026-09-04 08:00:00",
       "tag": "PULP-LINE2-BRIGHTNESS-PRESS1",
-      "value": "34.0",
-      "pushed_at": "2026-09-02 16:37:11"
+      "value": "38.8",
+      "pushed_at": "2026-09-04 14:52:42"
     },
     {
-      "timestamp": "2026-09-02 06:00:00",
+      "timestamp": "2026-09-04 08:00:00",
       "tag": "PULP-LINE2-BRIGHTNESS-PRESS3",
-      "value": "51.3",
-      "pushed_at": "2026-09-02 16:37:11"
+      "value": "57.4",
+      "pushed_at": "2026-09-04 14:52:42"
     },
     {
-      "timestamp": "2026-09-02 06:00:00",
+      "timestamp": "2026-09-04 08:00:00",
       "tag": "PULP-LINE2-BRIGHTNESS-D0",
-      "value": "82.4",
-      "pushed_at": "2026-09-02 16:37:11"
+      "value": "82.0",
+      "pushed_at": "2026-09-04 14:52:42"
     },
     {
-      "timestamp": "2026-09-02 06:00:00",
+      "timestamp": "2026-09-04 08:00:00",
       "tag": "PULP-LINE2-BRIGHTNESS-EOP",
-      "value": "88.9",
-      "pushed_at": "2026-09-02 16:37:11"
+      "value": "87.7",
+      "pushed_at": "2026-09-04 14:52:42"
     },
     {
-      "timestamp": "2026-09-02 06:00:00",
+      "timestamp": "2026-09-04 08:00:00",
       "tag": "PULP-LINE2-BRIGHTNESS-D1",
-      "value": "88.3",
-      "pushed_at": "2026-09-02 16:37:11"
+      "value": "88.6",
+      "pushed_at": "2026-09-04 14:52:42"
     },
     {
-      "timestamp": "2026-09-02 06:00:00",
+      "timestamp": "2026-09-04 08:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "89.2",
+      "pushed_at": "2026-09-04 14:52:42"
+    },
+    {
+      "timestamp": "2026-09-04 08:00:00",
+      "tag": "PULP-LINE2-PH-D0",
+      "value": "1.8",
+      "pushed_at": "2026-09-04 14:52:42"
+    },
+    {
+      "timestamp": "2026-09-04 08:00:00",
+      "tag": "PULP-LINE2-PH-EOP",
+      "value": "10.4",
+      "pushed_at": "2026-09-04 14:52:42"
+    },
+    {
+      "timestamp": "2026-09-04 08:00:00",
+      "tag": "PULP-LINE2-PH-D1",
+      "value": "2.3",
+      "pushed_at": "2026-09-04 14:52:42"
+    },
+    {
+      "timestamp": "2026-09-04 08:00:00",
+      "tag": "PULP-LINE2-PH-D2",
+      "value": "2.5",
+      "pushed_at": "2026-09-04 14:52:42"
+    },
+    {
+      "timestamp": "2026-09-04 10:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D1",
+      "value": "449.0",
+      "pushed_at": "2026-09-04 14:52:42"
+    },
+    {
+      "timestamp": "2026-09-04 10:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D2",
+      "value": "458.0",
+      "pushed_at": "2026-09-04 14:52:42"
+    },
+    {
+      "timestamp": "2026-09-04 10:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS1",
+      "value": "39.5",
+      "pushed_at": "2026-09-04 14:52:42"
+    },
+    {
+      "timestamp": "2026-09-04 10:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS3",
+      "value": "57.7",
+      "pushed_at": "2026-09-04 14:52:42"
+    },
+    {
+      "timestamp": "2026-09-04 10:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D0",
+      "value": "81.0",
+      "pushed_at": "2026-09-04 14:52:42"
+    },
+    {
+      "timestamp": "2026-09-04 10:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-EOP",
+      "value": "88.2",
+      "pushed_at": "2026-09-04 14:52:42"
+    },
+    {
+      "timestamp": "2026-09-04 10:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "88.6",
+      "pushed_at": "2026-09-04 14:52:42"
+    },
+    {
+      "timestamp": "2026-09-04 10:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "89.3",
+      "pushed_at": "2026-09-04 14:52:42"
+    },
+    {
+      "timestamp": "2026-09-04 12:00:00",
+      "tag": "PULP-LINE2-KAPPA-PRESS1",
+      "value": "9.0",
+      "pushed_at": "2026-09-04 14:52:42"
+    },
+    {
+      "timestamp": "2026-09-04 12:00:00",
+      "tag": "PULP-LINE2-KAPPA-PRESS3",
+      "value": "2.6",
+      "pushed_at": "2026-09-04 14:52:42"
+    },
+    {
+      "timestamp": "2026-09-04 12:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-PRESS1",
+      "value": "766.0",
+      "pushed_at": "2026-09-04 14:52:42"
+    },
+    {
+      "timestamp": "2026-09-04 12:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-PRESS3",
+      "value": "596.0",
+      "pushed_at": "2026-09-04 14:52:42"
+    },
+    {
+      "timestamp": "2026-09-04 12:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-EOP",
+      "value": "491.0",
+      "pushed_at": "2026-09-04 14:52:42"
+    },
+    {
+      "timestamp": "2026-09-04 12:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D1",
+      "value": "440.0",
+      "pushed_at": "2026-09-04 14:52:42"
+    },
+    {
+      "timestamp": "2026-09-04 12:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D2",
+      "value": "457.0",
+      "pushed_at": "2026-09-04 14:52:42"
+    },
+    {
+      "timestamp": "2026-09-04 12:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS1",
+      "value": "37.8",
+      "pushed_at": "2026-09-04 14:52:42"
+    },
+    {
+      "timestamp": "2026-09-04 12:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS3",
+      "value": "56.0",
+      "pushed_at": "2026-09-04 14:52:42"
+    },
+    {
+      "timestamp": "2026-09-04 12:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D0",
+      "value": "80.8",
+      "pushed_at": "2026-09-04 14:52:42"
+    },
+    {
+      "timestamp": "2026-09-04 12:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-EOP",
+      "value": "88.2",
+      "pushed_at": "2026-09-04 14:52:42"
+    },
+    {
+      "timestamp": "2026-09-04 12:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "88.9",
+      "pushed_at": "2026-09-04 14:52:42"
+    },
+    {
+      "timestamp": "2026-09-04 12:00:00",
       "tag": "PULP-LINE2-BRIGHTNESS-D2",
       "value": "89.0",
-      "pushed_at": "2026-09-02 16:37:11"
+      "pushed_at": "2026-09-04 14:52:42"
     },
     {
-      "timestamp": "2026-09-02 08:00:00",
-      "tag": "PULP-LINE2-KAPPA-PRESS1",
-      "value": "8.27",
-      "pushed_at": "2026-09-02 16:37:11"
-    },
-    {
-      "timestamp": "2026-09-02 08:00:00",
-      "tag": "PULP-LINE2-KAPPA-PRESS3",
-      "value": "2.7",
-      "pushed_at": "2026-09-02 16:37:11"
-    },
-    {
-      "timestamp": "2026-09-02 08:00:00",
-      "tag": "PULP-LINE2-KAPPA-EOP",
-      "value": "0.4",
-      "pushed_at": "2026-09-02 16:37:11"
-    },
-    {
-      "timestamp": "2026-09-02 08:00:00",
-      "tag": "PULP-LINE2-VISCOSITY-PRESS1",
-      "value": "736.0",
-      "pushed_at": "2026-09-02 16:37:11"
-    },
-    {
-      "timestamp": "2026-09-02 08:00:00",
-      "tag": "PULP-LINE2-VISCOSITY-PRESS3",
-      "value": "521.0",
-      "pushed_at": "2026-09-02 16:37:11"
-    },
-    {
-      "timestamp": "2026-09-02 08:00:00",
-      "tag": "PULP-LINE2-VISCOSITY-D0",
-      "value": "522.0",
-      "pushed_at": "2026-09-02 16:37:11"
-    },
-    {
-      "timestamp": "2026-09-02 08:00:00",
-      "tag": "PULP-LINE2-VISCOSITY-EOP",
-      "value": "486.0",
-      "pushed_at": "2026-09-02 16:37:11"
-    },
-    {
-      "timestamp": "2026-09-02 08:00:00",
-      "tag": "PULP-LINE2-VISCOSITY-D1",
-      "value": "461.0",
-      "pushed_at": "2026-09-02 16:37:11"
-    },
-    {
-      "timestamp": "2026-09-02 08:00:00",
-      "tag": "PULP-LINE2-VISCOSITY-D2",
-      "value": "474.0",
-      "pushed_at": "2026-09-02 16:37:11"
-    },
-    {
-      "timestamp": "2026-09-02 08:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-PRESS1",
-      "value": "36.7",
-      "pushed_at": "2026-09-02 16:37:11"
-    },
-    {
-      "timestamp": "2026-09-02 08:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-PRESS3",
-      "value": "56.4",
-      "pushed_at": "2026-09-02 16:37:11"
-    },
-    {
-      "timestamp": "2026-09-02 08:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-D0",
-      "value": "80.6",
-      "pushed_at": "2026-09-02 16:37:11"
-    },
-    {
-      "timestamp": "2026-09-02 08:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-EOP",
-      "value": "88.6",
-      "pushed_at": "2026-09-02 16:37:11"
-    },
-    {
-      "timestamp": "2026-09-02 08:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-D1",
-      "value": "86.5",
-      "pushed_at": "2026-09-02 16:37:11"
-    },
-    {
-      "timestamp": "2026-09-02 08:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-D2",
-      "value": "88.8",
-      "pushed_at": "2026-09-02 16:37:11"
-    },
-    {
-      "timestamp": "2026-09-02 08:00:00",
+      "timestamp": "2026-09-04 12:00:00",
       "tag": "PULP-LINE2-PH-D0",
       "value": "1.9",
-      "pushed_at": "2026-09-02 16:37:11"
+      "pushed_at": "2026-09-04 14:52:42"
     },
     {
-      "timestamp": "2026-09-02 08:00:00",
+      "timestamp": "2026-09-04 12:00:00",
       "tag": "PULP-LINE2-PH-EOP",
-      "value": "10.9",
-      "pushed_at": "2026-09-02 16:37:11"
+      "value": "10.5",
+      "pushed_at": "2026-09-04 14:52:42"
     },
     {
-      "timestamp": "2026-09-02 08:00:00",
+      "timestamp": "2026-09-04 12:00:00",
+      "tag": "PULP-LINE2-PH-D1",
+      "value": "2.3",
+      "pushed_at": "2026-09-04 14:52:42"
+    },
+    {
+      "timestamp": "2026-09-04 12:00:00",
+      "tag": "PULP-LINE2-PH-D2",
+      "value": "2.5",
+      "pushed_at": "2026-09-04 14:52:42"
+    },
+    {
+      "timestamp": "2026-09-04 14:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "89.1",
+      "pushed_at": "2026-09-04 14:52:42"
+    },
+    {
+      "timestamp": "2026-09-04 14:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "89.1",
+      "pushed_at": "2026-09-04 14:52:42"
+    },
+    {
+      "timestamp": "2026-09-04 14:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D1",
+      "value": "474.0",
+      "pushed_at": "2026-09-04 17:54:11"
+    },
+    {
+      "timestamp": "2026-09-04 14:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D2",
+      "value": "465.0",
+      "pushed_at": "2026-09-04 17:54:11"
+    },
+    {
+      "timestamp": "2026-09-04 14:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS1",
+      "value": "37.0",
+      "pushed_at": "2026-09-04 17:54:11"
+    },
+    {
+      "timestamp": "2026-09-04 14:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS3",
+      "value": "54.8",
+      "pushed_at": "2026-09-04 17:54:11"
+    },
+    {
+      "timestamp": "2026-09-04 14:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D0",
+      "value": "79.6",
+      "pushed_at": "2026-09-04 17:54:11"
+    },
+    {
+      "timestamp": "2026-09-04 14:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-EOP",
+      "value": "87.4",
+      "pushed_at": "2026-09-04 17:54:11"
+    },
+    {
+      "timestamp": "2026-09-04 14:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "98.1",
+      "pushed_at": "2026-09-04 17:54:11"
+    },
+    {
+      "timestamp": "2026-09-04 14:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "89.1",
+      "pushed_at": "2026-09-04 17:54:11"
+    },
+    {
+      "timestamp": "2026-09-04 16:00:00",
+      "tag": "PULP-LINE2-KAPPA-PRESS1",
+      "value": "10.4",
+      "pushed_at": "2026-09-04 17:54:11"
+    },
+    {
+      "timestamp": "2026-09-04 16:00:00",
+      "tag": "PULP-LINE2-KAPPA-PRESS3",
+      "value": "3.4",
+      "pushed_at": "2026-09-04 17:54:11"
+    },
+    {
+      "timestamp": "2026-09-04 16:00:00",
+      "tag": "PULP-LINE2-KAPPA-EOP",
+      "value": "0.6",
+      "pushed_at": "2026-09-04 17:54:11"
+    },
+    {
+      "timestamp": "2026-09-04 16:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "88.8",
+      "pushed_at": "2026-09-04 17:54:11"
+    },
+    {
+      "timestamp": "2026-09-04 16:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "89.2",
+      "pushed_at": "2026-09-04 17:54:11"
+    },
+    {
+      "timestamp": "2026-09-04 16:00:00",
+      "tag": "PULP-LINE2-PH-D0",
+      "value": "1.9",
+      "pushed_at": "2026-09-04 17:54:11"
+    },
+    {
+      "timestamp": "2026-09-04 16:00:00",
+      "tag": "PULP-LINE2-PH-EOP",
+      "value": "10.5",
+      "pushed_at": "2026-09-04 17:54:11"
+    },
+    {
+      "timestamp": "2026-09-04 16:00:00",
+      "tag": "PULP-LINE2-PH-D1",
+      "value": "2.3",
+      "pushed_at": "2026-09-04 17:54:11"
+    },
+    {
+      "timestamp": "2026-09-04 16:00:00",
+      "tag": "PULP-LINE2-PH-D2",
+      "value": "2.5",
+      "pushed_at": "2026-09-04 17:54:11"
+    },
+    {
+      "timestamp": "2026-09-04 16:00:00",
+      "tag": "PULP-LINE2-KAPPA-PRESS1",
+      "value": "10.4",
+      "pushed_at": "2026-09-04 18:54:34"
+    },
+    {
+      "timestamp": "2026-09-04 16:00:00",
+      "tag": "PULP-LINE2-KAPPA-PRESS3",
+      "value": "3.4",
+      "pushed_at": "2026-09-04 18:54:34"
+    },
+    {
+      "timestamp": "2026-09-04 16:00:00",
+      "tag": "PULP-LINE2-KAPPA-EOP",
+      "value": "0.6",
+      "pushed_at": "2026-09-04 18:54:34"
+    },
+    {
+      "timestamp": "2026-09-04 16:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-PRESS1",
+      "value": "794.0",
+      "pushed_at": "2026-09-04 18:54:34"
+    },
+    {
+      "timestamp": "2026-09-04 16:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-PRESS3",
+      "value": "613.0",
+      "pushed_at": "2026-09-04 18:54:34"
+    },
+    {
+      "timestamp": "2026-09-04 16:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D0",
+      "value": "540.0",
+      "pushed_at": "2026-09-04 18:54:34"
+    },
+    {
+      "timestamp": "2026-09-04 16:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-EOP",
+      "value": "512.0",
+      "pushed_at": "2026-09-04 18:54:34"
+    },
+    {
+      "timestamp": "2026-09-04 16:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D1",
+      "value": "462.0",
+      "pushed_at": "2026-09-04 18:54:34"
+    },
+    {
+      "timestamp": "2026-09-04 16:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D2",
+      "value": "467.0",
+      "pushed_at": "2026-09-04 18:54:34"
+    },
+    {
+      "timestamp": "2026-09-04 16:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS1",
+      "value": "37.8",
+      "pushed_at": "2026-09-04 18:54:34"
+    },
+    {
+      "timestamp": "2026-09-04 16:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS3",
+      "value": "55.6",
+      "pushed_at": "2026-09-04 18:54:34"
+    },
+    {
+      "timestamp": "2026-09-04 16:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D0",
+      "value": "79.0",
+      "pushed_at": "2026-09-04 18:54:34"
+    },
+    {
+      "timestamp": "2026-09-04 16:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-EOP",
+      "value": "87.8",
+      "pushed_at": "2026-09-04 18:54:34"
+    },
+    {
+      "timestamp": "2026-09-04 16:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "88.8",
+      "pushed_at": "2026-09-04 18:54:34"
+    },
+    {
+      "timestamp": "2026-09-04 16:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "89.2",
+      "pushed_at": "2026-09-04 18:54:34"
+    },
+    {
+      "timestamp": "2026-09-04 16:00:00",
+      "tag": "PULP-LINE2-PH-D0",
+      "value": "1.9",
+      "pushed_at": "2026-09-04 18:54:34"
+    },
+    {
+      "timestamp": "2026-09-04 16:00:00",
+      "tag": "PULP-LINE2-PH-EOP",
+      "value": "10.5",
+      "pushed_at": "2026-09-04 18:54:34"
+    },
+    {
+      "timestamp": "2026-09-04 16:00:00",
+      "tag": "PULP-LINE2-PH-D1",
+      "value": "2.3",
+      "pushed_at": "2026-09-04 18:54:34"
+    },
+    {
+      "timestamp": "2026-09-04 16:00:00",
+      "tag": "PULP-LINE2-PH-D2",
+      "value": "2.5",
+      "pushed_at": "2026-09-04 18:54:34"
+    },
+    {
+      "timestamp": "2026-09-04 18:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "89.0",
+      "pushed_at": "2026-09-04 18:54:34"
+    },
+    {
+      "timestamp": "2026-09-04 18:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "89.0",
+      "pushed_at": "2026-09-04 18:54:34"
+    },
+    {
+      "timestamp": "2026-09-04 18:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D1",
+      "value": "487.0",
+      "pushed_at": "2026-09-04 22:56:18"
+    },
+    {
+      "timestamp": "2026-09-04 18:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D2",
+      "value": "494.0",
+      "pushed_at": "2026-09-04 22:56:18"
+    },
+    {
+      "timestamp": "2026-09-04 18:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS1",
+      "value": "34.9",
+      "pushed_at": "2026-09-04 22:56:18"
+    },
+    {
+      "timestamp": "2026-09-04 18:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS3",
+      "value": "53.9",
+      "pushed_at": "2026-09-04 22:56:18"
+    },
+    {
+      "timestamp": "2026-09-04 18:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D0",
+      "value": "77.2",
+      "pushed_at": "2026-09-04 22:56:18"
+    },
+    {
+      "timestamp": "2026-09-04 18:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-EOP",
+      "value": "86.4",
+      "pushed_at": "2026-09-04 22:56:18"
+    },
+    {
+      "timestamp": "2026-09-04 18:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "88.8",
+      "pushed_at": "2026-09-04 22:56:18"
+    },
+    {
+      "timestamp": "2026-09-04 18:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "89.0",
+      "pushed_at": "2026-09-04 22:56:18"
+    },
+    {
+      "timestamp": "2026-09-04 20:00:00",
+      "tag": "PULP-LINE2-KAPPA-PRESS1",
+      "value": "11.2",
+      "pushed_at": "2026-09-04 22:56:18"
+    },
+    {
+      "timestamp": "2026-09-04 20:00:00",
+      "tag": "PULP-LINE2-KAPPA-PRESS3",
+      "value": "3.8",
+      "pushed_at": "2026-09-04 22:56:18"
+    },
+    {
+      "timestamp": "2026-09-04 20:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-PRESS1",
+      "value": "779.0",
+      "pushed_at": "2026-09-04 22:56:18"
+    },
+    {
+      "timestamp": "2026-09-04 20:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-PRESS3",
+      "value": "606.0",
+      "pushed_at": "2026-09-04 22:56:18"
+    },
+    {
+      "timestamp": "2026-09-04 20:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-EOP",
+      "value": "518.0",
+      "pushed_at": "2026-09-04 22:56:18"
+    },
+    {
+      "timestamp": "2026-09-04 20:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D1",
+      "value": "462.0",
+      "pushed_at": "2026-09-04 22:56:18"
+    },
+    {
+      "timestamp": "2026-09-04 20:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D2",
+      "value": "456.0",
+      "pushed_at": "2026-09-04 22:56:18"
+    },
+    {
+      "timestamp": "2026-09-04 20:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS1",
+      "value": "36.5",
+      "pushed_at": "2026-09-04 22:56:18"
+    },
+    {
+      "timestamp": "2026-09-04 20:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS3",
+      "value": "57.1",
+      "pushed_at": "2026-09-04 22:56:18"
+    },
+    {
+      "timestamp": "2026-09-04 20:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D0",
+      "value": "80.7",
+      "pushed_at": "2026-09-04 22:56:18"
+    },
+    {
+      "timestamp": "2026-09-04 20:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-EOP",
+      "value": "87.3",
+      "pushed_at": "2026-09-04 22:56:18"
+    },
+    {
+      "timestamp": "2026-09-04 20:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "88.0",
+      "pushed_at": "2026-09-04 22:56:18"
+    },
+    {
+      "timestamp": "2026-09-04 20:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "89.4",
+      "pushed_at": "2026-09-04 22:56:18"
+    },
+    {
+      "timestamp": "2026-09-04 20:00:00",
+      "tag": "PULP-LINE2-PH-D0",
+      "value": "2.0",
+      "pushed_at": "2026-09-04 22:56:18"
+    },
+    {
+      "timestamp": "2026-09-04 20:00:00",
+      "tag": "PULP-LINE2-PH-EOP",
+      "value": "10.5",
+      "pushed_at": "2026-09-04 22:56:18"
+    },
+    {
+      "timestamp": "2026-09-04 20:00:00",
       "tag": "PULP-LINE2-PH-D1",
       "value": "2.4",
-      "pushed_at": "2026-09-02 16:37:11"
+      "pushed_at": "2026-09-04 22:56:18"
     },
     {
-      "timestamp": "2026-09-02 08:00:00",
+      "timestamp": "2026-09-04 20:00:00",
+      "tag": "PULP-LINE2-PH-D2",
+      "value": "2.4",
+      "pushed_at": "2026-09-04 22:56:18"
+    },
+    {
+      "timestamp": "2026-09-04 22:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D1",
+      "value": "481.0",
+      "pushed_at": "2026-09-04 22:56:18"
+    },
+    {
+      "timestamp": "2026-09-04 22:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D2",
+      "value": "478.0",
+      "pushed_at": "2026-09-04 22:56:18"
+    },
+    {
+      "timestamp": "2026-09-04 22:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "87.8",
+      "pushed_at": "2026-09-04 22:56:18"
+    },
+    {
+      "timestamp": "2026-09-04 22:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "88.3",
+      "pushed_at": "2026-09-04 22:56:18"
+    },
+    {
+      "timestamp": "2026-09-04 22:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D1",
+      "value": "481.0",
+      "pushed_at": "2026-09-05 01:57:25"
+    },
+    {
+      "timestamp": "2026-09-04 22:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D2",
+      "value": "478.0",
+      "pushed_at": "2026-09-05 01:57:25"
+    },
+    {
+      "timestamp": "2026-09-04 22:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS1",
+      "value": "36.7",
+      "pushed_at": "2026-09-05 01:57:25"
+    },
+    {
+      "timestamp": "2026-09-04 22:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS3",
+      "value": "54.5",
+      "pushed_at": "2026-09-05 01:57:25"
+    },
+    {
+      "timestamp": "2026-09-04 22:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D0",
+      "value": "80.2",
+      "pushed_at": "2026-09-05 01:57:25"
+    },
+    {
+      "timestamp": "2026-09-04 22:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-EOP",
+      "value": "87.8",
+      "pushed_at": "2026-09-05 01:57:25"
+    },
+    {
+      "timestamp": "2026-09-04 22:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "87.8",
+      "pushed_at": "2026-09-05 01:57:25"
+    },
+    {
+      "timestamp": "2026-09-04 22:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "88.3",
+      "pushed_at": "2026-09-05 01:57:25"
+    },
+    {
+      "timestamp": "2026-09-05 00:00:00",
+      "tag": "PULP-LINE2-KAPPA-PRESS1",
+      "value": "11.0",
+      "pushed_at": "2026-09-05 01:57:25"
+    },
+    {
+      "timestamp": "2026-09-05 00:00:00",
+      "tag": "PULP-LINE2-KAPPA-PRESS3",
+      "value": "4.0",
+      "pushed_at": "2026-09-05 01:57:25"
+    },
+    {
+      "timestamp": "2026-09-05 00:00:00",
+      "tag": "PULP-LINE2-KAPPA-EOP",
+      "value": "0.6",
+      "pushed_at": "2026-09-05 01:57:25"
+    },
+    {
+      "timestamp": "2026-09-05 00:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "88.8",
+      "pushed_at": "2026-09-05 01:57:25"
+    },
+    {
+      "timestamp": "2026-09-05 00:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "88.9",
+      "pushed_at": "2026-09-05 01:57:25"
+    },
+    {
+      "timestamp": "2026-09-05 00:00:00",
+      "tag": "PULP-LINE2-PH-D0",
+      "value": "2.0",
+      "pushed_at": "2026-09-05 01:57:25"
+    },
+    {
+      "timestamp": "2026-09-05 00:00:00",
+      "tag": "PULP-LINE2-PH-EOP",
+      "value": "10.5",
+      "pushed_at": "2026-09-05 01:57:25"
+    },
+    {
+      "timestamp": "2026-09-05 00:00:00",
+      "tag": "PULP-LINE2-PH-D1",
+      "value": "2.4",
+      "pushed_at": "2026-09-05 01:57:25"
+    },
+    {
+      "timestamp": "2026-09-05 00:00:00",
+      "tag": "PULP-LINE2-PH-D2",
+      "value": "2.5",
+      "pushed_at": "2026-09-05 01:57:25"
+    },
+    {
+      "timestamp": "2026-09-05 00:00:00",
+      "tag": "PULP-LINE2-KAPPA-PRESS1",
+      "value": "11.0",
+      "pushed_at": "2026-09-05 02:57:46"
+    },
+    {
+      "timestamp": "2026-09-05 00:00:00",
+      "tag": "PULP-LINE2-KAPPA-PRESS3",
+      "value": "4.0",
+      "pushed_at": "2026-09-05 02:57:46"
+    },
+    {
+      "timestamp": "2026-09-05 00:00:00",
+      "tag": "PULP-LINE2-KAPPA-EOP",
+      "value": "0.6",
+      "pushed_at": "2026-09-05 02:57:46"
+    },
+    {
+      "timestamp": "2026-09-05 00:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-PRESS1",
+      "value": "810.0",
+      "pushed_at": "2026-09-05 02:57:46"
+    },
+    {
+      "timestamp": "2026-09-05 00:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-PRESS3",
+      "value": "629.0",
+      "pushed_at": "2026-09-05 02:57:46"
+    },
+    {
+      "timestamp": "2026-09-05 00:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D0",
+      "value": "553.0",
+      "pushed_at": "2026-09-05 02:57:46"
+    },
+    {
+      "timestamp": "2026-09-05 00:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-EOP",
+      "value": "505.0",
+      "pushed_at": "2026-09-05 02:57:46"
+    },
+    {
+      "timestamp": "2026-09-05 00:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D1",
+      "value": "472.0",
+      "pushed_at": "2026-09-05 02:57:46"
+    },
+    {
+      "timestamp": "2026-09-05 00:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D2",
+      "value": "478.0",
+      "pushed_at": "2026-09-05 02:57:46"
+    },
+    {
+      "timestamp": "2026-09-05 00:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS1",
+      "value": "36.2",
+      "pushed_at": "2026-09-05 02:57:46"
+    },
+    {
+      "timestamp": "2026-09-05 00:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS3",
+      "value": "53.6",
+      "pushed_at": "2026-09-05 02:57:46"
+    },
+    {
+      "timestamp": "2026-09-05 00:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D0",
+      "value": "80.0",
+      "pushed_at": "2026-09-05 02:57:46"
+    },
+    {
+      "timestamp": "2026-09-05 00:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-EOP",
+      "value": "88.2",
+      "pushed_at": "2026-09-05 02:57:46"
+    },
+    {
+      "timestamp": "2026-09-05 00:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "88.8",
+      "pushed_at": "2026-09-05 02:57:46"
+    },
+    {
+      "timestamp": "2026-09-05 00:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "88.9",
+      "pushed_at": "2026-09-05 02:57:46"
+    },
+    {
+      "timestamp": "2026-09-05 00:00:00",
+      "tag": "PULP-LINE2-PH-D0",
+      "value": "2.0",
+      "pushed_at": "2026-09-05 02:57:46"
+    },
+    {
+      "timestamp": "2026-09-05 00:00:00",
+      "tag": "PULP-LINE2-PH-EOP",
+      "value": "10.5",
+      "pushed_at": "2026-09-05 02:57:46"
+    },
+    {
+      "timestamp": "2026-09-05 00:00:00",
+      "tag": "PULP-LINE2-PH-D1",
+      "value": "2.4",
+      "pushed_at": "2026-09-05 02:57:46"
+    },
+    {
+      "timestamp": "2026-09-05 00:00:00",
+      "tag": "PULP-LINE2-PH-D2",
+      "value": "2.5",
+      "pushed_at": "2026-09-05 02:57:46"
+    },
+    {
+      "timestamp": "2026-09-05 02:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "89.0",
+      "pushed_at": "2026-09-05 02:57:46"
+    },
+    {
+      "timestamp": "2026-09-05 02:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "89.4",
+      "pushed_at": "2026-09-05 02:57:46"
+    },
+    {
+      "timestamp": "2026-09-05 02:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D1",
+      "value": "497.0",
+      "pushed_at": "2026-09-05 03:58:08"
+    },
+    {
+      "timestamp": "2026-09-05 02:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D2",
+      "value": "495.0",
+      "pushed_at": "2026-09-05 03:58:08"
+    },
+    {
+      "timestamp": "2026-09-05 02:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "89.0",
+      "pushed_at": "2026-09-05 03:58:08"
+    },
+    {
+      "timestamp": "2026-09-05 02:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "89.4",
+      "pushed_at": "2026-09-05 03:58:08"
+    },
+    {
+      "timestamp": "2026-09-05 02:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D1",
+      "value": "497.0",
+      "pushed_at": "2026-09-05 06:59:11"
+    },
+    {
+      "timestamp": "2026-09-05 02:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D2",
+      "value": "495.0",
+      "pushed_at": "2026-09-05 06:59:11"
+    },
+    {
+      "timestamp": "2026-09-05 02:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS1",
+      "value": "36.4",
+      "pushed_at": "2026-09-05 06:59:11"
+    },
+    {
+      "timestamp": "2026-09-05 02:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS3",
+      "value": "54.3",
+      "pushed_at": "2026-09-05 06:59:11"
+    },
+    {
+      "timestamp": "2026-09-05 02:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D0",
+      "value": "80.4",
+      "pushed_at": "2026-09-05 06:59:11"
+    },
+    {
+      "timestamp": "2026-09-05 02:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-EOP",
+      "value": "88.0",
+      "pushed_at": "2026-09-05 06:59:11"
+    },
+    {
+      "timestamp": "2026-09-05 02:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "89.0",
+      "pushed_at": "2026-09-05 06:59:11"
+    },
+    {
+      "timestamp": "2026-09-05 02:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "89.4",
+      "pushed_at": "2026-09-05 06:59:11"
+    },
+    {
+      "timestamp": "2026-09-05 04:00:00",
+      "tag": "PULP-LINE2-KAPPA-PRESS1",
+      "value": "10.7",
+      "pushed_at": "2026-09-05 06:59:11"
+    },
+    {
+      "timestamp": "2026-09-05 04:00:00",
+      "tag": "PULP-LINE2-KAPPA-PRESS3",
+      "value": "4.0",
+      "pushed_at": "2026-09-05 06:59:11"
+    },
+    {
+      "timestamp": "2026-09-05 04:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-PRESS1",
+      "value": "834.0",
+      "pushed_at": "2026-09-05 06:59:11"
+    },
+    {
+      "timestamp": "2026-09-05 04:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-PRESS3",
+      "value": "633.0",
+      "pushed_at": "2026-09-05 06:59:11"
+    },
+    {
+      "timestamp": "2026-09-05 04:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-EOP",
+      "value": "506.0",
+      "pushed_at": "2026-09-05 06:59:11"
+    },
+    {
+      "timestamp": "2026-09-05 04:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D1",
+      "value": "480.0",
+      "pushed_at": "2026-09-05 06:59:11"
+    },
+    {
+      "timestamp": "2026-09-05 04:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D2",
+      "value": "489.0",
+      "pushed_at": "2026-09-05 06:59:11"
+    },
+    {
+      "timestamp": "2026-09-05 04:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS1",
+      "value": "36.0",
+      "pushed_at": "2026-09-05 06:59:11"
+    },
+    {
+      "timestamp": "2026-09-05 04:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS3",
+      "value": "55.3",
+      "pushed_at": "2026-09-05 06:59:11"
+    },
+    {
+      "timestamp": "2026-09-05 04:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D0",
+      "value": "81.2",
+      "pushed_at": "2026-09-05 06:59:11"
+    },
+    {
+      "timestamp": "2026-09-05 04:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-EOP",
+      "value": "89.1",
+      "pushed_at": "2026-09-05 06:59:11"
+    },
+    {
+      "timestamp": "2026-09-05 04:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "89.4",
+      "pushed_at": "2026-09-05 06:59:11"
+    },
+    {
+      "timestamp": "2026-09-05 04:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "89.9",
+      "pushed_at": "2026-09-05 06:59:11"
+    },
+    {
+      "timestamp": "2026-09-05 04:00:00",
+      "tag": "PULP-LINE2-PH-D0",
+      "value": "2.0",
+      "pushed_at": "2026-09-05 06:59:11"
+    },
+    {
+      "timestamp": "2026-09-05 04:00:00",
+      "tag": "PULP-LINE2-PH-EOP",
+      "value": "10.5",
+      "pushed_at": "2026-09-05 06:59:11"
+    },
+    {
+      "timestamp": "2026-09-05 04:00:00",
+      "tag": "PULP-LINE2-PH-D1",
+      "value": "2.4",
+      "pushed_at": "2026-09-05 06:59:11"
+    },
+    {
+      "timestamp": "2026-09-05 04:00:00",
+      "tag": "PULP-LINE2-PH-D2",
+      "value": "2.5",
+      "pushed_at": "2026-09-05 06:59:11"
+    },
+    {
+      "timestamp": "2026-09-05 06:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D1",
+      "value": "467.0",
+      "pushed_at": "2026-09-05 06:59:11"
+    },
+    {
+      "timestamp": "2026-09-05 06:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D2",
+      "value": "490.0",
+      "pushed_at": "2026-09-05 06:59:11"
+    },
+    {
+      "timestamp": "2026-09-05 06:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "89.3",
+      "pushed_at": "2026-09-05 06:59:11"
+    },
+    {
+      "timestamp": "2026-09-05 06:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "89.7",
+      "pushed_at": "2026-09-05 06:59:11"
+    },
+    {
+      "timestamp": "2026-09-05 06:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D1",
+      "value": "467.0",
+      "pushed_at": "2026-09-05 10:00:16"
+    },
+    {
+      "timestamp": "2026-09-05 06:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D2",
+      "value": "490.0",
+      "pushed_at": "2026-09-05 10:00:16"
+    },
+    {
+      "timestamp": "2026-09-05 06:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS3",
+      "value": "54.6",
+      "pushed_at": "2026-09-05 10:00:16"
+    },
+    {
+      "timestamp": "2026-09-05 06:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D0",
+      "value": "80.6",
+      "pushed_at": "2026-09-05 10:00:16"
+    },
+    {
+      "timestamp": "2026-09-05 06:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-EOP",
+      "value": "87.9",
+      "pushed_at": "2026-09-05 10:00:16"
+    },
+    {
+      "timestamp": "2026-09-05 06:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "89.3",
+      "pushed_at": "2026-09-05 10:00:16"
+    },
+    {
+      "timestamp": "2026-09-05 06:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "89.7",
+      "pushed_at": "2026-09-05 10:00:16"
+    },
+    {
+      "timestamp": "2026-09-05 08:00:00",
+      "tag": "PULP-LINE2-KAPPA-PRESS1",
+      "value": "9.1",
+      "pushed_at": "2026-09-05 10:00:16"
+    },
+    {
+      "timestamp": "2026-09-05 08:00:00",
+      "tag": "PULP-LINE2-KAPPA-PRESS3",
+      "value": "3.7",
+      "pushed_at": "2026-09-05 10:00:16"
+    },
+    {
+      "timestamp": "2026-09-05 08:00:00",
+      "tag": "PULP-LINE2-KAPPA-EOP",
+      "value": "0.6",
+      "pushed_at": "2026-09-05 10:00:16"
+    },
+    {
+      "timestamp": "2026-09-05 08:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "88.8",
+      "pushed_at": "2026-09-05 10:00:16"
+    },
+    {
+      "timestamp": "2026-09-05 08:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "89.1",
+      "pushed_at": "2026-09-05 10:00:16"
+    },
+    {
+      "timestamp": "2026-09-05 08:00:00",
+      "tag": "PULP-LINE2-PH-D0",
+      "value": "1.9",
+      "pushed_at": "2026-09-05 10:00:16"
+    },
+    {
+      "timestamp": "2026-09-05 08:00:00",
+      "tag": "PULP-LINE2-PH-EOP",
+      "value": "10.5",
+      "pushed_at": "2026-09-05 10:00:16"
+    },
+    {
+      "timestamp": "2026-09-05 08:00:00",
+      "tag": "PULP-LINE2-PH-D1",
+      "value": "2.4",
+      "pushed_at": "2026-09-05 10:00:16"
+    },
+    {
+      "timestamp": "2026-09-05 08:00:00",
+      "tag": "PULP-LINE2-PH-D2",
+      "value": "2.5",
+      "pushed_at": "2026-09-05 10:00:16"
+    },
+    {
+      "timestamp": "2026-09-05 08:00:00",
+      "tag": "PULP-LINE2-KAPPA-PRESS1",
+      "value": "9.1",
+      "pushed_at": "2026-09-05 11:00:39"
+    },
+    {
+      "timestamp": "2026-09-05 08:00:00",
+      "tag": "PULP-LINE2-KAPPA-PRESS3",
+      "value": "3.7",
+      "pushed_at": "2026-09-05 11:00:39"
+    },
+    {
+      "timestamp": "2026-09-05 08:00:00",
+      "tag": "PULP-LINE2-KAPPA-EOP",
+      "value": "0.6",
+      "pushed_at": "2026-09-05 11:00:39"
+    },
+    {
+      "timestamp": "2026-09-05 08:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-PRESS1",
+      "value": "783.0",
+      "pushed_at": "2026-09-05 11:00:39"
+    },
+    {
+      "timestamp": "2026-09-05 08:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-PRESS3",
+      "value": "623.0",
+      "pushed_at": "2026-09-05 11:00:39"
+    },
+    {
+      "timestamp": "2026-09-05 08:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D0",
+      "value": "555.0",
+      "pushed_at": "2026-09-05 11:00:39"
+    },
+    {
+      "timestamp": "2026-09-05 08:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-EOP",
+      "value": "491.0",
+      "pushed_at": "2026-09-05 11:00:39"
+    },
+    {
+      "timestamp": "2026-09-05 08:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D1",
+      "value": "449.0",
+      "pushed_at": "2026-09-05 11:00:39"
+    },
+    {
+      "timestamp": "2026-09-05 08:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D2",
+      "value": "459.0",
+      "pushed_at": "2026-09-05 11:00:39"
+    },
+    {
+      "timestamp": "2026-09-05 08:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS1",
+      "value": "36.3",
+      "pushed_at": "2026-09-05 11:00:39"
+    },
+    {
+      "timestamp": "2026-09-05 08:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS3",
+      "value": "59.1",
+      "pushed_at": "2026-09-05 11:00:39"
+    },
+    {
+      "timestamp": "2026-09-05 08:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D0",
+      "value": "79.4",
+      "pushed_at": "2026-09-05 11:00:39"
+    },
+    {
+      "timestamp": "2026-09-05 08:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-EOP",
+      "value": "88.4",
+      "pushed_at": "2026-09-05 11:00:39"
+    },
+    {
+      "timestamp": "2026-09-05 08:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "88.8",
+      "pushed_at": "2026-09-05 11:00:39"
+    },
+    {
+      "timestamp": "2026-09-05 08:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "89.1",
+      "pushed_at": "2026-09-05 11:00:39"
+    },
+    {
+      "timestamp": "2026-09-05 08:00:00",
+      "tag": "PULP-LINE2-PH-D0",
+      "value": "1.9",
+      "pushed_at": "2026-09-05 11:00:39"
+    },
+    {
+      "timestamp": "2026-09-05 08:00:00",
+      "tag": "PULP-LINE2-PH-EOP",
+      "value": "10.5",
+      "pushed_at": "2026-09-05 11:00:39"
+    },
+    {
+      "timestamp": "2026-09-05 08:00:00",
+      "tag": "PULP-LINE2-PH-D1",
+      "value": "2.4",
+      "pushed_at": "2026-09-05 11:00:39"
+    },
+    {
+      "timestamp": "2026-09-05 08:00:00",
+      "tag": "PULP-LINE2-PH-D2",
+      "value": "2.5",
+      "pushed_at": "2026-09-05 11:00:39"
+    },
+    {
+      "timestamp": "2026-09-05 10:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "88.2",
+      "pushed_at": "2026-09-05 11:00:39"
+    },
+    {
+      "timestamp": "2026-09-05 10:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "88.7",
+      "pushed_at": "2026-09-05 11:00:39"
+    },
+    {
+      "timestamp": "2026-09-05 10:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D1",
+      "value": "468.0",
+      "pushed_at": "2026-09-05 18:03:29"
+    },
+    {
+      "timestamp": "2026-09-05 10:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D2",
+      "value": "743.0",
+      "pushed_at": "2026-09-05 18:03:29"
+    },
+    {
+      "timestamp": "2026-09-05 10:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS1",
+      "value": "33.5",
+      "pushed_at": "2026-09-05 18:03:29"
+    },
+    {
+      "timestamp": "2026-09-05 10:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS3",
+      "value": "54.4",
+      "pushed_at": "2026-09-05 18:03:29"
+    },
+    {
+      "timestamp": "2026-09-05 10:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D0",
+      "value": "78.5",
+      "pushed_at": "2026-09-05 18:03:29"
+    },
+    {
+      "timestamp": "2026-09-05 10:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-EOP",
+      "value": "87.9",
+      "pushed_at": "2026-09-05 18:03:29"
+    },
+    {
+      "timestamp": "2026-09-05 10:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "88.2",
+      "pushed_at": "2026-09-05 18:03:29"
+    },
+    {
+      "timestamp": "2026-09-05 10:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "88.7",
+      "pushed_at": "2026-09-05 18:03:29"
+    },
+    {
+      "timestamp": "2026-09-05 12:00:00",
+      "tag": "PULP-LINE2-KAPPA-PRESS1",
+      "value": "10.5",
+      "pushed_at": "2026-09-05 18:03:29"
+    },
+    {
+      "timestamp": "2026-09-05 12:00:00",
+      "tag": "PULP-LINE2-KAPPA-PRESS3",
+      "value": "3.6",
+      "pushed_at": "2026-09-05 18:03:29"
+    },
+    {
+      "timestamp": "2026-09-05 12:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-PRESS1",
+      "value": "788.0",
+      "pushed_at": "2026-09-05 18:03:29"
+    },
+    {
+      "timestamp": "2026-09-05 12:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-PRESS3",
+      "value": "607.0",
+      "pushed_at": "2026-09-05 18:03:29"
+    },
+    {
+      "timestamp": "2026-09-05 12:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-EOP",
+      "value": "532.0",
+      "pushed_at": "2026-09-05 18:03:29"
+    },
+    {
+      "timestamp": "2026-09-05 12:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D1",
+      "value": "468.0",
+      "pushed_at": "2026-09-05 18:03:29"
+    },
+    {
+      "timestamp": "2026-09-05 12:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D2",
+      "value": "481.0",
+      "pushed_at": "2026-09-05 18:03:29"
+    },
+    {
+      "timestamp": "2026-09-05 12:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS1",
+      "value": "37.6",
+      "pushed_at": "2026-09-05 18:03:29"
+    },
+    {
+      "timestamp": "2026-09-05 12:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS3",
+      "value": "57.2",
+      "pushed_at": "2026-09-05 18:03:29"
+    },
+    {
+      "timestamp": "2026-09-05 12:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D0",
+      "value": "79.4",
+      "pushed_at": "2026-09-05 18:03:29"
+    },
+    {
+      "timestamp": "2026-09-05 12:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-EOP",
+      "value": "87.9",
+      "pushed_at": "2026-09-05 18:03:29"
+    },
+    {
+      "timestamp": "2026-09-05 12:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "88.8",
+      "pushed_at": "2026-09-05 18:03:29"
+    },
+    {
+      "timestamp": "2026-09-05 12:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "89.1",
+      "pushed_at": "2026-09-05 18:03:29"
+    },
+    {
+      "timestamp": "2026-09-05 12:00:00",
+      "tag": "PULP-LINE2-PH-D0",
+      "value": "2.0",
+      "pushed_at": "2026-09-05 18:03:29"
+    },
+    {
+      "timestamp": "2026-09-05 12:00:00",
+      "tag": "PULP-LINE2-PH-EOP",
+      "value": "9.4",
+      "pushed_at": "2026-09-05 18:03:29"
+    },
+    {
+      "timestamp": "2026-09-05 12:00:00",
+      "tag": "PULP-LINE2-PH-D1",
+      "value": "2.3",
+      "pushed_at": "2026-09-05 18:03:29"
+    },
+    {
+      "timestamp": "2026-09-05 12:00:00",
+      "tag": "PULP-LINE2-PH-D2",
+      "value": "2.5",
+      "pushed_at": "2026-09-05 18:03:29"
+    },
+    {
+      "timestamp": "2026-09-05 14:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D1",
+      "value": "476.0",
+      "pushed_at": "2026-09-05 18:03:29"
+    },
+    {
+      "timestamp": "2026-09-05 14:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D2",
+      "value": "477.0",
+      "pushed_at": "2026-09-05 18:03:29"
+    },
+    {
+      "timestamp": "2026-09-05 14:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS1",
+      "value": "37.2",
+      "pushed_at": "2026-09-05 18:03:29"
+    },
+    {
+      "timestamp": "2026-09-05 14:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS3",
+      "value": "54.4",
+      "pushed_at": "2026-09-05 18:03:29"
+    },
+    {
+      "timestamp": "2026-09-05 14:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D0",
+      "value": "79.8",
+      "pushed_at": "2026-09-05 18:03:29"
+    },
+    {
+      "timestamp": "2026-09-05 14:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-EOP",
+      "value": "87.4",
+      "pushed_at": "2026-09-05 18:03:29"
+    },
+    {
+      "timestamp": "2026-09-05 14:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "88.3",
+      "pushed_at": "2026-09-05 18:03:29"
+    },
+    {
+      "timestamp": "2026-09-05 14:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "89.1",
+      "pushed_at": "2026-09-05 18:03:29"
+    },
+    {
+      "timestamp": "2026-09-05 16:00:00",
+      "tag": "PULP-LINE2-KAPPA-PRESS1",
+      "value": "10.2",
+      "pushed_at": "2026-09-05 18:03:29"
+    },
+    {
+      "timestamp": "2026-09-05 16:00:00",
+      "tag": "PULP-LINE2-KAPPA-PRESS3",
+      "value": "3.9",
+      "pushed_at": "2026-09-05 18:03:29"
+    },
+    {
+      "timestamp": "2026-09-05 16:00:00",
+      "tag": "PULP-LINE2-KAPPA-EOP",
+      "value": "0.6",
+      "pushed_at": "2026-09-05 18:03:29"
+    },
+    {
+      "timestamp": "2026-09-05 16:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "88.2",
+      "pushed_at": "2026-09-05 18:03:29"
+    },
+    {
+      "timestamp": "2026-09-05 16:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "88.9",
+      "pushed_at": "2026-09-05 18:03:29"
+    },
+    {
+      "timestamp": "2026-09-05 16:00:00",
+      "tag": "PULP-LINE2-PH-D0",
+      "value": "2.0",
+      "pushed_at": "2026-09-05 18:03:29"
+    },
+    {
+      "timestamp": "2026-09-05 16:00:00",
+      "tag": "PULP-LINE2-PH-EOP",
+      "value": "10.5",
+      "pushed_at": "2026-09-05 18:03:29"
+    },
+    {
+      "timestamp": "2026-09-05 16:00:00",
+      "tag": "PULP-LINE2-PH-D1",
+      "value": "2.4",
+      "pushed_at": "2026-09-05 18:03:29"
+    },
+    {
+      "timestamp": "2026-09-05 16:00:00",
+      "tag": "PULP-LINE2-PH-D2",
+      "value": "2.5",
+      "pushed_at": "2026-09-05 18:03:29"
+    },
+    {
+      "timestamp": "2026-09-05 16:00:00",
+      "tag": "PULP-LINE2-KAPPA-PRESS1",
+      "value": "10.2",
+      "pushed_at": "2026-09-05 19:03:51"
+    },
+    {
+      "timestamp": "2026-09-05 16:00:00",
+      "tag": "PULP-LINE2-KAPPA-PRESS3",
+      "value": "3.9",
+      "pushed_at": "2026-09-05 19:03:51"
+    },
+    {
+      "timestamp": "2026-09-05 16:00:00",
+      "tag": "PULP-LINE2-KAPPA-EOP",
+      "value": "0.6",
+      "pushed_at": "2026-09-05 19:03:51"
+    },
+    {
+      "timestamp": "2026-09-05 16:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-PRESS1",
+      "value": "774.0",
+      "pushed_at": "2026-09-05 19:03:51"
+    },
+    {
+      "timestamp": "2026-09-05 16:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-PRESS3",
+      "value": "600.0",
+      "pushed_at": "2026-09-05 19:03:51"
+    },
+    {
+      "timestamp": "2026-09-05 16:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D0",
+      "value": "543.0",
+      "pushed_at": "2026-09-05 19:03:51"
+    },
+    {
+      "timestamp": "2026-09-05 16:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-EOP",
+      "value": "549.0",
+      "pushed_at": "2026-09-05 19:03:51"
+    },
+    {
+      "timestamp": "2026-09-05 16:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D1",
+      "value": "474.0",
+      "pushed_at": "2026-09-05 19:03:51"
+    },
+    {
+      "timestamp": "2026-09-05 16:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D2",
+      "value": "485.0",
+      "pushed_at": "2026-09-05 19:03:51"
+    },
+    {
+      "timestamp": "2026-09-05 16:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS1",
+      "value": "36.0",
+      "pushed_at": "2026-09-05 19:03:51"
+    },
+    {
+      "timestamp": "2026-09-05 16:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS3",
+      "value": "53.6",
+      "pushed_at": "2026-09-05 19:03:51"
+    },
+    {
+      "timestamp": "2026-09-05 16:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D0",
+      "value": "79.9",
+      "pushed_at": "2026-09-05 19:03:51"
+    },
+    {
+      "timestamp": "2026-09-05 16:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-EOP",
+      "value": "87.9",
+      "pushed_at": "2026-09-05 19:03:51"
+    },
+    {
+      "timestamp": "2026-09-05 16:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "88.2",
+      "pushed_at": "2026-09-05 19:03:51"
+    },
+    {
+      "timestamp": "2026-09-05 16:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "88.9",
+      "pushed_at": "2026-09-05 19:03:51"
+    },
+    {
+      "timestamp": "2026-09-05 16:00:00",
+      "tag": "PULP-LINE2-PH-D0",
+      "value": "2.0",
+      "pushed_at": "2026-09-05 19:03:51"
+    },
+    {
+      "timestamp": "2026-09-05 16:00:00",
+      "tag": "PULP-LINE2-PH-EOP",
+      "value": "10.5",
+      "pushed_at": "2026-09-05 19:03:51"
+    },
+    {
+      "timestamp": "2026-09-05 16:00:00",
+      "tag": "PULP-LINE2-PH-D1",
+      "value": "2.4",
+      "pushed_at": "2026-09-05 19:03:51"
+    },
+    {
+      "timestamp": "2026-09-05 16:00:00",
+      "tag": "PULP-LINE2-PH-D2",
+      "value": "2.5",
+      "pushed_at": "2026-09-05 19:03:51"
+    },
+    {
+      "timestamp": "2026-09-05 18:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "89.2",
+      "pushed_at": "2026-09-05 19:03:51"
+    },
+    {
+      "timestamp": "2026-09-05 18:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "89.4",
+      "pushed_at": "2026-09-05 19:03:51"
+    },
+    {
+      "timestamp": "2026-09-05 18:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D1",
+      "value": "500.0",
+      "pushed_at": "2026-09-05 22:04:57"
+    },
+    {
+      "timestamp": "2026-09-05 18:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D2",
+      "value": "506.0",
+      "pushed_at": "2026-09-05 22:04:57"
+    },
+    {
+      "timestamp": "2026-09-05 18:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS1",
+      "value": "35.2",
+      "pushed_at": "2026-09-05 22:04:57"
+    },
+    {
+      "timestamp": "2026-09-05 18:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS3",
+      "value": "51.7",
+      "pushed_at": "2026-09-05 22:04:57"
+    },
+    {
+      "timestamp": "2026-09-05 18:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D0",
+      "value": "78.5",
+      "pushed_at": "2026-09-05 22:04:57"
+    },
+    {
+      "timestamp": "2026-09-05 18:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-EOP",
+      "value": "87.8",
+      "pushed_at": "2026-09-05 22:04:57"
+    },
+    {
+      "timestamp": "2026-09-05 18:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "89.2",
+      "pushed_at": "2026-09-05 22:04:57"
+    },
+    {
+      "timestamp": "2026-09-05 18:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "89.4",
+      "pushed_at": "2026-09-05 22:04:57"
+    },
+    {
+      "timestamp": "2026-09-05 20:00:00",
+      "tag": "PULP-LINE2-KAPPA-PRESS1",
+      "value": "10.6",
+      "pushed_at": "2026-09-05 22:04:57"
+    },
+    {
+      "timestamp": "2026-09-05 20:00:00",
+      "tag": "PULP-LINE2-KAPPA-PRESS3",
+      "value": "3.4",
+      "pushed_at": "2026-09-05 22:04:57"
+    },
+    {
+      "timestamp": "2026-09-05 20:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-PRESS1",
+      "value": "776.0",
+      "pushed_at": "2026-09-05 22:04:57"
+    },
+    {
+      "timestamp": "2026-09-05 20:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-PRESS3",
+      "value": "605.0",
+      "pushed_at": "2026-09-05 22:04:57"
+    },
+    {
+      "timestamp": "2026-09-05 20:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-EOP",
+      "value": "505.0",
+      "pushed_at": "2026-09-05 22:04:57"
+    },
+    {
+      "timestamp": "2026-09-05 20:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D1",
+      "value": "462.0",
+      "pushed_at": "2026-09-05 22:04:57"
+    },
+    {
+      "timestamp": "2026-09-05 20:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D2",
+      "value": "461.0",
+      "pushed_at": "2026-09-05 22:04:57"
+    },
+    {
+      "timestamp": "2026-09-05 20:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "88.2",
+      "pushed_at": "2026-09-05 22:04:57"
+    },
+    {
+      "timestamp": "2026-09-05 20:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "89.0",
+      "pushed_at": "2026-09-05 22:04:57"
+    },
+    {
+      "timestamp": "2026-09-05 20:00:00",
+      "tag": "PULP-LINE2-PH-D0",
+      "value": "2.0",
+      "pushed_at": "2026-09-05 22:04:57"
+    },
+    {
+      "timestamp": "2026-09-05 20:00:00",
+      "tag": "PULP-LINE2-PH-EOP",
+      "value": "10.5",
+      "pushed_at": "2026-09-05 22:04:57"
+    },
+    {
+      "timestamp": "2026-09-05 20:00:00",
+      "tag": "PULP-LINE2-PH-D1",
+      "value": "2.4",
+      "pushed_at": "2026-09-05 22:04:57"
+    },
+    {
+      "timestamp": "2026-09-05 20:00:00",
+      "tag": "PULP-LINE2-PH-D2",
+      "value": "2.5",
+      "pushed_at": "2026-09-05 22:04:57"
+    },
+    {
+      "timestamp": "2026-09-05 20:00:00",
+      "tag": "PULP-LINE2-KAPPA-PRESS1",
+      "value": "10.6",
+      "pushed_at": "2026-09-05 23:05:20"
+    },
+    {
+      "timestamp": "2026-09-05 20:00:00",
+      "tag": "PULP-LINE2-KAPPA-PRESS3",
+      "value": "3.4",
+      "pushed_at": "2026-09-05 23:05:20"
+    },
+    {
+      "timestamp": "2026-09-05 20:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-PRESS1",
+      "value": "776.0",
+      "pushed_at": "2026-09-05 23:05:20"
+    },
+    {
+      "timestamp": "2026-09-05 20:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-PRESS3",
+      "value": "605.0",
+      "pushed_at": "2026-09-05 23:05:20"
+    },
+    {
+      "timestamp": "2026-09-05 20:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-EOP",
+      "value": "505.0",
+      "pushed_at": "2026-09-05 23:05:20"
+    },
+    {
+      "timestamp": "2026-09-05 20:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D1",
+      "value": "462.0",
+      "pushed_at": "2026-09-05 23:05:20"
+    },
+    {
+      "timestamp": "2026-09-05 20:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D2",
+      "value": "461.0",
+      "pushed_at": "2026-09-05 23:05:20"
+    },
+    {
+      "timestamp": "2026-09-05 20:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS1",
+      "value": "36.9",
+      "pushed_at": "2026-09-05 23:05:20"
+    },
+    {
+      "timestamp": "2026-09-05 20:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS3",
+      "value": "57.5",
+      "pushed_at": "2026-09-05 23:05:20"
+    },
+    {
+      "timestamp": "2026-09-05 20:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D0",
+      "value": "79.5",
+      "pushed_at": "2026-09-05 23:05:20"
+    },
+    {
+      "timestamp": "2026-09-05 20:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-EOP",
+      "value": "88.2",
+      "pushed_at": "2026-09-05 23:05:20"
+    },
+    {
+      "timestamp": "2026-09-05 20:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "88.2",
+      "pushed_at": "2026-09-05 23:05:20"
+    },
+    {
+      "timestamp": "2026-09-05 20:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "89.0",
+      "pushed_at": "2026-09-05 23:05:20"
+    },
+    {
+      "timestamp": "2026-09-05 20:00:00",
+      "tag": "PULP-LINE2-PH-D0",
+      "value": "2.0",
+      "pushed_at": "2026-09-05 23:05:20"
+    },
+    {
+      "timestamp": "2026-09-05 20:00:00",
+      "tag": "PULP-LINE2-PH-EOP",
+      "value": "10.5",
+      "pushed_at": "2026-09-05 23:05:20"
+    },
+    {
+      "timestamp": "2026-09-05 20:00:00",
+      "tag": "PULP-LINE2-PH-D1",
+      "value": "2.4",
+      "pushed_at": "2026-09-05 23:05:20"
+    },
+    {
+      "timestamp": "2026-09-05 20:00:00",
+      "tag": "PULP-LINE2-PH-D2",
+      "value": "2.5",
+      "pushed_at": "2026-09-05 23:05:20"
+    },
+    {
+      "timestamp": "2026-09-05 22:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D1",
+      "value": "470.0",
+      "pushed_at": "2026-09-05 23:05:20"
+    },
+    {
+      "timestamp": "2026-09-05 22:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D2",
+      "value": "472.0",
+      "pushed_at": "2026-09-05 23:05:20"
+    },
+    {
+      "timestamp": "2026-09-05 22:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "88.5",
+      "pushed_at": "2026-09-05 23:05:20"
+    },
+    {
+      "timestamp": "2026-09-05 22:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "88.7",
+      "pushed_at": "2026-09-05 23:05:20"
+    },
+    {
+      "timestamp": "2026-09-05 22:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D1",
+      "value": "470.0",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-05 22:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D2",
+      "value": "472.0",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-05 22:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS1",
+      "value": "38.4",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-05 22:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS3",
+      "value": "57.7",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-05 22:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D0",
+      "value": "80.0",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-05 22:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-EOP",
+      "value": "88.0",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-05 22:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "88.5",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-05 22:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "88.7",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-06 00:00:00",
+      "tag": "PULP-LINE2-KAPPA-PRESS1",
+      "value": "10.3",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-06 00:00:00",
+      "tag": "PULP-LINE2-KAPPA-PRESS3",
+      "value": "3.3",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-06 00:00:00",
+      "tag": "PULP-LINE2-KAPPA-EOP",
+      "value": "0.6",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-06 00:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-PRESS1",
+      "value": "775.0",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-06 00:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-PRESS3",
+      "value": "634.0",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-06 00:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D0",
+      "value": "533.0",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-06 00:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-EOP",
+      "value": "503.0",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-06 00:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D1",
+      "value": "442.0",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-06 00:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D2",
+      "value": "489.0",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-06 00:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS1",
+      "value": "38.0",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-06 00:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS3",
+      "value": "56.0",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-06 00:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D0",
+      "value": "81.7",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-06 00:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-EOP",
+      "value": "89.0",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-06 00:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "88.8",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-06 00:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "89.3",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-06 00:00:00",
+      "tag": "PULP-LINE2-PH-D0",
+      "value": "2.0",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-06 00:00:00",
+      "tag": "PULP-LINE2-PH-EOP",
+      "value": "10.6",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-06 00:00:00",
+      "tag": "PULP-LINE2-PH-D1",
+      "value": "2.4",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-06 00:00:00",
       "tag": "PULP-LINE2-PH-D2",
       "value": "2.6",
-      "pushed_at": "2026-09-02 16:37:11"
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-06 02:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D1",
+      "value": "482.0",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-06 02:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D2",
+      "value": "472.0",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-06 02:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS1",
+      "value": "36.7",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-06 02:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS3",
+      "value": "53.8",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-06 02:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D0",
+      "value": "80.7",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-06 02:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-EOP",
+      "value": "88.4",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-06 02:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "89.0",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-06 02:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "90.0",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-06 04:00:00",
+      "tag": "PULP-LINE2-KAPPA-PRESS1",
+      "value": "10.2",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-06 04:00:00",
+      "tag": "PULP-LINE2-KAPPA-PRESS3",
+      "value": "3.4",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-06 04:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-PRESS1",
+      "value": "803.0",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-06 04:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-PRESS3",
+      "value": "643.0",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-06 04:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D0",
+      "value": "503.0",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-06 04:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-EOP",
+      "value": "479.0",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-06 04:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D1",
+      "value": "452.0",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-06 04:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D2",
+      "value": "37.2",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-06 04:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS1",
+      "value": "56.6",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-06 04:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS3",
+      "value": "56.6",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-06 04:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D0",
+      "value": "81.5",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-06 04:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-EOP",
+      "value": "88.6",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-06 04:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "89.5",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-06 04:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "90.1",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-06 04:00:00",
+      "tag": "PULP-LINE2-PH-D0",
+      "value": "2.0",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-06 04:00:00",
+      "tag": "PULP-LINE2-PH-EOP",
+      "value": "10.5",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-06 04:00:00",
+      "tag": "PULP-LINE2-PH-D1",
+      "value": "2.3",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-06 04:00:00",
+      "tag": "PULP-LINE2-PH-D2",
+      "value": "2.4",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-06 06:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "89.5",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-06 06:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "90.2",
+      "pushed_at": "2026-09-06 07:08:21"
+    },
+    {
+      "timestamp": "2026-09-06 06:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-EOP",
+      "value": "458.0",
+      "pushed_at": "2026-09-06 08:08:50"
+    },
+    {
+      "timestamp": "2026-09-06 06:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D1",
+      "value": "440.0",
+      "pushed_at": "2026-09-06 08:08:50"
+    },
+    {
+      "timestamp": "2026-09-06 06:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "89.5",
+      "pushed_at": "2026-09-06 08:08:50"
+    },
+    {
+      "timestamp": "2026-09-06 06:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "90.2",
+      "pushed_at": "2026-09-06 08:08:50"
+    },
+    {
+      "timestamp": "2026-09-06 06:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D1",
+      "value": "458.0",
+      "pushed_at": "2026-09-06 14:10:59"
+    },
+    {
+      "timestamp": "2026-09-06 06:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D2",
+      "value": "440.0",
+      "pushed_at": "2026-09-06 14:10:59"
+    },
+    {
+      "timestamp": "2026-09-06 06:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS1",
+      "value": "36.0",
+      "pushed_at": "2026-09-06 14:10:59"
+    },
+    {
+      "timestamp": "2026-09-06 06:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS3",
+      "value": "54.2",
+      "pushed_at": "2026-09-06 14:10:59"
+    },
+    {
+      "timestamp": "2026-09-06 06:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D0",
+      "value": "80.0",
+      "pushed_at": "2026-09-06 14:10:59"
+    },
+    {
+      "timestamp": "2026-09-06 06:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-EOP",
+      "value": "88.3",
+      "pushed_at": "2026-09-06 14:10:59"
+    },
+    {
+      "timestamp": "2026-09-06 06:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "89.5",
+      "pushed_at": "2026-09-06 14:10:59"
+    },
+    {
+      "timestamp": "2026-09-06 06:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "90.2",
+      "pushed_at": "2026-09-06 14:10:59"
+    },
+    {
+      "timestamp": "2026-09-06 08:00:00",
+      "tag": "PULP-LINE2-KAPPA-PRESS1",
+      "value": "10.0",
+      "pushed_at": "2026-09-06 14:10:59"
+    },
+    {
+      "timestamp": "2026-09-06 08:00:00",
+      "tag": "PULP-LINE2-KAPPA-PRESS3",
+      "value": "3.0",
+      "pushed_at": "2026-09-06 14:10:59"
+    },
+    {
+      "timestamp": "2026-09-06 08:00:00",
+      "tag": "PULP-LINE2-KAPPA-EOP",
+      "value": "0.7",
+      "pushed_at": "2026-09-06 14:10:59"
+    },
+    {
+      "timestamp": "2026-09-06 08:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-PRESS1",
+      "value": "799.0",
+      "pushed_at": "2026-09-06 14:10:59"
+    },
+    {
+      "timestamp": "2026-09-06 08:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-PRESS3",
+      "value": "604.0",
+      "pushed_at": "2026-09-06 14:10:59"
+    },
+    {
+      "timestamp": "2026-09-06 08:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D0",
+      "value": "566.0",
+      "pushed_at": "2026-09-06 14:10:59"
+    },
+    {
+      "timestamp": "2026-09-06 08:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-EOP",
+      "value": "499.0",
+      "pushed_at": "2026-09-06 14:10:59"
+    },
+    {
+      "timestamp": "2026-09-06 08:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D1",
+      "value": "447.0",
+      "pushed_at": "2026-09-06 14:10:59"
+    },
+    {
+      "timestamp": "2026-09-06 08:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D2",
+      "value": "448.0",
+      "pushed_at": "2026-09-06 14:10:59"
+    },
+    {
+      "timestamp": "2026-09-06 08:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS1",
+      "value": "38.0",
+      "pushed_at": "2026-09-06 14:10:59"
+    },
+    {
+      "timestamp": "2026-09-06 08:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS3",
+      "value": "57.6",
+      "pushed_at": "2026-09-06 14:10:59"
+    },
+    {
+      "timestamp": "2026-09-06 08:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D0",
+      "value": "79.6",
+      "pushed_at": "2026-09-06 14:10:59"
+    },
+    {
+      "timestamp": "2026-09-06 08:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-EOP",
+      "value": "79.6",
+      "pushed_at": "2026-09-06 14:10:59"
+    },
+    {
+      "timestamp": "2026-09-06 08:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "88.2",
+      "pushed_at": "2026-09-06 14:10:59"
+    },
+    {
+      "timestamp": "2026-09-06 08:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "90.7",
+      "pushed_at": "2026-09-06 14:10:59"
+    },
+    {
+      "timestamp": "2026-09-06 08:00:00",
+      "tag": "PULP-LINE2-PH-D0",
+      "value": "91.8",
+      "pushed_at": "2026-09-06 14:10:59"
+    },
+    {
+      "timestamp": "2026-09-06 08:00:00",
+      "tag": "PULP-LINE2-PH-EOP",
+      "value": "2.0",
+      "pushed_at": "2026-09-06 14:10:59"
+    },
+    {
+      "timestamp": "2026-09-06 08:00:00",
+      "tag": "PULP-LINE2-PH-D1",
+      "value": "10.5",
+      "pushed_at": "2026-09-06 14:10:59"
+    },
+    {
+      "timestamp": "2026-09-06 08:00:00",
+      "tag": "PULP-LINE2-PH-D2",
+      "value": "2.4",
+      "pushed_at": "2026-09-06 14:10:59"
+    },
+    {
+      "timestamp": "2026-09-06 10:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "88.5",
+      "pushed_at": "2026-09-06 14:10:59"
+    },
+    {
+      "timestamp": "2026-09-06 10:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "88.8",
+      "pushed_at": "2026-09-06 14:10:59"
+    },
+    {
+      "timestamp": "2026-09-06 10:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D1",
+      "value": "488.0",
+      "pushed_at": "2026-09-06 15:11:21"
+    },
+    {
+      "timestamp": "2026-09-06 10:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D2",
+      "value": "468.0",
+      "pushed_at": "2026-09-06 15:11:21"
+    },
+    {
+      "timestamp": "2026-09-06 10:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS1",
+      "value": "36.4",
+      "pushed_at": "2026-09-06 15:11:21"
+    },
+    {
+      "timestamp": "2026-09-06 10:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS3",
+      "value": "55.3",
+      "pushed_at": "2026-09-06 15:11:21"
+    },
+    {
+      "timestamp": "2026-09-06 10:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D0",
+      "value": "78.9",
+      "pushed_at": "2026-09-06 15:11:21"
+    },
+    {
+      "timestamp": "2026-09-06 10:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-EOP",
+      "value": "87.8",
+      "pushed_at": "2026-09-06 15:11:21"
+    },
+    {
+      "timestamp": "2026-09-06 10:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "88.5",
+      "pushed_at": "2026-09-06 15:11:21"
+    },
+    {
+      "timestamp": "2026-09-06 10:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "88.8",
+      "pushed_at": "2026-09-06 15:11:21"
+    },
+    {
+      "timestamp": "2026-09-06 12:00:00",
+      "tag": "PULP-LINE2-KAPPA-PRESS1",
+      "value": "9.3",
+      "pushed_at": "2026-09-06 15:11:21"
+    },
+    {
+      "timestamp": "2026-09-06 12:00:00",
+      "tag": "PULP-LINE2-KAPPA-PRESS3",
+      "value": "4.3",
+      "pushed_at": "2026-09-06 15:11:21"
+    },
+    {
+      "timestamp": "2026-09-06 12:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-PRESS1",
+      "value": "755.0",
+      "pushed_at": "2026-09-06 15:11:21"
+    },
+    {
+      "timestamp": "2026-09-06 12:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-PRESS3",
+      "value": "622.0",
+      "pushed_at": "2026-09-06 15:11:21"
+    },
+    {
+      "timestamp": "2026-09-06 12:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-EOP",
+      "value": "497.0",
+      "pushed_at": "2026-09-06 15:11:21"
+    },
+    {
+      "timestamp": "2026-09-06 12:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D1",
+      "value": "482.0",
+      "pushed_at": "2026-09-06 15:11:21"
+    },
+    {
+      "timestamp": "2026-09-06 12:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D2",
+      "value": "469.0",
+      "pushed_at": "2026-09-06 15:11:21"
+    },
+    {
+      "timestamp": "2026-09-06 12:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS1",
+      "value": "36.1",
+      "pushed_at": "2026-09-06 15:11:21"
+    },
+    {
+      "timestamp": "2026-09-06 12:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS3",
+      "value": "53.7",
+      "pushed_at": "2026-09-06 15:11:21"
+    },
+    {
+      "timestamp": "2026-09-06 12:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D0",
+      "value": "79.8",
+      "pushed_at": "2026-09-06 15:11:21"
+    },
+    {
+      "timestamp": "2026-09-06 12:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-EOP",
+      "value": "88.1",
+      "pushed_at": "2026-09-06 15:11:21"
+    },
+    {
+      "timestamp": "2026-09-06 12:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "88.3",
+      "pushed_at": "2026-09-06 15:11:21"
+    },
+    {
+      "timestamp": "2026-09-06 12:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "89.3",
+      "pushed_at": "2026-09-06 15:11:21"
+    },
+    {
+      "timestamp": "2026-09-06 12:00:00",
+      "tag": "PULP-LINE2-PH-D0",
+      "value": "2.1",
+      "pushed_at": "2026-09-06 15:11:21"
+    },
+    {
+      "timestamp": "2026-09-06 12:00:00",
+      "tag": "PULP-LINE2-PH-EOP",
+      "value": "10.6",
+      "pushed_at": "2026-09-06 15:11:21"
+    },
+    {
+      "timestamp": "2026-09-06 12:00:00",
+      "tag": "PULP-LINE2-PH-D1",
+      "value": "2.4",
+      "pushed_at": "2026-09-06 15:11:21"
+    },
+    {
+      "timestamp": "2026-09-06 12:00:00",
+      "tag": "PULP-LINE2-PH-D2",
+      "value": "2.5",
+      "pushed_at": "2026-09-06 15:11:21"
+    },
+    {
+      "timestamp": "2026-09-06 14:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D1",
+      "value": "456.0",
+      "pushed_at": "2026-09-06 17:12:23"
+    },
+    {
+      "timestamp": "2026-09-06 14:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D2",
+      "value": "469.0",
+      "pushed_at": "2026-09-06 17:12:23"
+    },
+    {
+      "timestamp": "2026-09-06 14:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS1",
+      "value": "35.2",
+      "pushed_at": "2026-09-06 17:12:23"
+    },
+    {
+      "timestamp": "2026-09-06 14:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS3",
+      "value": "51.9",
+      "pushed_at": "2026-09-06 17:12:23"
+    },
+    {
+      "timestamp": "2026-09-06 14:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D0",
+      "value": "78.6",
+      "pushed_at": "2026-09-06 17:12:23"
+    },
+    {
+      "timestamp": "2026-09-06 14:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-EOP",
+      "value": "88.4",
+      "pushed_at": "2026-09-06 17:12:23"
+    },
+    {
+      "timestamp": "2026-09-06 14:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "88.5",
+      "pushed_at": "2026-09-06 17:12:23"
+    },
+    {
+      "timestamp": "2026-09-06 14:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "89.3",
+      "pushed_at": "2026-09-06 17:12:23"
+    },
+    {
+      "timestamp": "2026-09-06 16:00:00",
+      "tag": "PULP-LINE2-KAPPA-PRESS1",
+      "value": "9.3",
+      "pushed_at": "2026-09-06 17:12:23"
+    },
+    {
+      "timestamp": "2026-09-06 16:00:00",
+      "tag": "PULP-LINE2-KAPPA-PRESS3",
+      "value": "3.6",
+      "pushed_at": "2026-09-06 17:12:23"
+    },
+    {
+      "timestamp": "2026-09-06 16:00:00",
+      "tag": "PULP-LINE2-KAPPA-EOP",
+      "value": "0.7",
+      "pushed_at": "2026-09-06 17:12:23"
+    },
+    {
+      "timestamp": "2026-09-06 16:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "88.7",
+      "pushed_at": "2026-09-06 17:12:23"
+    },
+    {
+      "timestamp": "2026-09-06 16:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "89.6",
+      "pushed_at": "2026-09-06 17:12:23"
+    },
+    {
+      "timestamp": "2026-09-06 16:00:00",
+      "tag": "PULP-LINE2-PH-D0",
+      "value": "1.9",
+      "pushed_at": "2026-09-06 17:12:23"
+    },
+    {
+      "timestamp": "2026-09-06 16:00:00",
+      "tag": "PULP-LINE2-PH-EOP",
+      "value": "10.8",
+      "pushed_at": "2026-09-06 17:12:23"
+    },
+    {
+      "timestamp": "2026-09-06 16:00:00",
+      "tag": "PULP-LINE2-PH-D1",
+      "value": "2.4",
+      "pushed_at": "2026-09-06 17:12:23"
+    },
+    {
+      "timestamp": "2026-09-06 16:00:00",
+      "tag": "PULP-LINE2-PH-D2",
+      "value": "2.5",
+      "pushed_at": "2026-09-06 17:12:23"
+    },
+    {
+      "timestamp": "2026-09-06 16:00:00",
+      "tag": "PULP-LINE2-KAPPA-PRESS1",
+      "value": "9.3",
+      "pushed_at": "2026-09-06 19:13:40"
+    },
+    {
+      "timestamp": "2026-09-06 16:00:00",
+      "tag": "PULP-LINE2-KAPPA-PRESS3",
+      "value": "3.6",
+      "pushed_at": "2026-09-06 19:13:40"
+    },
+    {
+      "timestamp": "2026-09-06 16:00:00",
+      "tag": "PULP-LINE2-KAPPA-EOP",
+      "value": "0.7",
+      "pushed_at": "2026-09-06 19:13:40"
+    },
+    {
+      "timestamp": "2026-09-06 16:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-PRESS1",
+      "value": "748.0",
+      "pushed_at": "2026-09-06 19:13:40"
+    },
+    {
+      "timestamp": "2026-09-06 16:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-PRESS3",
+      "value": "608.0",
+      "pushed_at": "2026-09-06 19:13:40"
+    },
+    {
+      "timestamp": "2026-09-06 16:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D0",
+      "value": "438.0",
+      "pushed_at": "2026-09-06 19:13:40"
+    },
+    {
+      "timestamp": "2026-09-06 16:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-EOP",
+      "value": "521.0",
+      "pushed_at": "2026-09-06 19:13:40"
+    },
+    {
+      "timestamp": "2026-09-06 16:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D1",
+      "value": "457.0",
+      "pushed_at": "2026-09-06 19:13:40"
+    },
+    {
+      "timestamp": "2026-09-06 16:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D2",
+      "value": "454.0",
+      "pushed_at": "2026-09-06 19:13:40"
+    },
+    {
+      "timestamp": "2026-09-06 16:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS1",
+      "value": "37.1",
+      "pushed_at": "2026-09-06 19:13:40"
+    },
+    {
+      "timestamp": "2026-09-06 16:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS3",
+      "value": "54.1",
+      "pushed_at": "2026-09-06 19:13:40"
+    },
+    {
+      "timestamp": "2026-09-06 16:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D0",
+      "value": "78.4",
+      "pushed_at": "2026-09-06 19:13:40"
+    },
+    {
+      "timestamp": "2026-09-06 16:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-EOP",
+      "value": "88.0",
+      "pushed_at": "2026-09-06 19:13:40"
+    },
+    {
+      "timestamp": "2026-09-06 16:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "88.7",
+      "pushed_at": "2026-09-06 19:13:40"
+    },
+    {
+      "timestamp": "2026-09-06 16:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "89.6",
+      "pushed_at": "2026-09-06 19:13:40"
+    },
+    {
+      "timestamp": "2026-09-06 16:00:00",
+      "tag": "PULP-LINE2-PH-D0",
+      "value": "1.9",
+      "pushed_at": "2026-09-06 19:13:40"
+    },
+    {
+      "timestamp": "2026-09-06 16:00:00",
+      "tag": "PULP-LINE2-PH-EOP",
+      "value": "10.8",
+      "pushed_at": "2026-09-06 19:13:40"
+    },
+    {
+      "timestamp": "2026-09-06 16:00:00",
+      "tag": "PULP-LINE2-PH-D1",
+      "value": "2.4",
+      "pushed_at": "2026-09-06 19:13:40"
+    },
+    {
+      "timestamp": "2026-09-06 16:00:00",
+      "tag": "PULP-LINE2-PH-D2",
+      "value": "2.5",
+      "pushed_at": "2026-09-06 19:13:40"
+    },
+    {
+      "timestamp": "2026-09-06 18:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "89.0",
+      "pushed_at": "2026-09-06 19:13:40"
+    },
+    {
+      "timestamp": "2026-09-06 18:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "89.3",
+      "pushed_at": "2026-09-06 19:13:40"
+    },
+    {
+      "timestamp": "2026-09-06 18:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D1",
+      "value": "480.0",
+      "pushed_at": "2026-09-06 23:15:05"
+    },
+    {
+      "timestamp": "2026-09-06 18:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D2",
+      "value": "453.0",
+      "pushed_at": "2026-09-06 23:15:05"
+    },
+    {
+      "timestamp": "2026-09-06 18:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS1",
+      "value": "35.7",
+      "pushed_at": "2026-09-06 23:15:05"
+    },
+    {
+      "timestamp": "2026-09-06 18:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS3",
+      "value": "53.4",
+      "pushed_at": "2026-09-06 23:15:05"
+    },
+    {
+      "timestamp": "2026-09-06 18:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D0",
+      "value": "77.4",
+      "pushed_at": "2026-09-06 23:15:05"
+    },
+    {
+      "timestamp": "2026-09-06 18:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-EOP",
+      "value": "87.8",
+      "pushed_at": "2026-09-06 23:15:05"
+    },
+    {
+      "timestamp": "2026-09-06 18:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "89.0",
+      "pushed_at": "2026-09-06 23:15:05"
+    },
+    {
+      "timestamp": "2026-09-06 18:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "89.3",
+      "pushed_at": "2026-09-06 23:15:05"
+    },
+    {
+      "timestamp": "2026-09-06 20:00:00",
+      "tag": "PULP-LINE2-KAPPA-PRESS1",
+      "value": "10.0",
+      "pushed_at": "2026-09-06 23:15:05"
+    },
+    {
+      "timestamp": "2026-09-06 20:00:00",
+      "tag": "PULP-LINE2-KAPPA-PRESS3",
+      "value": "3.2",
+      "pushed_at": "2026-09-06 23:15:05"
+    },
+    {
+      "timestamp": "2026-09-06 20:00:00",
+      "tag": "PULP-LINE2-KAPPA-EOP",
+      "value": "81.0",
+      "pushed_at": "2026-09-06 23:15:05"
+    },
+    {
+      "timestamp": "2026-09-06 20:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-PRESS1",
+      "value": "623.0",
+      "pushed_at": "2026-09-06 23:15:05"
+    },
+    {
+      "timestamp": "2026-09-06 20:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-EOP",
+      "value": "521.0",
+      "pushed_at": "2026-09-06 23:15:05"
+    },
+    {
+      "timestamp": "2026-09-06 20:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D1",
+      "value": "486.0",
+      "pushed_at": "2026-09-06 23:15:05"
+    },
+    {
+      "timestamp": "2026-09-06 20:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D2",
+      "value": "491.0",
+      "pushed_at": "2026-09-06 23:15:05"
+    },
+    {
+      "timestamp": "2026-09-06 20:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS1",
+      "value": "34.2",
+      "pushed_at": "2026-09-06 23:15:05"
+    },
+    {
+      "timestamp": "2026-09-06 20:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-PRESS3",
+      "value": "52.0",
+      "pushed_at": "2026-09-06 23:15:05"
+    },
+    {
+      "timestamp": "2026-09-06 20:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D0",
+      "value": "80.6",
+      "pushed_at": "2026-09-06 23:15:05"
+    },
+    {
+      "timestamp": "2026-09-06 20:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-EOP",
+      "value": "87.4",
+      "pushed_at": "2026-09-06 23:15:05"
+    },
+    {
+      "timestamp": "2026-09-06 20:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "88.6",
+      "pushed_at": "2026-09-06 23:15:05"
+    },
+    {
+      "timestamp": "2026-09-06 20:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "90.9",
+      "pushed_at": "2026-09-06 23:15:05"
+    },
+    {
+      "timestamp": "2026-09-06 20:00:00",
+      "tag": "PULP-LINE2-PH-D0",
+      "value": "1.9",
+      "pushed_at": "2026-09-06 23:15:05"
+    },
+    {
+      "timestamp": "2026-09-06 20:00:00",
+      "tag": "PULP-LINE2-PH-EOP",
+      "value": "10.6",
+      "pushed_at": "2026-09-06 23:15:05"
+    },
+    {
+      "timestamp": "2026-09-06 20:00:00",
+      "tag": "PULP-LINE2-PH-D1",
+      "value": "2.3",
+      "pushed_at": "2026-09-06 23:15:05"
+    },
+    {
+      "timestamp": "2026-09-06 20:00:00",
+      "tag": "PULP-LINE2-PH-D2",
+      "value": "2.5",
+      "pushed_at": "2026-09-06 23:15:05"
+    },
+    {
+      "timestamp": "2026-09-06 22:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D1",
+      "value": "489.0",
+      "pushed_at": "2026-09-06 23:15:05"
+    },
+    {
+      "timestamp": "2026-09-06 22:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D2",
+      "value": "493.0",
+      "pushed_at": "2026-09-06 23:15:05"
     }
   ],
   "last_processed_file": null,

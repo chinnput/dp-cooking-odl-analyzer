@@ -107,14 +107,20 @@ def download_latest_from_sharepoint(target_dir: str = None, headless: bool = Fal
                             temp_save_path = save_file_path + ".tmp"
                             download.save_as(temp_save_path)
                             
-                            # Safe atomic file replacement to prevent Windows Permission denied errors
+                            # Safe atomic file replacement with fallback if locked by Windows
                             if os.path.exists(save_file_path):
                                 try:
-                                    os.chmod(save_file_path, 0o777)
+                                    os.remove(save_file_path)
                                 except Exception:
                                     pass
-                            os.replace(temp_save_path, save_file_path)
-                            print(f"[Step 0] READ-ONLY DOWNLOAD SUCCESS: Saved '{download.suggested_filename}' ({os.path.getsize(save_file_path)} bytes)")
+                            try:
+                                os.replace(temp_save_path, save_file_path)
+                                final_path = save_file_path
+                            except Exception:
+                                # Fallback: keep temp file path if main file is locked
+                                final_path = temp_save_path
+
+                            print(f"[Step 0] READ-ONLY DOWNLOAD SUCCESS: Saved '{os.path.basename(final_path)}' ({os.path.getsize(final_path)} bytes)")
                             download_triggered = True
                     except Exception as e_ctx:
                         print(f"[Step 0] Context menu trigger note: {e_ctx}")

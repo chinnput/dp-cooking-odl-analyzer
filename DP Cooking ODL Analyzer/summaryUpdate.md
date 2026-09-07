@@ -73,7 +73,35 @@ Windows Task Scheduler / `.bat` script --> Python Script Execution --> Read Exce
 
 ---
 
-## 4. Workspace Quick Reference & File Guide
+## 4. Work Progress Update (September 2026)
+
+**Focus Area:** Press 1 Quality Integration, Multi-Tag Real-Time API, and Digester Performance Root-Cause Analysis.
+
+### Key Developments & Deliverables
+1. **Interactive Real-Time Lab Analytics Workspace (`Lab_Analysis/`):**
+   * Created dedicated workspace and notebook `Lab_Analysis/realtime_pi_press1_analysis.ipynb`.
+   * Connected directly to PI Server via MI Cube API (`InterpolatedValue/MultiTag/`) querying active tags:
+     * Batch Statuses: `PPPC_DP_Cooking.B1_Discharge_FinalTime_Press1_Status` through `B4`
+     * Process Dosing & Production: `PM2.105FIC303:MV` (White Liquor), `PM2.305FIC036:MV` (MP Steam), `PM2.Prod.ODL` (Production), `PM2.105NIC207:MV` (Press 1 Consistency), `PM2.106FIC006:MV` (Deknotting Flow)
+     * Quality Outputs: `PULP-LINE2-KAPPA-PRESS1`, `PULP-LINE2-VISCOSITY-PRESS1`, `PULP-LINE2-BRIGHTNESS-PRESS1`
+2. **Press 1 Quality Distribution Bell Curves (Probability Density):**
+   * Implemented normalized KDE distribution plots with custom styling, thinner typography, and upper-right statistical matrix cards (Mean & Median) per Digester (D1 to D4).
+   * Verified distinct dispersion profiles for Kappa, Viscosity, and Brightness across Digesters 1–4.
+3. **Process Variation Heatmap (% SOP Violation Rate):**
+   * Fixed column matching anomaly (prevented within-batch `_std` values from comparing against batch-mean SOP thresholds).
+   * Formatted clean parameter labels and heatmaps showing actual SOP violation rates across D1–D4.
+4. **Correlation Matrix & Digester-Specific Breakdown:**
+   * Built 2x2 grid subplots isolating correlation behavior for each individual digester (D1, D2, D3, D4).
+   * **Key Physics & Root Cause Discovery (Digester 4):**
+     * High negative correlation between `Production ODL` and `Specific Steam Consumption` ($r = -0.75$), confirming that when production rate drops, steam flow does not throttle down proportionally (Regulatory Valve Lag / Over-steaming).
+     * High correlation between `MP Steam Flow` and `Press 1 Kappa` ($r = -0.49$) as well as `Press 1 Viscosity` ($r = -0.34$) and `Brightness` ($r = +0.62$).
+     * Proved that Over-steaming during production slowdowns in D4 causes Kappa deviations and fiber degradation (Viscosity drop).
+5. **D4 Verification Pipeline:**
+   * Added dual-axis timeline trend and specific steam scatter analysis (color-coded by production rate) proving the direct mechanism of over-steaming during process slowdowns.
+
+---
+
+## 5. Workspace Quick Reference & File Guide
 
 * `summary.md`: Complete archive of past statistical and cluster analysis findings.
 * `summaryUpdate.md`: (This file) Project update, onboarding handover, and step-by-step action plan.

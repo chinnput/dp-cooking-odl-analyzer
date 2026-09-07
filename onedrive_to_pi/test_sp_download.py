@@ -31,7 +31,6 @@ import config
 
 SHAREPOINT_URL = "https://scgo365.sharepoint.com/:f:/s/QAPPPC/IgBrfoSASApZTplEVNS_z03OAUdx-NJOVzDLDCYtPfJjB4I"
 
-
 def test_sharepoint_download():
     print("=" * 70)
     print("      TESTING SHAREPOINT FILE DOWNLOAD (VISIBLE BROWSER)")
