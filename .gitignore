@@ -16,3 +16,6 @@ onedrive_to_pi/sync_log.log
 .idea/
 .DS_Store
 Thumbs.db
+
+# Lab_Analysis PI data cache (re-fetched automatically)
+DP Cooking ODL Analyzer/Lab_Analysis/data/
