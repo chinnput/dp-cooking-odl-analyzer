@@ -2,120 +2,6 @@
   "last_sync_timestamp": "2026-10-12 06:00:00",
   "pushed_history_3days": [
     {
-      "timestamp": "2026-10-09 08:00:00",
-      "tag": "PULP-LINE2-KAPPA-PRESS1",
-      "value": "9.1",
-      "pushed_at": "2026-10-09 13:45:45"
-    },
-    {
-      "timestamp": "2026-10-09 08:00:00",
-      "tag": "PULP-LINE2-KAPPA-PRESS3",
-      "value": "4.7",
-      "pushed_at": "2026-10-09 13:45:45"
-    },
-    {
-      "timestamp": "2026-10-09 08:00:00",
-      "tag": "PULP-LINE2-KAPPA-EOP",
-      "value": "0.6",
-      "pushed_at": "2026-10-09 13:45:45"
-    },
-    {
-      "timestamp": "2026-10-09 08:00:00",
-      "tag": "PULP-LINE2-VISCOSITY-PRESS1",
-      "value": "718.0",
-      "pushed_at": "2026-10-09 13:45:45"
-    },
-    {
-      "timestamp": "2026-10-09 08:00:00",
-      "tag": "PULP-LINE2-VISCOSITY-PRESS3",
-      "value": "590.0",
-      "pushed_at": "2026-10-09 13:45:45"
-    },
-    {
-      "timestamp": "2026-10-09 08:00:00",
-      "tag": "PULP-LINE2-VISCOSITY-D0",
-      "value": "537.0",
-      "pushed_at": "2026-10-09 13:45:45"
-    },
-    {
-      "timestamp": "2026-10-09 08:00:00",
-      "tag": "PULP-LINE2-VISCOSITY-EOP",
-      "value": "481.0",
-      "pushed_at": "2026-10-09 13:45:45"
-    },
-    {
-      "timestamp": "2026-10-09 08:00:00",
-      "tag": "PULP-LINE2-VISCOSITY-D1",
-      "value": "451.0",
-      "pushed_at": "2026-10-09 13:45:45"
-    },
-    {
-      "timestamp": "2026-10-09 08:00:00",
-      "tag": "PULP-LINE2-VISCOSITY-D2",
-      "value": "450.0",
-      "pushed_at": "2026-10-09 13:45:45"
-    },
-    {
-      "timestamp": "2026-10-09 08:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-PRESS1",
-      "value": "35.9",
-      "pushed_at": "2026-10-09 13:45:45"
-    },
-    {
-      "timestamp": "2026-10-09 08:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-PRESS3",
-      "value": "53.6",
-      "pushed_at": "2026-10-09 13:45:45"
-    },
-    {
-      "timestamp": "2026-10-09 08:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-D0",
-      "value": "78.4",
-      "pushed_at": "2026-10-09 13:45:45"
-    },
-    {
-      "timestamp": "2026-10-09 08:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-EOP",
-      "value": "87.3",
-      "pushed_at": "2026-10-09 13:45:45"
-    },
-    {
-      "timestamp": "2026-10-09 08:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-D1",
-      "value": "87.5",
-      "pushed_at": "2026-10-09 13:45:45"
-    },
-    {
-      "timestamp": "2026-10-09 08:00:00",
-      "tag": "PULP-LINE2-BRIGHTNESS-D2",
-      "value": "88.8",
-      "pushed_at": "2026-10-09 13:45:45"
-    },
-    {
-      "timestamp": "2026-10-09 08:00:00",
-      "tag": "PULP-LINE2-PH-D0",
-      "value": "1.9",
-      "pushed_at": "2026-10-09 13:45:45"
-    },
-    {
-      "timestamp": "2026-10-09 08:00:00",
-      "tag": "PULP-LINE2-PH-EOP",
-      "value": "1.5",
-      "pushed_at": "2026-10-09 13:45:45"
-    },
-    {
-      "timestamp": "2026-10-09 08:00:00",
-      "tag": "PULP-LINE2-PH-D1",
-      "value": "2.2",
-      "pushed_at": "2026-10-09 13:45:45"
-    },
-    {
-      "timestamp": "2026-10-09 08:00:00",
-      "tag": "PULP-LINE2-PH-D2",
-      "value": "2.4",
-      "pushed_at": "2026-10-09 13:45:45"
-    },
-    {
       "timestamp": "2026-10-09 10:00:00",
       "tag": "PULP-LINE2-VISCOSITY-D1",
       "value": "446.0",
@@ -3474,6 +3360,30 @@
       "tag": "PULP-LINE2-BRIGHTNESS-D2",
       "value": "88.1",
       "pushed_at": "2026-10-12 07:14:56"
+    },
+    {
+      "timestamp": "2026-10-12 06:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D1",
+      "value": "484.0",
+      "pushed_at": "2026-10-12 08:15:27"
+    },
+    {
+      "timestamp": "2026-10-12 06:00:00",
+      "tag": "PULP-LINE2-VISCOSITY-D2",
+      "value": "457.0",
+      "pushed_at": "2026-10-12 08:15:27"
+    },
+    {
+      "timestamp": "2026-10-12 06:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D1",
+      "value": "87.0",
+      "pushed_at": "2026-10-12 08:15:27"
+    },
+    {
+      "timestamp": "2026-10-12 06:00:00",
+      "tag": "PULP-LINE2-BRIGHTNESS-D2",
+      "value": "88.1",
+      "pushed_at": "2026-10-12 08:15:27"
     }
   ],
   "last_processed_file": null,

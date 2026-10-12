@@ -1,0 +1,34 @@
+﻿Group,Parameter,D1,D2,D3,D4,Unit,Note
+Batch ID,Batch number,PM2.104D1COOKNO.CALC,PM2.104D2COOKNO.CALC,PM2.104D3COOKNO.CALC,PM2.404D4COOKNO.CALC,-,Steps by 4 per digester
+Sequence,Current phase (digital),PM2.104DIG1MAINSEQ,PM2.104DIG2MAINSEQ,PM2.104DIG3MAINSEQ,PM2.404DIG4MAINSEQ,text,Used by PI AF
+Phase timer,Chip filling time,PM2.104DIG1CHF_T,PM2.104DIG2CHF_T,PM2.104DIG3CHF_T,PM2.404DIG4CHF_T,min (shown 'No.'),
+Phase timer,Pre-hydrolysis time,PM2.104DIG1PHP_T,PM2.104DIG2PHP_T,PM2.104DIG3PHP_T,PM2.404DIG4PHP_T,min (shown 'No.'),
+Phase timer,Hot liquor filling time,PM2.104DIG1HLF_T,PM2.104DIG2HLF_T,PM2.104DIG3HLF_T,PM2.404DIG4HLF_T,min (shown 'No.'),
+Phase timer,Heat and cook time,PM2.104DIG1HAC_T,PM2.104DIG2HAC_T,PM2.104DIG3HAC_T,PM2.404DIG4HAC_T,min (shown 'No.'),
+Phase timer,Displacement time,PM2.104DIG1DPL_T,PM2.104DIG2DPL_T,PM2.104DIG3DPL_T,PM2.404DIG4DPL_T,min (shown 'No.'),
+Phase timer,Discharge time,PM2.104DIG1DCH_T,PM2.104DIG2DCH_T,PM2.104DIG3DCH_T,PM2.404DIG4DCH_T,min (shown 'No.'),
+P-factor (prehydrolysis),P-factor actual,PM2.104D1PFACTOR.CALC,PM2.104D2PFACTOR.CALC,PM2.104D3PFACTOR.CALC,PM2.404D4PFACTOR.CALC,-,Accumulates during batch
+P-factor (prehydrolysis),P-factor setpoint,PM2.104D1OPESPPF.CALC,PM2.104D2OPESPPF.CALC,PM2.104D3OPESPPF.CALC,PM2.404D4OPESPPF.CALC,-,D1 = 450 on sample day
+P-factor (prehydrolysis),P-factor temperature,PM2.104D1PFTEMP.CALC,PM2.104D2PFTEMP.CALC,PM2.104D3PFTEMP.CALC,PM2.404D4PFTEMP.CALC,C,
+P-factor (prehydrolysis),P-factor temperature setpoint,PM2.104D1OPESPPT.CALC,PM2.104D2OPESPPT.CALC,PM2.104D3OPESPPT.CALC,PM2.404D4OPESPPT.CALC,C,
+Chip,Digester weight (chip charge),PM2.104WI129,PM2.104WI229,PM2.104WI329,PM2.404WI429,ton,
+Temperature,Circulation temperature,PM2.104TI123,PM2.104TI223,PM2.104TI323,PM2.404TI423,C,D4 tag to verify (TI418 vs TI423); candidate for H-factor calc
+Temperature,Bottom circulation temperature,PM2.104TI118,PM2.104TI218,PM2.104TI318,PM2.404TI418,C,
+Temperature,Steam heater temperature (controller),PM2.104TIC120:MV,PM2.104TIC220:MV,PM2.104TIC320:MV,PM2.404TIC420:MV,C,
+Temperature,Ventilation / air evacuation temperature,PM2.104TI125,PM2.104TI225,PM2.104TI325,PM2.404TI425,C,
+Temperature,Displacement liquor temperature,PM2.104TIS114,PM2.104TIS214,PM2.104TIS314,PM2.404TIS414,C,
+Pressure,Digester pressure,PM2.104PIC104:MV,PM2.104PIC204:MV,PM2.104PIC304:MV,PM2.404PIC404:MV,bar,
+Pressure,Hot black liquor pressure,PM2.104PIC107:MV,PM2.104PIC207:MV,PM2.104PIC307:MV,PM2.404PIC407:MV,bar,
+Steam,Steam to heater flow,PM2.104FI137,PM2.104FI237,PM2.104FI337,PM2.404FI437,t/h,D4 tag to verify
+Steam,LP steam pressure control,PM2.104PIC102:MV,PM2.104PIC202:MV,PM2.104PIC302:MV,PM2.404PIC402:MV,bar,
+Steam,LP steam valve,PM2.404HIC144:MV,PM2.404HIC244:MV,PM2.404HIC344:MV,PM2.404HIC444:MV,%,
+Steam,MP steam valve,PM2.404HIC145:MV,PM2.404HIC245:MV,PM2.404HIC345:MV,PM2.404HIC445:MV,%,
+Valve output,Top circulation valve,PM2.104HIC116:MV,PM2.104HIC216:MV,PM2.104HIC316:MV,PM2.404HIC416:MV,%,
+Valve output,Bottom circulation valve,PM2.104HIC117:MV,PM2.104HIC217:MV,PM2.104HIC317:MV,PM2.404HIC417:MV,%,
+Valve output,Top dilution valve,PM2.104HIC127:MV,PM2.104HIC227:MV,PM2.104HIC327:MV,PM2.404HIC427:MV,%,
+Valve output,Bottom dilution valve,PM2.104HIC128:MV,PM2.104HIC228:MV,PM2.104HIC328:MV,PM2.404HIC428:MV,%,Also PM2.404HIC124/224/324 'DIG.n BOTTOM DIL.'
+Valve output,Displacement liquor valve,PM2.104HIC134:MV,PM2.104HIC234:MV,PM2.104HIC334:MV,PM2.404HIC434:MV,%,D4 also PM2.404HIC424:MV
+Equipment,Screen differential pressure,PM2.104PDI105,PM2.104PDI205,PM2.104PDI305,,bar,No D4 tag found
+Equipment,Circulation pump current,PM2.104M561,PM2.104M562,PM2.104M563,PM2.404M564,A,
+Equipment,Evacuation valve (digital),PM2.104HS126,PM2.104HS226,PM2.104HS326,PM2.404HS426,-,
+Status (AF),Pulp of digester k at Press 1,PPPC_DP_Cooking.B1_Discharge_FinalTime_Press1_Status,PPPC_DP_Cooking.B2_Discharge_FinalTime_Press1_Status,PPPC_DP_Cooking.B3_Discharge_FinalTime_Press1_Status,PPPC_DP_Cooking.B4_Discharge_FinalTime_Press1_Status,k or 0,Used by notebook
