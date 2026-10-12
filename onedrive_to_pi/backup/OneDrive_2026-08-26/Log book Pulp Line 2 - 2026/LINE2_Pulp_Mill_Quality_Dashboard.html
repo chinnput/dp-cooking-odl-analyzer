@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LINE NO.2 - Pulp Mill & Machine Quality Dashboard</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ink: { 950:'#0a0e14', 900:'#0f1520', 850:'#131a27', 800:'#1a2333', 700:'#243044', 600:'#334155' },
+        },
+        fontFamily: { sans: ['Inter','ui-sans-serif','system-ui','sans-serif'] }
+      }
+    }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.9/dist/chart.umd.min.js" onerror="window.__chartLoadFailed=true"></script>
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.462.0/dist/umd/lucide.js" onerror="window.__lucideLoadFailed=true"></script>
+<style>
+  * { scrollbar-width: thin; scrollbar-color: #334155 #0f1520; }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: #0f1520; }
+  ::-webkit-scrollbar-thumb { background: #2a3547; border-radius: 4px; }
+  body { font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; }
+  .tab-btn.active { background: linear-gradient(180deg,#1a2333,#131a27); color: #67e8f9; border-color: #22d3ee44; }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; animation: fadeIn .25s ease; }
+  @keyframes fadeIn { from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:translateY(0);} }
+  .card { background: linear-gradient(180deg,#131a27 0%,#0f1520 100%); border: 1px solid #1f2937; }
+  .glow-emerald { box-shadow: 0 0 0 1px rgba(16,185,129,.25), 0 0 24px -8px rgba(16,185,129,.5); }
+  .glow-red { box-shadow: 0 0 0 1px rgba(239,68,68,.3), 0 0 24px -6px rgba(239,68,68,.6); }
+  .glow-amber { box-shadow: 0 0 0 1px rgba(245,158,11,.3), 0 0 24px -6px rgba(245,158,11,.5); }
+  .pulse-dot { animation: pulse 1.8s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:.35;} }
+  input[type=range]::-webkit-slider-thumb { background:#22d3ee; }
+  .node-arrow { color:#334155; }
+  .tooltip-target:hover .tooltip-box { display:block; }
+  select, .date-range-input, .tab-btn { transition: all .15s ease; }
+  input[type=date].date-range-input { color-scheme: dark; }
+  table.anomaly tbody tr:hover { background:#131a27; }
+</style>
+</head>
+<body class="bg-ink-950 text-slate-200 min-h-screen">
+
+<div id="cdnWarning" class="hidden bg-red-600 text-white text-xs sm:text-sm font-medium px-4 py-2 text-center"></div>
+
+<!-- ============ HEADER ============ -->
+<header class="sticky top-0 z-40 bg-ink-950/95 backdrop-blur border-b border-ink-700">
+  <div class="max-w-[1500px] mx-auto px-4 sm:px-6 py-3 flex flex-col lg:flex-row lg:items-center gap-3 lg:gap-6">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center">
+        <i data-lucide="factory" class="w-5 h-5 text-cyan-400"></i>
+      </div>
+      <div>
+        <h1 class="text-base sm:text-lg font-bold text-slate-100 leading-tight">LINE NO.2 — Pulp Mill &amp; Machine Quality Dashboard</h1>
+        <p class="text-[11px] text-slate-500 flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 pulse-dot"></span>
+          Simulated data · May 1 – Aug 11, 2026 · <span id="clockNow"></span>
+        </p>
+      </div>
+    </div>
+    <div class="flex-1"></div>
+    <div class="flex items-center gap-2 flex-wrap">
+      <span id="plantStatusPill" class="px-3 py-1.5 rounded-full text-xs font-semibold border"></span>
+      <div class="flex items-center gap-1.5 bg-ink-850 border border-ink-700 rounded-lg px-2 py-1 text-xs">
+        <i data-lucide="calendar-range" class="w-3.5 h-3.5 text-slate-500"></i>
+        <input type="date" id="globalFrom" class="date-range-input bg-transparent text-slate-200 focus:outline-none">
+        <span class="text-slate-600">→</span>
+        <input type="date" id="globalTo" class="date-range-input bg-transparent text-slate-200 focus:outline-none">
+      </div>
+    </div>
+  </div>
+  <!-- TAB NAV -->
+  <nav class="max-w-[1500px] mx-auto px-4 sm:px-6 flex gap-1 overflow-x-auto pb-2">
+    <button data-tab="overview" class="tab-btn active flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-transparent text-sm font-medium text-slate-400 whitespace-nowrap"><i data-lucide="layout-dashboard" class="w-4 h-4"></i>Executive Overview</button>
+    <button data-tab="quality" class="tab-btn flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-transparent text-sm font-medium text-slate-400 whitespace-nowrap"><i data-lucide="search-check" class="w-4 h-4"></i>Quality Deep-Dive</button>
+    <button data-tab="process" class="tab-btn flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-transparent text-sm font-medium text-slate-400 whitespace-nowrap"><i data-lucide="hexagon" class="w-4 h-4"></i>Process State &amp; Diamond</button>
+    <button data-tab="ai" class="tab-btn flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-transparent text-sm font-medium text-slate-400 whitespace-nowrap"><i data-lucide="brain-circuit" class="w-4 h-4"></i>AI Insights</button>
+  </nav>
+</header>
+
+<main class="max-w-[1500px] mx-auto px-4 sm:px-6 py-6">
+
+<!-- ============ TAB 1: OVERVIEW ============ -->
+<section id="tab-overview" class="tab-panel active space-y-6">
+  <div id="kpiGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"></div>
+
+  <div class="card rounded-xl p-4 sm:p-5">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="text-sm font-semibold text-slate-200 flex items-center gap-2"><i data-lucide="git-branch" class="w-4 h-4 text-cyan-400"></i>Process Sequence Mini-Map</h2>
+      <p class="text-[11px] text-slate-500">Node color reflects latest-day average vs. spec</p>
+    </div>
+    <div id="pipelineMap" class="flex items-center justify-between gap-1 overflow-x-auto pb-1"></div>
+  </div>
+
+  <div class="card rounded-xl p-4 sm:p-5">
+    <h2 class="text-sm font-semibold text-slate-200 mb-4 flex items-center gap-2"><i data-lucide="activity" class="w-4 h-4 text-cyan-400"></i>Daily Trend Sparklines</h2>
+    <div id="sparkGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"></div>
+  </div>
+</section>
+
+<!-- ============ TAB 2: QUALITY DEEP-DIVE ============ -->
+<section id="tab-quality" class="tab-panel space-y-6">
+  <div class="grid grid-cols-1 xl:grid-cols-2 gap-5">
+    <div class="card rounded-xl p-4 sm:p-5">
+      <div class="flex items-center justify-between mb-2">
+        <h2 class="text-sm font-semibold text-slate-200">Chart A — Bleaching Delignification (Kappa No.)</h2>
+        <span class="text-[11px] text-slate-500">Press 1 → Press 3 → D0 → Eop</span>
+      </div>
+      <p class="text-[11px] text-slate-500 mb-2">Dashed lines = spec limits per stage · click legend to isolate a series</p>
+      <div class="h-72"><canvas id="chartKappaSeries"></canvas></div>
+    </div>
+    <div class="card rounded-xl p-4 sm:p-5">
+      <div class="flex items-center justify-between mb-2">
+        <h2 class="text-sm font-semibold text-slate-200">Chart B — Cellulose Degradation (Viscosity)</h2>
+        <span class="text-[11px] text-slate-500">Press 1 · Press 3 · Eop · D1 · D2</span>
+      </div>
+      <p class="text-[11px] text-slate-500 mb-2">Dashed lines = spec limits per stage · click legend to isolate a series</p>
+      <div class="h-72"><canvas id="chartViscSeries"></canvas></div>
+    </div>
+  </div>
+
+  <div class="card rounded-xl p-4 sm:p-5">
+    <div class="flex items-center justify-between mb-2">
+      <h2 class="text-sm font-semibold text-slate-200">Chart C — Bleaching Brightness Development</h2>
+      <span class="text-[11px] text-slate-500">Press 1 · Press 3 · D0 · Eop · D1</span>
+    </div>
+    <p class="text-[11px] text-slate-500 mb-2">Dashed lines = spec limits per stage · click legend to isolate a series</p>
+    <div class="h-72"><canvas id="chartBrightSeries"></canvas></div>
+  </div>
+
+  <div class="card rounded-xl p-4 sm:p-5">
+    <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+      <h2 class="text-sm font-semibold text-slate-200 flex items-center gap-2"><i data-lucide="triangle-alert" class="w-4 h-4 text-amber-400"></i>Anomaly Detection — Out of Spec (OOS) Events</h2>
+      <div class="flex items-center gap-2 flex-wrap">
+        <input id="anomalySearch" type="text" placeholder="Search stage / parameter…" class="bg-ink-850 border border-ink-700 rounded-md px-2.5 py-1.5 text-xs w-48 placeholder:text-slate-600 focus:outline-none focus:border-cyan-500/50">
+        <select id="anomalySeverityFilter" class="bg-ink-850 border border-ink-700 rounded-md px-2 py-1.5 text-xs focus:outline-none">
+          <option value="all">All severities</option>
+          <option value="Critical">Critical only</option>
+          <option value="Warning">Warning only</option>
+        </select>
+      </div>
+    </div>
+    <div class="overflow-x-auto max-h-[420px] overflow-y-auto rounded-lg border border-ink-700">
+      <table class="anomaly w-full text-xs">
+        <thead class="bg-ink-850 text-slate-400 sticky top-0">
+          <tr>
+            <th class="text-left font-medium px-3 py-2">Timestamp</th>
+            <th class="text-left font-medium px-3 py-2">Process Stage</th>
+            <th class="text-left font-medium px-3 py-2">Parameter</th>
+            <th class="text-right font-medium px-3 py-2">Measured</th>
+            <th class="text-right font-medium px-3 py-2">Spec Limit</th>
+            <th class="text-right font-medium px-3 py-2">Deviation %</th>
+            <th class="text-center font-medium px-3 py-2">Severity</th>
+          </tr>
+        </thead>
+        <tbody id="anomalyBody" class="divide-y divide-ink-800"></tbody>
+      </table>
+    </div>
+    <p id="anomalyCount" class="text-[11px] text-slate-500 mt-2"></p>
+  </div>
+</section>
+
+<!-- ============ TAB 3: PROCESS STATE ============ -->
+<section id="tab-process" class="tab-panel space-y-6">
+  <div class="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-5">
+    <div class="card rounded-xl p-4 sm:p-5">
+      <div class="flex items-center justify-between mb-3">
+        <h2 class="text-sm font-semibold text-slate-200 flex items-center gap-2"><i data-lucide="hexagon" class="w-4 h-4 text-cyan-400"></i>Process "Diamond" Radar</h2>
+      </div>
+      <label class="text-[11px] text-slate-500">Select bleaching stage</label>
+      <select id="radarStageSelect" class="w-full bg-ink-850 border border-ink-700 rounded-md px-2 py-2 text-sm mt-1 mb-4 focus:outline-none">
+        <option value="D0">D0 (Chlorine Dioxide)</option>
+        <option value="EOP">Eop (Extraction, O2/Peroxide)</option>
+        <option value="D1" selected>D1 (Chlorine Dioxide Final)</option>
+        <option value="D2">D2 (Polishing Stage)</option>
+      </select>
+      <div class="h-64"><canvas id="radarChart"></canvas></div>
+      <div id="radarLegendInfo" class="grid grid-cols-3 gap-2 mt-4 text-center"></div>
+    </div>
+
+    <div class="space-y-5">
+      <div class="card rounded-xl p-4 sm:p-5">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+          <h3 class="text-sm font-semibold text-slate-200">Pulp Stage Viscosity Reduction</h3>
+          <div class="flex items-center gap-1 text-[11px]">
+            <input type="date" id="barViscFrom" class="date-range-input bg-ink-850 border border-ink-700 rounded px-1.5 py-1 focus:outline-none">
+            <span class="text-slate-600">→</span>
+            <input type="date" id="barViscTo" class="date-range-input bg-ink-850 border border-ink-700 rounded px-1.5 py-1 focus:outline-none">
+          </div>
+        </div>
+        <p class="text-[11px] text-slate-500 mb-2">Bar total = Press 1 starting viscosity; each stacked segment = ml/g lost entering the next stage, down to D1</p>
+        <div class="h-56"><canvas id="barViscosity"></canvas></div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        <div class="card rounded-xl p-4 sm:p-5">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+            <h3 class="text-sm font-semibold text-slate-200">Washing Stage Kappa Gain</h3>
+            <div class="flex items-center gap-1 text-[11px]">
+              <input type="date" id="barKappaFrom" class="date-range-input bg-ink-850 border border-ink-700 rounded px-1.5 py-1 focus:outline-none">
+              <span class="text-slate-600">→</span>
+              <input type="date" id="barKappaTo" class="date-range-input bg-ink-850 border border-ink-700 rounded px-1.5 py-1 focus:outline-none">
+            </div>
+          </div>
+          <p class="text-[11px] text-slate-500 mb-2">Bar total = Press 1 starting Kappa; segments = Kappa removed entering the next stage, down to Eop</p>
+          <div class="h-56"><canvas id="barKappa"></canvas></div>
+        </div>
+        <div class="card rounded-xl p-4 sm:p-5">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+            <h3 class="text-sm font-semibold text-slate-200">Bleaching Brightness Gain</h3>
+            <div class="flex items-center gap-1 text-[11px]">
+              <input type="date" id="barBrightFrom" class="date-range-input bg-ink-850 border border-ink-700 rounded px-1.5 py-1 focus:outline-none">
+              <span class="text-slate-600">→</span>
+              <input type="date" id="barBrightTo" class="date-range-input bg-ink-850 border border-ink-700 rounded px-1.5 py-1 focus:outline-none">
+            </div>
+          </div>
+          <p class="text-[11px] text-slate-500 mb-2">Bar total = final D1 brightness (0–100% ISO scale); segments = % ISO gained at each stage</p>
+          <div class="h-56"><canvas id="barBrightness"></canvas></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card rounded-xl p-4 sm:p-5">
+    <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+      <h2 class="text-sm font-semibold text-slate-200 flex items-center gap-2"><i data-lucide="gauge-circle" class="w-4 h-4 text-cyan-400"></i>Process Efficiency Overview</h2>
+      <span class="text-[11px] text-slate-500">Period-average efficiency per stage, driven by the header date range · color vs. this line's typical baseline</span>
+    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+      <div id="effKappaCard"></div>
+      <div id="effBrightCard"></div>
+      <div id="effViscCard"></div>
+    </div>
+  </div>
+
+  <div class="card rounded-xl p-4 sm:p-5">
+    <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+      <h2 class="text-sm font-semibold text-slate-200 flex items-center gap-2"><i data-lucide="trending-up" class="w-4 h-4 text-cyan-400"></i>Process Efficiency — History Trend</h2>
+      <span class="text-[11px] text-slate-500">Daily efficiency % per stage · each chart has its own time range</span>
+    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+      <div>
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+          <h3 class="text-sm font-semibold text-slate-200">Kappa Number Reduction</h3>
+          <div class="flex items-center gap-1 text-[11px]">
+            <input type="date" id="effKappaFrom" class="date-range-input bg-ink-850 border border-ink-700 rounded px-1.5 py-1 focus:outline-none">
+            <span class="text-slate-600">→</span>
+            <input type="date" id="effKappaTo" class="date-range-input bg-ink-850 border border-ink-700 rounded px-1.5 py-1 focus:outline-none">
+          </div>
+        </div>
+        <div class="h-56"><canvas id="trendKappaEff"></canvas></div>
+      </div>
+      <div>
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+          <h3 class="text-sm font-semibold text-slate-200">Brightness Increasing</h3>
+          <div class="flex items-center gap-1 text-[11px]">
+            <input type="date" id="effBrightFrom" class="date-range-input bg-ink-850 border border-ink-700 rounded px-1.5 py-1 focus:outline-none">
+            <span class="text-slate-600">→</span>
+            <input type="date" id="effBrightTo" class="date-range-input bg-ink-850 border border-ink-700 rounded px-1.5 py-1 focus:outline-none">
+          </div>
+        </div>
+        <div class="h-56"><canvas id="trendBrightEff"></canvas></div>
+      </div>
+      <div>
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+          <h3 class="text-sm font-semibold text-slate-200">Viscosity Reduction</h3>
+          <div class="flex items-center gap-1 text-[11px]">
+            <input type="date" id="effViscFrom" class="date-range-input bg-ink-850 border border-ink-700 rounded px-1.5 py-1 focus:outline-none">
+            <span class="text-slate-600">→</span>
+            <input type="date" id="effViscTo" class="date-range-input bg-ink-850 border border-ink-700 rounded px-1.5 py-1 focus:outline-none">
+          </div>
+        </div>
+        <div class="h-56"><canvas id="trendViscEff"></canvas></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card rounded-xl p-4 sm:p-5">
+    <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+      <h2 class="text-sm font-semibold text-slate-200 flex items-center gap-2"><i data-lucide="search-check" class="w-4 h-4 text-amber-400"></i>Viscosity Effect — Where Is Viscosity Dropping?</h2>
+    </div>
+    <p class="text-[11px] text-slate-500 mb-3">Ranks stage-wise viscosity out-of-spec events in the selected window, using the same anomaly detection as the Quality Deep-Dive tab</p>
+    <div class="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-5">
+      <div class="h-56"><canvas id="viscEffectChart"></canvas></div>
+      <div id="viscEffectCallout" class="flex flex-col justify-center gap-3"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TAB 4: AI INSIGHTS ============ -->
+<section id="tab-ai" class="tab-panel space-y-6">
+  <div class="card rounded-xl p-5 sm:p-6">
+    <div class="flex flex-col sm:flex-row sm:items-center gap-4 justify-between">
+      <div>
+        <h2 class="text-base font-semibold text-slate-100 flex items-center gap-2"><i data-lucide="brain-circuit" class="w-5 h-5 text-cyan-400"></i>AI Diagnostic Advisory</h2>
+        <p class="text-xs text-slate-500 mt-1">Runs a simulated process-engineering evaluation across the selected window and flags upset conditions.</p>
+      </div>
+      <div class="flex items-center gap-2">
+        <div class="flex items-center gap-1 text-xs">
+          <input type="date" id="aiFrom" class="date-range-input bg-ink-850 border border-ink-700 rounded-md px-2 py-2 focus:outline-none">
+          <span class="text-slate-600">→</span>
+          <input type="date" id="aiTo" class="date-range-input bg-ink-850 border border-ink-700 rounded-md px-2 py-2 focus:outline-none">
+        </div>
+        <button id="runDiagnosticBtn" class="flex items-center gap-2 bg-cyan-600 hover:bg-cyan-500 text-white font-medium text-sm px-4 py-2 rounded-lg transition">
+          <i data-lucide="scan-search" class="w-4 h-4"></i> Run Diagnostic
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="aiLoading" class="hidden card rounded-xl p-8 flex flex-col items-center justify-center gap-3">
+    <i data-lucide="loader-2" class="w-8 h-8 text-cyan-400 animate-spin"></i>
+    <p class="text-sm text-slate-400">Analyzing process variables across selected window…</p>
+  </div>
+
+  <div id="aiEmpty" class="card rounded-xl p-8 flex flex-col items-center justify-center gap-2 text-center">
+    <i data-lucide="cpu" class="w-8 h-8 text-slate-600"></i>
+    <p class="text-sm text-slate-500">Click "Run Diagnostic" to generate advisory findings for the selected date range.</p>
+  </div>
+
+  <div id="aiResults" class="hidden space-y-5">
+    <div id="aiSummary" class="grid grid-cols-2 sm:grid-cols-4 gap-4"></div>
+    <p class="text-[11px] text-slate-500">Each card below is one process stage/parameter finding — "(N stages)" above matches the number of Critical/Warning cards shown.</p>
+    <div id="aiCards" class="grid grid-cols-1 lg:grid-cols-2 gap-4"></div>
+  </div>
+</section>
+
+</main>
+
+<footer class="max-w-[1500px] mx-auto px-4 sm:px-6 py-6 text-center text-[11px] text-slate-600">
+  LINE NO.2 Pulp Mill &amp; Machine Quality Dashboard · Demonstration build with statistically-modeled mock data referencing May–Aug 2026 log sheet specifications · Not for operational use
+</footer>
+
+<script>
+/* =====================================================================
+   1. CORE DATA MODEL
+   ===================================================================== */
+function mulberry32(seed){
+  return function(){
+    seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+    let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  };
+}
+const rng = mulberry32(20260501);
+
+const STAGES = ['P1','P3','D0','EOP','D1','D2'];
+const STAGE_LABELS = { P1:'Press 1', P3:'Press 3', D0:'D0', EOP:'Eop', D1:'D1', D2:'D2' };
+const STAGE_COLORS = { P1:'#60a5fa', P3:'#22d3ee', D0:'#a78bfa', EOP:'#fbbf24', D1:'#34d399', D2:'#fb7185' };
+const PARAM_LABELS = { kappa:'Kappa No.', viscosity:'Viscosity (ml/g)', brightness:'Brightness (% ISO)', ph:'pH' };
+const PARAM_UNIT = { kappa:'', viscosity:'ml/g', brightness:'% ISO', ph:'' };
+
+// Spec limits per real LINE NO.2 log-sheet headers (D0-Kappa & D2 columns are engineering-estimated
+// continuations where the physical log sheet does not tabulate that stage/parameter).
+const SPECS = {
+  kappa:      { P1:[7.5,8.5],  P3:[2.2,2.8],  D0:[0.8,1.2],  EOP:[0.3,0.5] },
+  viscosity:  { P1:[680,710],  P3:[540,590],  D0:[510,530],  EOP:[490,500], D1:[480,490], D2:[470,480] },
+  brightness: { P1:[37,40],    P3:[57,60],    D0:[81,83],    EOP:[88,90],   D1:[91.0,91.8], D2:[91.5,92.5] },
+  ph:         { D0:[1.8,2.2],  EOP:[9.5,10.8], D1:[2.0,2.8], D2:[2.2,3.0] }
+};
+
+// Calibration derived from real Aug/Jul/Jun/May 2026 log-sheet daily averages.
+const CALIB = {
+  kappa:      { P1:{c:8.3, s:0.35}, P3:{c:2.55, s:0.18}, D0:{c:1.0, s:0.08}, EOP:{c:0.40, s:0.045, shock:0.06} },
+  viscosity:  { P1:{c:696, s:8}, P3:{c:567, s:10}, D0:{c:520, s:6}, EOP:{c:494, s:4},
+                D1:{c:480, s:8, shock:0.07}, D2:{c:472, s:8, shock:0.06} },
+  brightness: { P1:{c:38.5,s:0.6}, P3:{c:58.5,s:0.7}, D0:{c:82.0,s:0.5}, EOP:{c:89.0,s:0.5}, D1:{c:91.3,s:0.25}, D2:{c:92.0,s:0.3} },
+  ph:         { D0:{c:2.0, s:0.10}, EOP:{c:10.2,s:0.25}, D1:{c:2.4, s:0.15}, D2:{c:2.6, s:0.15} }
+};
+const DECIMALS = { kappa:2, viscosity:0, brightness:2, ph:2 };
+
+const START_DATE = new Date(2026,4,1); // May 1 2026
+const END_DATE   = new Date(2026,7,11); // Aug 11 2026 — latest date with logged data
+const NUM_DAYS = Math.round((END_DATE-START_DATE)/86400000)+1;
+
+const DAYS = Array.from({length:NUM_DAYS}, (_,i)=>{
+  const d = new Date(START_DATE); d.setDate(d.getDate()+i);
+  return d;
+});
+function fmtDate(d, opts){ return d.toLocaleDateString('en-GB', opts || {day:'2-digit', month:'short'}); }
+// toISOString() converts to UTC, which shifts the calendar date whenever the browser's
+// local timezone isn't UTC (e.g. a local midnight in UTC+7 becomes 17:00 the PREVIOUS
+// day in UTC). DAYS[] holds local-time Date objects, so date-range inputs must be
+// formatted/parsed from local components, not through the UTC-based ISO conversion.
+function isoDate(d){
+  const y = d.getFullYear(), m = String(d.getMonth()+1).padStart(2,'0'), day = String(d.getDate()).padStart(2,'0');
+  return `${y}-${m}-${day}`;
+}
+// Converts a date-input value ("YYYY-MM-DD") to a day index, clamped to the dataset's
+// actual range. Appending T00:00:00 forces the browser to parse it as local time
+// (a bare date string is parsed as UTC midnight, which is the same timezone bug above).
+function dateToIdx(dateStr){
+  if(!dateStr) return 0;
+  const d = new Date(dateStr+'T00:00:00');
+  const diff = Math.round((d - START_DATE)/86400000);
+  return Math.max(0, Math.min(NUM_DAYS-1, diff));
+}
+// Reads a [from, to] date-input pair and returns [startIdx, endIdx], swapping them if
+// the user picked an end date earlier than the start date.
+function getRangeFromInputs(fromId, toId){
+  const fromEl = document.getElementById(fromId), toEl = document.getElementById(toId);
+  let s = dateToIdx(fromEl.value), e = dateToIdx(toEl.value);
+  if(s>e){ const t=s; s=e; e=t; }
+  return [s,e];
+}
+// Bounds every date-range input to the dataset's actual span and seeds it with a
+// sensible default window (most recent N days) so the dashboard isn't blank on load.
+function initDateRangeInputs(){
+  const minStr = isoDate(DAYS[0]), maxStr = isoDate(DAYS[NUM_DAYS-1]);
+  [
+    {from:'globalFrom', to:'globalTo', days:30},
+    {from:'barViscFrom', to:'barViscTo', days:14},
+    {from:'barKappaFrom', to:'barKappaTo', days:14},
+    {from:'barBrightFrom', to:'barBrightTo', days:14},
+    {from:'effKappaFrom', to:'effKappaTo', days:30},
+    {from:'effBrightFrom', to:'effBrightTo', days:30},
+    {from:'effViscFrom', to:'effViscTo', days:30},
+    {from:'aiFrom', to:'aiTo', days:30},
+  ].forEach(p=>{
+    const fromIdx = Math.max(0, NUM_DAYS-p.days), toIdx = NUM_DAYS-1;
+    const fromEl = document.getElementById(p.from), toEl = document.getElementById(p.to);
+    fromEl.min = minStr; fromEl.max = maxStr; fromEl.value = isoDate(DAYS[fromIdx]);
+    toEl.min = minStr; toEl.max = maxStr; toEl.value = isoDate(DAYS[toIdx]);
+  });
+}
+function onRangeChange(fromId, toId, fn){
+  document.getElementById(fromId).addEventListener('change', fn);
+  document.getElementById(toId).addEventListener('change', fn);
+}
+
+function genSeries(n, cfg){
+  const {c:center, s:sigma, shock=0.045} = cfg;
+  let val = center, shockRemain=0, shockMag=0;
+  const arr = [];
+  for(let i=0;i<n;i++){
+    val = val + (center-val)*0.28 + (rng()-0.5)*sigma*1.6;
+    if(shockRemain>0){ val += shockMag; shockRemain--; }
+    else if(rng() < shock){
+      shockRemain = 1 + Math.floor(rng()*2);
+      shockMag = (rng()<0.5?-1:1) * sigma * (1.8+rng()*2.0);
+    }
+    arr.push(val);
+  }
+  return arr;
+}
+
+// metrics[param][stage] = array (len NUM_DAYS)
+const metrics = {};
+Object.keys(CALIB).forEach(param=>{
+  metrics[param] = {};
+  Object.keys(CALIB[param]).forEach(stage=>{
+    const raw = genSeries(NUM_DAYS, CALIB[param][stage]);
+    const dp = DECIMALS[param];
+    metrics[param][stage] = raw.map(v=>Math.round(v*Math.pow(10,dp))/Math.pow(10,dp));
+  });
+});
+
+// Each stage's series above is generated independently, so day-to-day noise can
+// occasionally make a downstream stage cross over an upstream one (e.g. D1 viscosity
+// briefly exceeding Eop). That's physically impossible for the same pulp batch moving
+// through the sequence, and it breaks the waterfall bar charts (negative segments,
+// distorted axis). Clamp every stage to respect the physical process order: Kappa and
+// Viscosity are non-increasing through the sequence, Brightness is non-decreasing.
+// pH is left alone since it genuinely swings alkaline/acidic between stages.
+function enforceMonotonic(param, stages, direction){
+  const dp = DECIMALS[param];
+  for(let day=0; day<NUM_DAYS; day++){
+    let bound = direction==='decreasing' ? Infinity : -Infinity;
+    stages.forEach(stg=>{
+      let v = metrics[param][stg][day];
+      v = direction==='decreasing' ? Math.min(v, bound) : Math.max(v, bound);
+      v = Math.round(v*Math.pow(10,dp))/Math.pow(10,dp);
+      metrics[param][stg][day] = v;
+      bound = v;
+    });
+  }
+}
+enforceMonotonic('kappa', ['P1','P3','D0','EOP'], 'decreasing');
+enforceMonotonic('viscosity', ['P1','P3','D0','EOP','D1','D2'], 'decreasing');
+enforceMonotonic('brightness', ['P1','P3','D0','EOP','D1','D2'], 'increasing');
+
+function specStatus(value, spec){
+  const [lo,hi] = spec;
+  if(value>=lo && value<=hi) return {status:'ok', deviation:0};
+  const bound = value>hi ? hi : lo;
+  const dev = Math.abs(value-bound)/Math.abs(bound) * 100;
+  return { status: dev>=7 ? 'critical' : 'warning', deviation: dev };
+}
+function statusColor(status){ return status==='ok' ? 'emerald' : status==='warning' ? 'amber' : 'red'; }
+
+function avgRange(param, stage, startIdx, endIdx){
+  const arr = metrics[param][stage].slice(startIdx, endIdx+1);
+  return arr.reduce((a,b)=>a+b,0)/arr.length;
+}
+function minRange(param, stage, startIdx, endIdx){ return Math.min(...metrics[param][stage].slice(startIdx,endIdx+1)); }
+function maxRange(param, stage, startIdx, endIdx){ return Math.max(...metrics[param][stage].slice(startIdx,endIdx+1)); }
+
+// Critical/warning reading counts + average for one stage over a range — shared by the
+// AI diagnostic rules and the generic sweep so both use the same definition of "flagged".
+function stageStats(param, stage, startIdx, endIdx){
+  const spec = SPECS[param][stage];
+  const arr = metrics[param][stage].slice(startIdx, endIdx+1);
+  const critN = arr.filter(v=>specStatus(v,spec).status==='critical').length;
+  const warnN = arr.filter(v=>specStatus(v,spec).status==='warning').length;
+  const avg = arr.reduce((a,b)=>a+b,0)/arr.length;
+  return { spec, avg, critN, warnN, oos: critN+warnN };
+}
+// Compares the average of the first half of the range to the second half, to tell a
+// genuine upward/downward drift apart from a stage that's simply elevated but flat.
+function stageTrend(param, stage, startIdx, endIdx){
+  const days = endIdx-startIdx+1;
+  const half = Math.max(1, Math.floor(days/2));
+  const arr = metrics[param][stage].slice(startIdx, endIdx+1);
+  const startAvg = arr.slice(0, half).reduce((a,b)=>a+b,0)/half;
+  const endAvg = arr.slice(-half).reduce((a,b)=>a+b,0)/half;
+  const pctChange = startAvg!==0 ? (endAvg-startAvg)/Math.abs(startAvg)*100 : 0;
+  return { startAvg, endAvg, pctChange, days };
+}
+
+/* =====================================================================
+   2. ANOMALY DETECTION
+   ===================================================================== */
+const ANOMALIES = [];
+Object.keys(SPECS).forEach(param=>{
+  Object.keys(SPECS[param]).forEach(stage=>{
+    const spec = SPECS[param][stage];
+    metrics[param][stage].forEach((val, i)=>{
+      const r = specStatus(val, spec);
+      if(r.status !== 'ok'){
+        const hour = 6 + ((i*3)%16); // synthetic sample hour 06:00-22:00
+        ANOMALIES.push({
+          date: DAYS[i], dayIdx:i,
+          timestamp: `${fmtDate(DAYS[i])} ${String(hour).padStart(2,'0')}:00`,
+          stage, param,
+          value: val, spec,
+          deviation: r.deviation,
+          severity: r.status==='critical' ? 'Critical' : 'Warning'
+        });
+      }
+    });
+  });
+});
+ANOMALIES.sort((a,b)=> b.dayIdx - a.dayIdx);
+
+/* =====================================================================
+   3. CHART.JS GLOBAL CONFIG + SPEC-LINE PLUGIN
+   ===================================================================== */
+const CHARTJS_OK = typeof Chart !== 'undefined';
+const LUCIDE_OK = typeof lucide !== 'undefined';
+
+if(CHARTJS_OK){
+  Chart.defaults.color = '#94a3b8';
+  Chart.defaults.borderColor = '#1f2937';
+  Chart.defaults.font.family = "'Inter', ui-sans-serif, system-ui, sans-serif";
+
+  const specLinesPlugin = {
+    id: 'specLines',
+    afterDatasetsDraw(chart){
+      const lines = chart.options?.plugins?.specLines?.lines;
+      if(!lines || !lines.length) return;
+      const {ctx, chartArea, scales} = chart;
+      const y = scales.y;
+      if(!y) return;
+      ctx.save();
+      lines.forEach(l=>{
+        const yPos = y.getPixelForValue(l.value);
+        if(yPos < chartArea.top-2 || yPos > chartArea.bottom+2) return;
+        ctx.beginPath();
+        ctx.setLineDash([5,4]);
+        ctx.strokeStyle = l.color;
+        ctx.globalAlpha = 0.6;
+        ctx.lineWidth = 1.2;
+        ctx.moveTo(chartArea.left, yPos);
+        ctx.lineTo(chartArea.right, yPos);
+        ctx.stroke();
+      });
+      ctx.restore();
+    }
+  };
+  Chart.register(specLinesPlugin);
+}
+
+const CHARTS = {}; // registry canvasId -> Chart instance
+
+function destroyChart(id){ if(CHARTS[id]){ CHARTS[id].destroy(); delete CHARTS[id]; } }
+
+function tooltipBase(){
+  return {
+    backgroundColor:'#0f1520', borderColor:'#243044', borderWidth:1,
+    titleColor:'#e2e8f0', bodyColor:'#cbd5e1', padding:10, displayColors:true,
+    titleFont:{size:11,weight:'600'}, bodyFont:{size:11}
+  };
+}
+
+/* =====================================================================
+   4. STATE
+   ===================================================================== */
+// Date-range state now lives directly on the <input type="date"> elements in the page
+// (each render function reads its own from/to pair via getRangeFromInputs), so state
+// only needs to track the radar chart's stage selector.
+const state = { radarStage:'D1' };
+
+/* =====================================================================
+   5. KPI CARDS (TAB 1)
+   ===================================================================== */
+const KPIS = [
+  { key:'kappaP3', label:'Final Kappa Number', sub:'Press 3', param:'kappa', stage:'P3', spec:SPECS.kappa.P3, icon:'flask-conical' },
+  { key:'brightD1', label:'Final Brightness', sub:'D1', param:'brightness', stage:'D1', spec:SPECS.brightness.D1, icon:'sun' },
+  { key:'viscD1', label:'Final Viscosity', sub:'D1', param:'viscosity', stage:'D1', spec:SPECS.viscosity.D1, icon:'droplets' },
+  { key:'phD1', label:'Final pH', sub:'D1', param:'ph', stage:'D1', spec:SPECS.ph.D1, icon:'test-tube-2' },
+];
+
+function renderKPIs(){
+  const [s,e] = getRangeFromInputs('globalFrom','globalTo');
+  const grid = document.getElementById('kpiGrid');
+  grid.innerHTML = '';
+  KPIS.forEach(k=>{
+    const current = metrics[k.param][k.stage][e];
+    const prev = metrics[k.param][k.stage][Math.max(s,e-1)];
+    const avg = avgRange(k.param,k.stage,s,e);
+    const cur = specStatus(current, k.spec);
+    const avgSt = specStatus(avg, k.spec);
+    const color = statusColor(cur.status);
+    const trendUp = current >= prev;
+    const dp = DECIMALS[k.param];
+    grid.insertAdjacentHTML('beforeend', `
+      <div class="card rounded-xl p-4 ${color==='red'?'glow-red':color==='amber'?'glow-amber':'glow-emerald'}">
+        <div class="flex items-start justify-between">
+          <div class="flex items-center gap-2 text-slate-400">
+            <i data-lucide="${k.icon}" class="w-4 h-4"></i>
+            <span class="text-xs font-medium">${k.label} <span class="text-slate-500">(${k.sub})</span></span>
+          </div>
+          <span class="text-[10px] px-2 py-0.5 rounded-full font-semibold
+            ${color==='emerald' ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30' :
+              color==='amber' ? 'bg-amber-500/15 text-amber-400 border border-amber-500/30' :
+              'bg-red-500/15 text-red-400 border border-red-500/30'}">
+            ${cur.status==='ok' ? 'IN SPEC' : cur.status.toUpperCase()}
+          </span>
+        </div>
+        <div class="mt-3 flex items-baseline gap-2">
+          <span class="text-2xl font-bold text-slate-100">${current.toFixed(dp)}</span>
+          <span class="text-xs text-slate-500">${PARAM_UNIT[k.param]}</span>
+          <i data-lucide="${trendUp?'trending-up':'trending-down'}" class="w-3.5 h-3.5 ${trendUp?'text-emerald-400':'text-red-400'} ml-auto"></i>
+        </div>
+        <div class="mt-2 flex items-center justify-between text-[11px] text-slate-500">
+          <span>Avg (${fmtDate(DAYS[s])}–${fmtDate(DAYS[e])}): <span class="text-slate-300 font-medium">${avg.toFixed(dp)}</span></span>
+          <span>Spec: ${k.spec[0]}–${k.spec[1]}</span>
+        </div>
+        <div class="mt-2 h-1.5 rounded-full bg-ink-800 overflow-hidden">
+          <div class="h-full ${avgSt.status==='ok'?'bg-emerald-500':avgSt.status==='warning'?'bg-amber-500':'bg-red-500'}" style="width:${Math.min(100, Math.max(4, 100 - avgSt.deviation*4))}%"></div>
+        </div>
+      </div>
+    `);
+  });
+  if(window.lucide) lucide.createIcons();
+}
+
+/* =====================================================================
+   6. PIPELINE MINI-MAP
+   ===================================================================== */
+const STAGE_PARAMS = {
+  P1:['kappa','viscosity','brightness'],
+  P3:['kappa','viscosity','brightness'],
+  D0:['kappa','viscosity','brightness','ph'],
+  EOP:['kappa','viscosity','brightness','ph'],
+  D1:['viscosity','brightness','ph'],
+  D2:['viscosity','brightness','ph'],
+};
+
+function renderPipeline(){
+  const [s,e] = getRangeFromInputs('globalFrom','globalTo');
+  const el = document.getElementById('pipelineMap');
+  el.innerHTML = '';
+  STAGES.forEach((stage, idx)=>{
+    let worst = 'ok';
+    const details = [];
+    STAGE_PARAMS[stage].forEach(param=>{
+      if(!SPECS[param][stage]) return;
+      const avg = avgRange(param, stage, s, e);
+      const r = specStatus(avg, SPECS[param][stage]);
+      details.push(`${PARAM_LABELS[param]}: ${avg.toFixed(DECIMALS[param])}`);
+      if(r.status==='critical') worst='critical';
+      else if(r.status==='warning' && worst!=='critical') worst='warning';
+    });
+    const color = worst==='ok' ? 'emerald' : worst==='warning' ? 'amber' : 'red';
+    el.insertAdjacentHTML('beforeend', `
+      <div class="flex items-center ${idx>0?'flex-1':''}">
+        ${idx>0 ? `<i data-lucide="chevron-right" class="node-arrow w-5 h-5 mx-1 shrink-0"></i>` : ''}
+        <div title="${STAGE_LABELS[stage]}: ${details.join(' · ')}"
+          class="shrink-0 flex flex-col items-center justify-center gap-1 w-24 sm:w-28 h-20 rounded-xl border px-2
+          ${color==='emerald' ? 'bg-emerald-500/10 border-emerald-500/40' : color==='amber' ? 'bg-amber-500/10 border-amber-500/40' : 'bg-red-500/10 border-red-500/40 glow-red'}">
+          <span class="w-2 h-2 rounded-full ${color==='emerald'?'bg-emerald-400':color==='amber'?'bg-amber-400 pulse-dot':'bg-red-400 pulse-dot'}"></span>
+          <span class="text-xs font-semibold text-slate-200">${STAGE_LABELS[stage]}</span>
+          <span class="text-[10px] text-slate-500 text-center leading-tight">${STAGE_PARAMS[stage].length} params</span>
+        </div>
+      </div>
+    `);
+  });
+  if(window.lucide) lucide.createIcons();
+}
+
+/* =====================================================================
+   7. SPARKLINES
+   ===================================================================== */
+function renderSparklines(){
+  const grid = document.getElementById('sparkGrid');
+  grid.innerHTML = '';
+  if(!CHARTJS_OK){ grid.innerHTML = '<p class="text-xs text-slate-500 col-span-4">Chart library unavailable — sparklines disabled.</p>'; return; }
+  const [s,e] = getRangeFromInputs('globalFrom','globalTo');
+  KPIS.forEach(k=>{
+    grid.insertAdjacentHTML('beforeend', `
+      <div class="bg-ink-850/50 rounded-lg p-3 border border-ink-800">
+        <p class="text-[11px] text-slate-400 mb-1">${k.label} <span class="text-slate-600">(${k.sub})</span></p>
+        <div class="h-20"><canvas id="spark-${k.key}"></canvas></div>
+      </div>
+    `);
+  });
+  KPIS.forEach(k=>{
+    const id = `spark-${k.key}`;
+    destroyChart(id);
+    const labels = DAYS.slice(s,e+1).map(d=>fmtDate(d));
+    const data = metrics[k.param][k.stage].slice(s,e+1);
+    const last = data[data.length-1];
+    const st = specStatus(last, k.spec);
+    const color = st.status==='ok' ? '#34d399' : st.status==='warning' ? '#fbbf24' : '#f87171';
+    const ctx = document.getElementById(id).getContext('2d');
+    const grad = ctx.createLinearGradient(0,0,0,80);
+    grad.addColorStop(0, color+'55'); grad.addColorStop(1, color+'00');
+    CHARTS[id] = new Chart(ctx, {
+      type:'line',
+      data:{ labels, datasets:[{ data, borderColor:color, backgroundColor:grad, fill:true, tension:0.35, borderWidth:1.75, pointRadius:0 }]},
+      options:{
+        responsive:true, maintainAspectRatio:false,
+        plugins:{ legend:{display:false}, tooltip:{...tooltipBase(), callbacks:{ label:(c)=> `${c.parsed.y.toFixed(DECIMALS[k.param])} ${PARAM_UNIT[k.param]}` } } },
+        scales:{
+          x:{ display:true, grid:{display:false}, border:{color:'#243044'}, ticks:{ color:'#64748b', font:{size:8}, maxTicksLimit: 5, maxRotation:0, autoSkip:true } },
+          y:{ display:false }
+        },
+        elements:{ point:{ hoverRadius:4 } }
+      }
+    });
+  });
+}
+
+/* =====================================================================
+   8. TAB 2 — QUALITY DEEP-DIVE
+   ===================================================================== */
+function buildSpecLines(param, stages){
+  const lines = [];
+  stages.forEach(stg=>{
+    const spec = SPECS[param][stg]; if(!spec) return;
+    lines.push({value:spec[0], color:STAGE_COLORS[stg]});
+    lines.push({value:spec[1], color:STAGE_COLORS[stg]});
+  });
+  return lines;
+}
+
+function renderQualityCharts(){
+  if(!CHARTJS_OK) return;
+  const [s,e] = getRangeFromInputs('globalFrom','globalTo');
+  const labels = DAYS.slice(s,e+1).map(d=>fmtDate(d));
+
+  // Chart A — Kappa
+  const kappaStages = ['P1','P3','D0','EOP'];
+  destroyChart('chartKappaSeries');
+  let ctx = document.getElementById('chartKappaSeries').getContext('2d');
+  let cfg = {
+    type:'line',
+    data:{ labels, datasets: kappaStages.map(stg=>({
+        label: STAGE_LABELS[stg], data: metrics.kappa[stg].slice(s,e+1),
+        borderColor: STAGE_COLORS[stg], backgroundColor: STAGE_COLORS[stg],
+        borderWidth:2, pointRadius:0, tension:0.3
+      }))},
+    options:{
+      responsive:true, maintainAspectRatio:false, interaction:{mode:'index', intersect:false},
+      plugins:{
+        legend:{ position:'bottom', labels:{ boxWidth:10, boxHeight:10, font:{size:11}, color:'#94a3b8' } },
+        tooltip:{...tooltipBase(), callbacks:{ label:(c)=> `${c.dataset.label}: ${c.parsed.y.toFixed(2)} (spec ${SPECS.kappa[kappaStages[c.datasetIndex]][0]}–${SPECS.kappa[kappaStages[c.datasetIndex]][1]})` } },
+        specLines:{ lines: buildSpecLines('kappa', kappaStages) }
+      },
+      scales:{ x:{grid:{color:'#1a2333'}, ticks:{maxTicksLimit:10, color:'#64748b', font:{size:10}}},
+               y:{ title:{display:true, text:'Kappa Number', color:'#64748b', font:{size:11}}, grid:{color:'#1a2333'}, ticks:{color:'#64748b', font:{size:10}} } }
+    }
+  };
+  CHARTS['chartKappaSeries'] = new Chart(ctx, cfg);
+
+  // Chart B — Viscosity
+  const viscStages = ['P1','P3','EOP','D1','D2'];
+  destroyChart('chartViscSeries');
+  ctx = document.getElementById('chartViscSeries').getContext('2d');
+  cfg = {
+    type:'line',
+    data:{ labels, datasets: viscStages.map(stg=>({
+        label: STAGE_LABELS[stg], data: metrics.viscosity[stg].slice(s,e+1),
+        borderColor: STAGE_COLORS[stg], backgroundColor: STAGE_COLORS[stg],
+        borderWidth:2, pointRadius:0, tension:0.3
+      }))},
+    options:{
+      responsive:true, maintainAspectRatio:false, interaction:{mode:'index', intersect:false},
+      plugins:{
+        legend:{ position:'bottom', labels:{ boxWidth:10, boxHeight:10, font:{size:11}, color:'#94a3b8' } },
+        tooltip:{...tooltipBase(), callbacks:{ label:(c)=> `${c.dataset.label}: ${c.parsed.y.toFixed(0)} ml/g (spec ${SPECS.viscosity[viscStages[c.datasetIndex]][0]}–${SPECS.viscosity[viscStages[c.datasetIndex]][1]})` } },
+        specLines:{ lines: buildSpecLines('viscosity', viscStages) }
+      },
+      scales:{ x:{grid:{color:'#1a2333'}, ticks:{maxTicksLimit:10, color:'#64748b', font:{size:10}}},
+               y:{ title:{display:true, text:'Viscosity (ml/g)', color:'#64748b', font:{size:11}}, grid:{color:'#1a2333'}, ticks:{color:'#64748b', font:{size:10}} } }
+    }
+  };
+  CHARTS['chartViscSeries'] = new Chart(ctx, cfg);
+
+  // Chart C — Brightness
+  const brightStages = ['P1','P3','D0','EOP','D1'];
+  destroyChart('chartBrightSeries');
+  ctx = document.getElementById('chartBrightSeries').getContext('2d');
+  cfg = {
+    type:'line',
+    data:{ labels, datasets: brightStages.map(stg=>({
+        label: STAGE_LABELS[stg], data: metrics.brightness[stg].slice(s,e+1),
+        borderColor: STAGE_COLORS[stg], backgroundColor: STAGE_COLORS[stg],
+        borderWidth:2, pointRadius:0, tension:0.3
+      }))},
+    options:{
+      responsive:true, maintainAspectRatio:false, interaction:{mode:'index', intersect:false},
+      plugins:{
+        legend:{ position:'bottom', labels:{ boxWidth:10, boxHeight:10, font:{size:11}, color:'#94a3b8' } },
+        tooltip:{...tooltipBase(), callbacks:{ label:(c)=> `${c.dataset.label}: ${c.parsed.y.toFixed(2)} % ISO (spec ${SPECS.brightness[brightStages[c.datasetIndex]][0]}–${SPECS.brightness[brightStages[c.datasetIndex]][1]})` } },
+        specLines:{ lines: buildSpecLines('brightness', brightStages) }
+      },
+      scales:{ x:{grid:{color:'#1a2333'}, ticks:{maxTicksLimit:10, color:'#64748b', font:{size:10}}},
+               y:{ title:{display:true, text:'Brightness (% ISO)', color:'#64748b', font:{size:11}}, grid:{color:'#1a2333'}, ticks:{color:'#64748b', font:{size:10}} } }
+    }
+  };
+  CHARTS['chartBrightSeries'] = new Chart(ctx, cfg);
+}
+
+function renderAnomalyTable(){
+  const search = (document.getElementById('anomalySearch').value || '').toLowerCase();
+  const sevFilter = document.getElementById('anomalySeverityFilter').value;
+  const [s,e] = getRangeFromInputs('globalFrom','globalTo');
+  const rows = ANOMALIES.filter(a=>{
+    if(a.dayIdx < s || a.dayIdx > e) return false;
+    if(sevFilter!=='all' && a.severity!==sevFilter) return false;
+    const hay = (STAGE_LABELS[a.stage]+' '+PARAM_LABELS[a.param]).toLowerCase();
+    if(search && !hay.includes(search)) return false;
+    return true;
+  }).slice(0, 200);
+  const body = document.getElementById('anomalyBody');
+  body.innerHTML = rows.map(a=>{
+    const dp = DECIMALS[a.param];
+    const sevColor = a.severity==='Critical' ? 'bg-red-500/15 text-red-400 border-red-500/30' : 'bg-amber-500/15 text-amber-400 border-amber-500/30';
+    return `<tr>
+      <td class="px-3 py-2 text-slate-400 whitespace-nowrap">${a.timestamp}</td>
+      <td class="px-3 py-2 text-slate-200 font-medium">${STAGE_LABELS[a.stage]}</td>
+      <td class="px-3 py-2 text-slate-400">${PARAM_LABELS[a.param]}</td>
+      <td class="px-3 py-2 text-right text-slate-200 font-mono">${a.value.toFixed(dp)}</td>
+      <td class="px-3 py-2 text-right text-slate-500 font-mono">${a.spec[0]}–${a.spec[1]}</td>
+      <td class="px-3 py-2 text-right font-mono ${a.severity==='Critical'?'text-red-400':'text-amber-400'}">${a.deviation.toFixed(1)}%</td>
+      <td class="px-3 py-2 text-center"><span class="text-[10px] px-2 py-0.5 rounded-full border font-semibold ${sevColor}">${a.severity}</span></td>
+    </tr>`;
+  }).join('') || `<tr><td colspan="7" class="px-3 py-8 text-center text-slate-600">No out-of-spec events found for this filter.</td></tr>`;
+  document.getElementById('anomalyCount').textContent = `Showing ${rows.length} of ${ANOMALIES.filter(a=>a.dayIdx>=s && a.dayIdx<=e).length} OOS events in the selected window (capped at 200 rows).`;
+}
+
+/* =====================================================================
+   9. TAB 3 — RADAR + STACKED BARS
+   ===================================================================== */
+function renderRadar(){
+  if(!CHARTJS_OK) return;
+  const stage = state.radarStage;
+  const [s,e] = getRangeFromInputs('globalFrom','globalTo');
+  const axesDef = [
+    { key:'brightness', label:'Brightness' },
+    { key:'viscosity', label:'Viscosity' },
+    { key:'ph', label:'pH' },
+  ];
+  const norm = (param)=>{
+    const spec = SPECS[param][stage];
+    const cur = metrics[param][stage][e];
+    const avg = avgRange(param, stage, s, e);
+    const pct = (v)=> Math.max(-20, Math.min(130, ((v-spec[0])/(spec[1]-spec[0]))*100));
+    return { spec, cur, avg, curPct: pct(cur), avgPct: pct(avg) };
+  };
+  const results = axesDef.map(a=>({...a, ...norm(a.key)}));
+  const anyOOS = results.some(r=> r.curPct<0 || r.curPct>100);
+  const lineColor = anyOOS ? '#f87171' : '#34d399';
+  const fillColor = anyOOS ? 'rgba(248,113,113,0.22)' : 'rgba(52,211,153,0.22)';
+
+  destroyChart('radarChart');
+  const ctx = document.getElementById('radarChart').getContext('2d');
+  CHARTS['radarChart'] = new Chart(ctx, {
+    type:'radar',
+    data:{
+      labels: results.map(r=>r.label),
+      datasets:[
+        { label:'Spec Max (Upper Limit)', data:[100,100,100], borderColor:'#22d3ee88', backgroundColor:'rgba(34,211,238,0.12)', borderWidth:1.5, borderDash:[4,3], pointRadius:0, fill:'+1' },
+        { label:'Spec Min (Lower Limit)', data:[0,0,0], borderColor:'#22d3ee', backgroundColor:'rgba(15,21,32,0)', borderWidth:1.5, borderDash:[2,3], pointRadius:0, fill:false },
+        { label:`Current — ${STAGE_LABELS[stage]}`, data: results.map(r=>Math.round(r.curPct)), borderColor:lineColor, backgroundColor:fillColor, borderWidth:2, pointBackgroundColor:lineColor, pointRadius:3 },
+      ]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{
+        legend:{ position:'bottom', labels:{ boxWidth:10, boxHeight:10, font:{size:10}, color:'#94a3b8' } },
+        tooltip:{...tooltipBase(), callbacks:{ label:(c)=>{
+          const r = results[c.dataIndex];
+          if(c.datasetIndex===0) return `Spec Max: ${r.spec[1]}`;
+          if(c.datasetIndex===1) return `Spec Min: ${r.spec[0]}`;
+          return `${r.label}: ${r.cur.toFixed(2)} (spec ${r.spec[0]}–${r.spec[1]})`;
+        } } }
+      },
+      scales:{ r:{ min:-20, max:130, ticks:{display:false}, grid:{color:'#1a2333'}, angleLines:{color:'#243044'}, pointLabels:{color:'#cbd5e1', font:{size:12,weight:'600'}} } }
+    }
+  });
+
+  const info = document.getElementById('radarLegendInfo');
+  info.innerHTML = results.map(r=>{
+    const inSpec = r.curPct>=0 && r.curPct<=100;
+    return `<div class="rounded-lg border ${inSpec?'border-emerald-500/30 bg-emerald-500/5':'border-red-500/30 bg-red-500/5'} p-2">
+      <p class="text-[10px] text-slate-500">${r.label}</p>
+      <p class="text-sm font-bold ${inSpec?'text-emerald-400':'text-red-400'}">${r.cur.toFixed(2)}</p>
+      <p class="text-[10px] text-slate-600">spec ${r.spec[0]}–${r.spec[1]}</p>
+    </div>`;
+  }).join('');
+  if(window.lucide) lucide.createIcons();
+}
+
+// Builds "waterfall" stacked segments so the bar total equals a physically meaningful
+// quantity (starting value for a reduction series, final value for a gain series),
+// instead of naively summing raw readings across stages (which can exceed the natural
+// 0-100 scale for % parameters and has no physical meaning for reduction series).
+function buildWaterfallDatasets(param, stages, s, e, direction){
+  const n = stages.length;
+  const seriesByStage = stages.map(stg=>metrics[param][stg].slice(s,e+1));
+  const datasets = [];
+  if(direction==='decreasing'){
+    // Bottom segment = what remains after the final stage; each segment above it is
+    // the amount lost going INTO that stage, so segments stack up to the starting value.
+    datasets.push({ label:`${STAGE_LABELS[stages[n-1]]} (remaining)`, data: seriesByStage[n-1].slice(), fromStage:null, toStage:stages[n-1] });
+    for(let i=n-1;i>=1;i--){
+      const seg = seriesByStage[i-1].map((v,idx)=> v - seriesByStage[i][idx]);
+      datasets.push({ label:`${STAGE_LABELS[stages[i]]} reduction`, data: seg, fromStage:stages[i-1], toStage:stages[i] });
+    }
+  } else {
+    // Bottom segment = starting value; each segment above it is the amount gained
+    // reaching that stage, so segments stack up to the final value.
+    datasets.push({ label:`${STAGE_LABELS[stages[0]]} (base)`, data: seriesByStage[0].slice(), fromStage:null, toStage:stages[0] });
+    for(let i=1;i<n;i++){
+      const seg = seriesByStage[i].map((v,idx)=> v - seriesByStage[i-1][idx]);
+      datasets.push({ label:`${STAGE_LABELS[stages[i]]} gain`, data: seg, fromStage:stages[i-1], toStage:stages[i] });
+    }
+  }
+  return datasets;
+}
+
+function renderWaterfallBar(canvasId, param, stages, rangeKey, direction, unit){
+  if(!CHARTJS_OK) return;
+  const [s,e] = getRangeFromInputs(rangeKey+'From', rangeKey+'To');
+  const labels = DAYS.slice(s,e+1).map(d=>fmtDate(d));
+  const segs = buildWaterfallDatasets(param, stages, s, e, direction);
+  const dp = DECIMALS[param];
+  destroyChart(canvasId);
+  const ctx = document.getElementById(canvasId).getContext('2d');
+  const yScale = { stacked:true, grid:{color:'#1a2333'}, ticks:{color:'#64748b', font:{size:10}} };
+  if(direction==='increasing'){ yScale.min = 0; yScale.max = 100; } // % ISO parameters stay on a natural 0-100 scale
+  CHARTS[canvasId] = new Chart(ctx, {
+    type:'bar',
+    data:{ labels, datasets: segs.map(d=>({
+        label: d.label, data: d.data,
+        backgroundColor: STAGE_COLORS[d.toStage]+'cc', borderRadius:2, maxBarThickness:26,
+        _fromStage: d.fromStage, _toStage: d.toStage
+      }))},
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{
+        legend:{ position:'bottom', labels:{ boxWidth:10, boxHeight:10, font:{size:10}, color:'#94a3b8' } },
+        tooltip:{...tooltipBase(), callbacks:{ label:(c)=>{
+          const ds = c.dataset, v = c.parsed.y;
+          if(!ds._fromStage) return `${ds.label}: ${v.toFixed(dp)} ${unit}`;
+          const sign = direction==='decreasing' ? '-' : '+';
+          return `${ds.label}: ${sign}${Math.abs(v).toFixed(dp)} ${unit} (${STAGE_LABELS[ds._fromStage]} → ${STAGE_LABELS[ds._toStage]})`;
+        } } }
+      },
+      scales:{
+        x:{ stacked:true, grid:{display:false}, ticks:{maxTicksLimit:8, color:'#64748b', font:{size:9}} },
+        y: yScale
+      }
+    }
+  });
+}
+function renderAllBars(){
+  renderWaterfallBar('barViscosity','viscosity',['P1','P3','D0','EOP','D1'],'barVisc','decreasing','ml/g');
+  renderWaterfallBar('barKappa','kappa',['P1','P3','EOP'],'barKappa','decreasing','');
+  renderWaterfallBar('barBrightness','brightness',['D0','EOP','D1'],'barBright','increasing','% ISO');
+}
+
+/* =====================================================================
+   9b. PROCESS EFFICIENCY OVERVIEW + VISCOSITY EFFECT (TAB 3)
+   ===================================================================== */
+// "Efficiency" here is a period-average % computed from each stage's average value over
+// the selected range, per the exact formulas requested (note the denominators differ
+// between groups: Kappa/Viscosity divide by the upstream value, Brightness by the
+// downstream value — both are used as specified rather than forced into one pattern).
+function computeEfficiencyRows(param, rows, s, e){
+  const val = (stage)=> avgRange(param, stage, s, e);
+  const baseVal = (stage)=> CALIB[param][stage].c; // typical/baseline operating value for this stage
+  return rows.map(r=>{
+    const value = r.formula(val);
+    const baseline = r.formula(baseVal);
+    const ratio = baseline!==0 ? value/baseline : 1;
+    const status = ratio>=0.85 ? 'ok' : ratio>=0.6 ? 'warning' : 'critical';
+    return { label:r.label, sub:r.sub, value, baseline, status };
+  });
+}
+
+const EFFICIENCY_DEFS = {
+  kappa: [
+    { label:'ODL Efficiency', sub:'Press 1 → Press 3', toStage:'P3', formula:(v)=> (v('P1')-v('P3'))/v('P1')*100 },
+    { label:'D0 Efficiency', sub:'Press 3 → D0', toStage:'D0', formula:(v)=> (v('P3')-v('D0'))/v('P3')*100 },
+    { label:'EOP Efficiency', sub:'D0 → Eop', toStage:'EOP', formula:(v)=> (v('D0')-v('EOP'))/v('D0')*100 },
+  ],
+  brightness: [
+    { label:'ODL Efficiency', sub:'Press 1 → Press 3', toStage:'P3', formula:(v)=> (v('P3')-v('P1'))/v('P3')*100 },
+    { label:'D0 Efficiency', sub:'Press 3 → D0', toStage:'D0', formula:(v)=> (v('D0')-v('P3'))/v('D0')*100 },
+    { label:'EOP Efficiency', sub:'D0 → Eop', toStage:'EOP', formula:(v)=> (v('EOP')-v('D0'))/v('EOP')*100 },
+    { label:'D1 Efficiency', sub:'Eop → D1', toStage:'D1', formula:(v)=> (v('D1')-v('EOP'))/v('D1')*100 },
+  ],
+  viscosity: [
+    { label:'ODL', sub:'Press 1 → Press 3', toStage:'P3', formula:(v)=> (v('P1')-v('P3'))/v('P1')*100 },
+    { label:'D0', sub:'Press 3 → D0', toStage:'D0', formula:(v)=> (v('P3')-v('D0'))/v('P3')*100 },
+    { label:'EOP', sub:'D0 → Eop', toStage:'EOP', formula:(v)=> (v('D0')-v('EOP'))/v('D0')*100 },
+    { label:'D1', sub:'Eop → D1', toStage:'D1', formula:(v)=> (v('EOP')-v('D1'))/v('EOP')*100 },
+  ],
+};
+
+function renderEfficiencyCard(elId, title, icon, param){
+  const [s,e] = getRangeFromInputs('globalFrom','globalTo');
+  const rows = computeEfficiencyRows(param, EFFICIENCY_DEFS[param], s, e);
+  const worst = rows.some(r=>r.status==='critical') ? 'critical' : rows.some(r=>r.status==='warning') ? 'warning' : 'ok';
+  const pillClass = worst==='ok' ? 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30'
+    : worst==='warning' ? 'bg-amber-500/15 text-amber-400 border-amber-500/30' : 'bg-red-500/15 text-red-400 border-red-500/30';
+  const pillText = worst==='ok' ? 'NORMAL' : worst==='warning' ? 'REDUCED' : 'POOR';
+  document.getElementById(elId).innerHTML = `
+    <div class="bg-ink-850/50 rounded-lg p-4 border border-ink-800 h-full">
+      <div class="flex items-center justify-between mb-3">
+        <h3 class="text-sm font-semibold text-slate-200 flex items-center gap-1.5"><i data-lucide="${icon}" class="w-4 h-4 text-cyan-400"></i>${title}</h3>
+        <span class="text-[10px] px-2 py-0.5 rounded-full border font-semibold ${pillClass}">${pillText}</span>
+      </div>
+      <div class="space-y-3">
+        ${rows.map(r=>{
+          const barColor = r.status==='ok' ? 'bg-emerald-500' : r.status==='warning' ? 'bg-amber-500' : 'bg-red-500';
+          const textColor = r.status==='ok' ? 'text-emerald-400' : r.status==='warning' ? 'text-amber-400' : 'text-red-400';
+          const width = Math.max(3, Math.min(100, Math.abs(r.value)));
+          return `<div>
+            <div class="flex items-center justify-between text-xs mb-1">
+              <span class="text-slate-400">${r.label} <span class="text-slate-600">(${r.sub})</span></span>
+              <span class="font-mono font-semibold ${textColor}">${r.value.toFixed(1)}%</span>
+            </div>
+            <div class="h-1.5 rounded-full bg-ink-800 overflow-hidden">
+              <div class="h-full ${barColor}" style="width:${width}%"></div>
+            </div>
+            <p class="text-[10px] text-slate-600 mt-0.5">baseline ~${r.baseline.toFixed(1)}%</p>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>`;
+}
+
+function renderEfficiencyPanels(){
+  renderEfficiencyCard('effKappaCard', 'Kappa Number Reduction', 'flask-conical', 'kappa');
+  renderEfficiencyCard('effBrightCard', 'Brightness Increasing', 'sun', 'brightness');
+  renderEfficiencyCard('effViscCard', 'Viscosity Reduction', 'droplets', 'viscosity');
+  if(window.lucide) lucide.createIcons();
+}
+
+// Same per-stage formulas as the snapshot cards above, applied to one day at a time
+// instead of a period average, so the trend line shows how efficiency actually moved
+// day by day rather than a single blended number.
+const EFF_INPUT_PREFIX = { kappa:'effKappa', brightness:'effBright', viscosity:'effVisc' };
+function renderEfficiencyTrend(canvasId, param){
+  if(!CHARTJS_OK) return;
+  const prefix = EFF_INPUT_PREFIX[param];
+  const [s,e] = getRangeFromInputs(prefix+'From', prefix+'To');
+  const rows = EFFICIENCY_DEFS[param];
+  const labels = DAYS.slice(s,e+1).map(d=>fmtDate(d));
+  const series = rows.map(()=>[]);
+  for(let day=s; day<=e; day++){
+    const val = (stage)=> metrics[param][stage][day];
+    rows.forEach((r,idx)=> series[idx].push(r.formula(val)));
+  }
+  destroyChart(canvasId);
+  const ctx = document.getElementById(canvasId).getContext('2d');
+  CHARTS[canvasId] = new Chart(ctx, {
+    type:'line',
+    data:{ labels, datasets: rows.map((r,idx)=>({
+        label: r.label, data: series[idx],
+        borderColor: STAGE_COLORS[r.toStage], backgroundColor: STAGE_COLORS[r.toStage],
+        borderWidth:2, pointRadius:0, tension:0.3
+      }))},
+    options:{
+      responsive:true, maintainAspectRatio:false, interaction:{mode:'index', intersect:false},
+      plugins:{
+        legend:{ position:'bottom', labels:{ boxWidth:10, boxHeight:10, font:{size:10}, color:'#94a3b8' } },
+        tooltip:{...tooltipBase(), callbacks:{ label:(c)=> `${c.dataset.label}: ${c.parsed.y.toFixed(1)}%` } }
+      },
+      scales:{
+        x:{ grid:{color:'#1a2333'}, ticks:{maxTicksLimit:8, color:'#64748b', font:{size:9}} },
+        y:{ title:{display:true, text:'Efficiency (%)', color:'#64748b', font:{size:10}}, grid:{color:'#1a2333'}, ticks:{color:'#64748b', font:{size:10}} }
+      }
+    }
+  });
+}
+function renderAllEfficiencyTrends(){
+  renderEfficiencyTrend('trendKappaEff', 'kappa');
+  renderEfficiencyTrend('trendBrightEff', 'brightness');
+  renderEfficiencyTrend('trendViscEff', 'viscosity');
+}
+
+function renderViscosityEffect(){
+  const [s,e] = getRangeFromInputs('globalFrom','globalTo');
+  const viscStages = ['P1','P3','D0','EOP','D1','D2'];
+  const counts = {}; const critCounts = {};
+  viscStages.forEach(stg=>{ counts[stg]=0; critCounts[stg]=0; });
+  ANOMALIES.forEach(a=>{
+    if(a.param!=='viscosity' || a.dayIdx<s || a.dayIdx>e) return;
+    counts[a.stage]++;
+    if(a.severity==='Critical') critCounts[a.stage]++;
+  });
+  const total = Object.values(counts).reduce((a,b)=>a+b,0);
+  const ranked = viscStages.map(stg=>({stg, count:counts[stg], crit:critCounts[stg]})).sort((a,b)=>b.count-a.count);
+
+  if(CHARTJS_OK){
+    destroyChart('viscEffectChart');
+    const ctx = document.getElementById('viscEffectChart').getContext('2d');
+    CHARTS['viscEffectChart'] = new Chart(ctx, {
+      type:'bar',
+      data:{ labels: ranked.map(r=>STAGE_LABELS[r.stg]), datasets:[{
+          label:'Viscosity OOS readings', data: ranked.map(r=>r.count),
+          backgroundColor: ranked.map(r=>STAGE_COLORS[r.stg]+'cc'), borderRadius:4, maxBarThickness:28
+        }]},
+      options:{
+        indexAxis:'y', responsive:true, maintainAspectRatio:false,
+        plugins:{ legend:{display:false}, tooltip:{...tooltipBase(), callbacks:{ label:(c)=> `${c.parsed.x} OOS reading(s) (${ranked[c.dataIndex].crit} critical)` } } },
+        scales:{ x:{ grid:{color:'#1a2333'}, ticks:{color:'#64748b', font:{size:10}, precision:0 } },
+                 y:{ grid:{display:false}, ticks:{color:'#cbd5e1', font:{size:11} } } }
+      }
+    });
+  }
+
+  const callout = document.getElementById('viscEffectCallout');
+  if(total===0){
+    callout.innerHTML = `<div class="rounded-lg border border-emerald-500/30 bg-emerald-500/5 p-4 text-center">
+      <i data-lucide="check-circle-2" class="w-6 h-6 text-emerald-400 mx-auto mb-2"></i>
+      <p class="text-sm text-slate-300 font-medium">No viscosity anomalies</p>
+      <p class="text-xs text-slate-500 mt-1">All stages tracked within spec for the selected window.</p>
+    </div>`;
+  } else {
+    const top = ranked[0];
+    const pct = (top.count/total*100).toFixed(0);
+    callout.innerHTML = `<div class="rounded-lg border border-red-500/30 bg-red-500/5 p-4">
+      <p class="text-[11px] text-slate-500 uppercase tracking-wide mb-1">Primary drop location</p>
+      <p class="text-lg font-bold text-red-400">${STAGE_LABELS[top.stg]}</p>
+      <p class="text-xs text-slate-400 mt-1">${top.count} out-of-spec reading${top.count>1?'s':''} (${top.crit} critical) — ${pct}% of all viscosity anomalies in this window.</p>
+      <p class="text-xs text-slate-500 mt-2">Recommend investigating chemical dosage, temperature, or retention time specifically at ${STAGE_LABELS[top.stg]}.</p>
+    </div>`;
+  }
+  if(window.lucide) lucide.createIcons();
+}
+
+/* =====================================================================
+   10. TAB 4 — AI INSIGHTS
+   ===================================================================== */
+function runDiagnostic(){
+  const [s,e] = getRangeFromInputs('aiFrom','aiTo');
+  document.getElementById('aiEmpty').classList.add('hidden');
+  document.getElementById('aiResults').classList.add('hidden');
+  document.getElementById('aiLoading').classList.remove('hidden');
+
+  setTimeout(()=>{
+    const cards = [];
+    // Findings are additive across separate rules below; each rule marks the stage(s)
+    // it takes ownership of so the generic sweep further down never double-reports them.
+    const covered = new Set(['viscosity.D1','viscosity.D2','ph.EOP','brightness.D1']);
+
+    // Rule 1: Viscosity drop in D1/D2 while brightness holds
+    ['D1','D2'].forEach(stg=>{
+      const minV = minRange('viscosity', stg, s, e);
+      const brightAvg = avgRange('brightness','D1', s, e);
+      if(minV < 450 && brightAvg >= 90.8){
+        cards.push({
+          severity:'critical', icon:'trending-down',
+          title:`Viscosity Drop Detected — ${STAGE_LABELS[stg]}`,
+          body:`Viscosity at ${STAGE_LABELS[stg]} fell to ${minV.toFixed(0)} ml/g while D1 brightness held at ${brightAvg.toFixed(2)}% ISO (spec met). This pattern indicates cellulose over-degradation rather than a bleaching shortfall. Recommend lowering ClO₂ dosage at D1 by 2–3% and/or reducing Eop stage temperature by 3–5°C to limit chain scission while preserving brightness.`
+        });
+      }
+    });
+
+    // Rule 2: Kappa — evaluated as ONE consolidated block across Press 1 → Press 3 → D0 → Eop
+    // so an upstream cause (the cook, at Press 1) is attributed correctly instead of
+    // surfacing as a disconnected finding at whichever downstream stage happens to breach
+    // spec. This block owns all four Kappa stages regardless of which branch fires.
+    ['P1','P3','D0','EOP'].forEach(stg=>covered.add(`kappa.${stg}`));
+    const kP1 = stageStats('kappa','P1', s, e);
+    const kP1Trend = stageTrend('kappa','P1', s, e);
+    const kP1SpecWidth = SPECS.kappa.P1[1] - SPECS.kappa.P1[0];
+    // For a tight-spec parameter like Kappa (P1's whole spec band is only 1.0 wide), a
+    // rise that looks tiny as a % of the raw value can already be a big % of the spec
+    // band — so trend significance is measured against the spec band, not the raw value.
+    const kP1BandShift = (kP1Trend.endAvg - kP1Trend.startAvg) / kP1SpecWidth * 100;
+    const kP1Rising = kP1Trend.days >= 4 && kP1BandShift > 10;
+    const kP1Elevated = kP1.avg > SPECS.kappa.P1[1];
+    const kP1LatestElevated = metrics.kappa.P1[e] > SPECS.kappa.P1[1];
+    const kDownstream = ['P3','D0','EOP'].map(stg=>({ stg, ...stageStats('kappa', stg, s, e) })).filter(d=>d.oos>0);
+
+    if((kP1Elevated || kP1LatestElevated || kP1Rising) && kDownstream.length>0){
+      let trendTxt = '';
+      if(kP1Rising) trendTxt = `, climbing from ${kP1Trend.startAvg.toFixed(2)} to ${kP1Trend.endAvg.toFixed(2)} over the window — a move equal to ${kP1BandShift.toFixed(0)}% of the entire spec band`;
+      if(kP1LatestElevated) trendTxt += `${trendTxt?', and':' —'} the most recent reading (${metrics.kappa.P1[e].toFixed(2)}) has already crossed the ${SPECS.kappa.P1[1]} spec ceiling`;
+      const dsTxt = kDownstream.map(d=>`${STAGE_LABELS[d.stg]} (avg ${d.avg.toFixed(2)}, spec ${d.spec[0]}–${d.spec[1]}${d.critN?`, ${d.critN} critical`:''}${d.warnN?`, ${d.warnN} warning`:''} reading${(d.critN+d.warnN)>1?'s':''})`).join('; ');
+      cards.push({
+        severity: kDownstream.some(d=>d.critN>0) || kP1LatestElevated || kP1.avg > SPECS.kappa.P1[1]*1.08 ? 'critical' : 'warning',
+        icon:'gauge',
+        title:'Press 1 Kappa Is Driving Downstream Elevation',
+        body:`Press 1 Kappa averaged ${kP1.avg.toFixed(2)} (spec ${SPECS.kappa.P1[0]}–${SPECS.kappa.P1[1]})${trendTxt}. That upstream trend is showing up further down the line: ${dsTxt}. Because it originates at Press 1, recommend investigating the digester cook — H-factor, active alkali charge, chip quality — rather than washing or dosing adjustments at the downstream stages themselves.`
+      });
+    } else {
+      if(kP1Elevated){
+        cards.push({
+          severity:'warning', icon:'gauge', title:'Press 1 Kappa Running High',
+          body:`Press 1 Kappa averaged ${kP1.avg.toFixed(2)} vs. spec ${SPECS.kappa.P1[0]}–${SPECS.kappa.P1[1]}. Elevated Kappa exiting the cook increases bleaching chemical load across all downstream stages. Recommend reviewing digester H-factor / active alkali charge with the cooking area.`
+        });
+      }
+      // Press 1 is tracking normally here, so evaluate Press 3 / D0 / Eop as their own,
+      // independent issues rather than assuming an upstream cause.
+      const p3 = stageStats('kappa','P3', s, e);
+      const p3Flagged = p3.avg > SPECS.kappa.P3[1] * 1.04;
+      if(p3Flagged){
+        cards.push({
+          severity: p3.critN>0 ? 'critical' : 'warning', icon:'flask-conical',
+          title:'Elevated Kappa Entering Eop',
+          body:`Kappa number leaving Press 3 averaged ${p3.avg.toFixed(2)} against a spec ceiling of ${SPECS.kappa.P3[1]}, while Press 1 is tracking normally — this points to a washing-efficiency issue at Press 3 itself, not an upstream cooking problem. Recommend inspecting Press 3 shower flow and wash-water ratio.`
+        });
+      }
+      ['D0','EOP'].forEach(stg=>{
+        const st = stageStats('kappa', stg, s, e);
+        if(st.oos===0) return;
+        if(stg==='D0' && p3Flagged) return; // already explained by the Press 3 finding above
+        cards.push({
+          severity: st.critN>0 ? 'critical' : 'warning', icon:'flask-conical',
+          title:`${STAGE_LABELS[stg]} Kappa No. — Out of Spec`,
+          body:`${st.critN} critical and ${st.warnN} warning reading(s) in the selected window (avg ${st.avg.toFixed(2)} vs. spec ${st.spec[0]}–${st.spec[1]}), with Press 1 and Press 3 tracking normally. Review washing efficiency and wash-water ratio at ${STAGE_LABELS[stg]} directly.`
+        });
+      });
+    }
+
+    // Rule 3: Eop pH excursion
+    const eopPhSpec = SPECS.ph.EOP;
+    const eopPhOOS = metrics.ph.EOP.slice(s,e+1).filter(v=> v<eopPhSpec[0] || v>eopPhSpec[1]).length;
+    if(eopPhOOS > 0){
+      cards.push({
+        severity: eopPhOOS > (e-s+1)*0.15 ? 'critical' : 'warning', icon:'thermometer',
+        title:'Eop Stage pH Excursions',
+        body:`${eopPhOOS} reading(s) fell outside the Eop pH spec (${eopPhSpec[0]}–${eopPhSpec[1]}) in the selected window. Unstable Eop pH reduces peroxide bleaching efficiency and can cause brightness variability downstream. Recommend reviewing NaOH dosing control loop and O₂ pressure stability in the Eop tower.`
+      });
+    }
+
+    // Rule 4: D1 brightness shortfall
+    const brD1Avg = avgRange('brightness','D1', s, e);
+    if(brD1Avg < SPECS.brightness.D1[0]){
+      cards.push({
+        severity:'warning', icon:'sun-dim',
+        title:'D1 Brightness Below Target',
+        body:`Average D1 brightness of ${brD1Avg.toFixed(2)}% ISO is below the ${SPECS.brightness.D1[0]}% ISO floor. Recommend increasing ClO₂ charge at D1 by 0.1–0.2% on pulp or extending retention time; verify D0 Kappa is not trending high and forcing an under-bleached carryover.`
+      });
+    }
+
+    // Rules above only narrate a handful of the 20 monitored param/stage combinations.
+    // Sweep every remaining combination so every stage contributing to the Critical/Warning
+    // counts below is actually represented by a card — otherwise the counts and the cards
+    // shown can disagree (e.g. more Critical readings than Critical cards).
+    const GENERIC_ICON = { kappa:'flask-conical', viscosity:'droplets', brightness:'sun-dim', ph:'thermometer' };
+    const GENERIC_ADVICE = {
+      kappa:'Review washing efficiency and wash-water ratio at this stage, and check the upstream stage for a cooking/carryover issue.',
+      viscosity:'Investigate chemical dosage, temperature, or retention time at this stage to limit cellulose degradation.',
+      brightness:'Review bleaching chemical charge and retention time at this stage to close the brightness gap.',
+      ph:'Review the caustic/acid dosing control loop for this stage to stabilize pH.'
+    };
+    const days = e-s+1;
+    Object.keys(SPECS).forEach(param=>{
+      Object.keys(SPECS[param]).forEach(stage=>{
+        const key = `${param}.${stage}`;
+        if(covered.has(key)) return; // already handled by a named engineering rule above
+        const spec = SPECS[param][stage];
+        const arr = metrics[param][stage].slice(s,e+1);
+        const critN = arr.filter(v=> specStatus(v,spec).status==='critical').length;
+        const warnN = arr.filter(v=> specStatus(v,spec).status==='warning').length;
+        if(critN===0 && warnN < Math.max(2, Math.round(days*0.08))) return; // not enough signal
+        const avg = arr.reduce((a,b)=>a+b,0)/arr.length;
+        const dp = DECIMALS[param];
+        cards.push({
+          severity: critN>0 ? 'critical' : 'warning', icon: GENERIC_ICON[param],
+          title:`${STAGE_LABELS[stage]} ${PARAM_LABELS[param]} — Out of Spec`,
+          body:`${critN} critical and ${warnN} warning reading(s) in the selected window (avg ${avg.toFixed(dp)} vs. spec ${spec[0]}–${spec[1]}). ${GENERIC_ADVICE[param]}`
+        });
+      });
+    });
+
+    // Critical findings first, then warnings, so the most urgent cards surface at the top.
+    cards.sort((a,b)=> (a.severity==='critical'?0:1) - (b.severity==='critical'?0:1));
+
+    if(cards.length===0){
+      cards.push({
+        severity:'ok', icon:'check-circle-2',
+        title:'All Monitored Parameters Nominal',
+        body:`No significant upset conditions were detected across Kappa, Viscosity, Brightness, or pH for the selected window. Process is tracking within expected operating variance.`
+      });
+    }
+
+    const totalPoints = Object.values(metrics).reduce((sum,stages)=>sum+Object.values(stages).reduce((s2,arr)=>s2+arr.slice(s,e+1).length,0),0);
+    const oosInRange = ANOMALIES.filter(a=>a.dayIdx>=s && a.dayIdx<=e);
+    const critCount = oosInRange.filter(a=>a.severity==='Critical').length;
+    const warnCount = oosInRange.filter(a=>a.severity==='Warning').length;
+    const oosRate = (oosInRange.length/totalPoints*100);
+    const critCards = cards.filter(c=>c.severity==='critical').length;
+    const warnCards = cards.filter(c=>c.severity==='warning').length;
+
+    document.getElementById('aiSummary').innerHTML = `
+      ${summaryTile('calendar-days', (e-s+1)+' days', 'Window Analyzed')}
+      ${summaryTile('triangle-alert', `${critCount} <span class="text-xs text-slate-500">(${critCards} stages)</span>`, 'Critical Readings', 'text-red-400')}
+      ${summaryTile('circle-alert', `${warnCount} <span class="text-xs text-slate-500">(${warnCards} stages)</span>`, 'Warning Readings', 'text-amber-400')}
+      ${summaryTile('percent', oosRate.toFixed(1)+'%', 'OOS Rate', oosRate>10?'text-red-400':oosRate>4?'text-amber-400':'text-emerald-400')}
+    `;
+
+    document.getElementById('aiCards').innerHTML = cards.map(c=>{
+      const styles = c.severity==='critical' ? {border:'border-red-500/40', bg:'bg-red-500/5', badge:'bg-red-500/15 text-red-400 border-red-500/30', ic:'text-red-400'}
+        : c.severity==='warning' ? {border:'border-amber-500/40', bg:'bg-amber-500/5', badge:'bg-amber-500/15 text-amber-400 border-amber-500/30', ic:'text-amber-400'}
+        : {border:'border-emerald-500/40', bg:'bg-emerald-500/5', badge:'bg-emerald-500/15 text-emerald-400 border-emerald-500/30', ic:'text-emerald-400'};
+      return `<div class="card rounded-xl p-4 border-l-4 ${styles.border} ${styles.bg}">
+        <div class="flex items-start gap-3">
+          <div class="w-9 h-9 rounded-lg ${styles.bg} border ${styles.border} flex items-center justify-center shrink-0">
+            <i data-lucide="${c.icon}" class="w-4.5 h-4.5 ${styles.ic}"></i>
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center justify-between gap-2">
+              <h4 class="text-sm font-semibold text-slate-100">${c.title}</h4>
+              <span class="text-[10px] px-2 py-0.5 rounded-full border font-semibold ${styles.badge} whitespace-nowrap">${c.severity.toUpperCase()}</span>
+            </div>
+            <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">${c.body}</p>
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+
+    document.getElementById('aiLoading').classList.add('hidden');
+    document.getElementById('aiResults').classList.remove('hidden');
+    if(window.lucide) lucide.createIcons();
+  }, 1100);
+}
+function summaryTile(icon, value, label, colorClass=''){
+  return `<div class="card rounded-xl p-4 text-center">
+    <i data-lucide="${icon}" class="w-4 h-4 mx-auto mb-1.5 text-slate-500"></i>
+    <p class="text-xl font-bold ${colorClass||'text-slate-100'}">${value}</p>
+    <p class="text-[11px] text-slate-500">${label}</p>
+  </div>`;
+}
+
+/* =====================================================================
+   11. STATUS PILL + CLOCK
+   ===================================================================== */
+function renderStatusPill(){
+  const lastIdx = NUM_DAYS-1;
+  let worst = 'ok';
+  Object.keys(SPECS).forEach(param=>{
+    Object.keys(SPECS[param]).forEach(stage=>{
+      const r = specStatus(metrics[param][stage][lastIdx], SPECS[param][stage]);
+      if(r.status==='critical') worst='critical';
+      else if(r.status==='warning' && worst!=='critical') worst='warning';
+    });
+  });
+  const pill = document.getElementById('plantStatusPill');
+  if(worst==='ok'){ pill.textContent='● NORMAL'; pill.className='px-3 py-1.5 rounded-full text-xs font-semibold border bg-emerald-500/10 text-emerald-400 border-emerald-500/30'; }
+  else if(worst==='warning'){ pill.textContent='● CAUTION'; pill.className='px-3 py-1.5 rounded-full text-xs font-semibold border bg-amber-500/10 text-amber-400 border-amber-500/30'; }
+  else { pill.textContent='● ALERT'; pill.className='px-3 py-1.5 rounded-full text-xs font-semibold border bg-red-500/10 text-red-400 border-red-500/30'; }
+}
+function tickClock(){
+  document.getElementById('clockNow').textContent = new Date().toLocaleString('en-GB',{ day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit'});
+}
+
+/* =====================================================================
+   12. RENDER ORCHESTRATION + EVENTS
+   ===================================================================== */
+function renderAll(){
+  renderKPIs(); renderPipeline(); renderSparklines();
+  renderQualityCharts(); renderAnomalyTable();
+  renderRadar(); renderAllBars();
+  renderEfficiencyPanels(); renderViscosityEffect(); renderAllEfficiencyTrends();
+}
+
+function setActiveTab(tabId){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.toggle('active', p.id === 'tab-'+tabId));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active', b.dataset.tab === tabId));
+}
+
+document.addEventListener('DOMContentLoaded', ()=>{
+  if(!CHARTJS_OK || !LUCIDE_OK){
+    const missing = [!CHARTJS_OK && 'Chart.js', !LUCIDE_OK && 'Lucide Icons'].filter(Boolean).join(' and ');
+    const w = document.getElementById('cdnWarning');
+    w.textContent = `⚠ ${missing} failed to load from the CDN (cdn.jsdelivr.net). Charts/icons are disabled — check internet access or firewall rules for this host, then reload.`;
+    w.classList.remove('hidden');
+  }
+  if(window.lucide) lucide.createIcons();
+  tickClock(); setInterval(tickClock, 30000);
+  renderStatusPill();
+
+  // Tab nav
+  document.querySelectorAll('.tab-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=> setActiveTab(btn.dataset.tab));
+  });
+
+  // Seed every date-range input with bounds + a sensible default window before the
+  // first render, since renderAll() now reads dates directly off these inputs.
+  initDateRangeInputs();
+
+  // Anomaly filters
+  document.getElementById('anomalySearch').addEventListener('input', renderAnomalyTable);
+  document.getElementById('anomalySeverityFilter').addEventListener('change', renderAnomalyTable);
+
+  // Radar stage dropdown
+  document.getElementById('radarStageSelect').addEventListener('change', (e)=>{
+    state.radarStage = e.target.value; renderRadar();
+  });
+
+  // Global date-range pickers drive the KPI cards, pipeline map, sparklines, the
+  // Quality Deep-Dive charts + anomaly table, and the radar chart's "current" values.
+  onRangeChange('globalFrom','globalTo', renderAll);
+
+  // Bar chart (waterfall) date-range pickers — each chart keeps its own independent range.
+  onRangeChange('barViscFrom','barViscTo', ()=> renderWaterfallBar('barViscosity','viscosity',['P1','P3','D0','EOP','D1'],'barVisc','decreasing','ml/g'));
+  onRangeChange('barKappaFrom','barKappaTo', ()=> renderWaterfallBar('barKappa','kappa',['P1','P3','EOP'],'barKappa','decreasing',''));
+  onRangeChange('barBrightFrom','barBrightTo', ()=> renderWaterfallBar('barBrightness','brightness',['D0','EOP','D1'],'barBright','increasing','% ISO'));
+
+  // Efficiency trend date-range pickers — also independent per chart.
+  onRangeChange('effKappaFrom','effKappaTo', ()=> renderEfficiencyTrend('trendKappaEff','kappa'));
+  onRangeChange('effBrightFrom','effBrightTo', ()=> renderEfficiencyTrend('trendBrightEff','brightness'));
+  onRangeChange('effViscFrom','effViscTo', ()=> renderEfficiencyTrend('trendViscEff','viscosity'));
+
+  // AI diagnostic
+  document.getElementById('runDiagnosticBtn').addEventListener('click', runDiagnostic);
+
+  renderAll();
+});
+</script>
+</body>
+</html>

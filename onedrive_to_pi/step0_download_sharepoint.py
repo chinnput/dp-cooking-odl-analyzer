@@ -5,9 +5,17 @@ Saves downloaded files directly into ONEDRIVE_PATH before Step 1 processing.
 
 import sys
 import os
+import re
 import time
 import glob
 from playwright.sync_api import sync_playwright
+
+# Force UTF-8 stdout so emoji/unicode logs don't crash on Windows cp874/charmap consoles.
+try:
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+except Exception:
+    pass
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 import config
@@ -15,7 +23,80 @@ import config
 SHAREPOINT_URL = "https://scgo365.sharepoint.com/:f:/s/QAPPPC/IgBrfoSASApZTplEVNS_z03OAUdx-NJOVzDLDCYtPfJjB4I"
 
 
-def download_latest_from_sharepoint(target_dir: str = None, headless: bool = False) -> bool:
+def _safe_save_download(download, dest_dir: str, retries: int = 5, delay: float = 1.5) -> str:
+    """
+    Saves a Playwright download robustly even if the target file is locked by
+    Excel/OneDrive. Uses a unique temp name, then retries os.replace().
+    Returns the final saved path (main file, or the unique temp file as fallback).
+    """
+    suggested = download.suggested_filename
+    final_path = os.path.join(dest_dir, suggested)
+    # Unique temp name avoids clashing with a locked leftover .tmp from a prior run.
+    unique_tmp = os.path.join(dest_dir, f"{suggested}.{os.getpid()}.{int(time.time())}.tmp")
+
+    download.save_as(unique_tmp)
+
+    for attempt in range(1, retries + 1):
+        try:
+            if os.path.exists(final_path):
+                try:
+                    os.remove(final_path)
+                except PermissionError:
+                    # Main file is locked (likely open in Excel / syncing). Wait and retry.
+                    print(f"[Step 0] Target file locked, retry {attempt}/{retries} in {delay}s... "
+                          f"(close '{suggested}' in Excel/OneDrive if open)")
+                    time.sleep(delay)
+                    continue
+            os.replace(unique_tmp, final_path)
+            return final_path
+        except PermissionError:
+            print(f"[Step 0] Replace failed (locked), retry {attempt}/{retries} in {delay}s...")
+            time.sleep(delay)
+
+    # All retries failed: keep the unique temp file so data isn't lost; Step 1 can still read .tmp.
+    print(f"[Step 0] Could not replace locked main file. Keeping fresh copy: '{os.path.basename(unique_tmp)}'")
+    return unique_tmp
+
+
+def _is_login_page(page) -> bool:
+    """Returns True if the current page looks like a Microsoft sign-in page."""
+    try:
+        url = (page.url or "").lower()
+        title = (page.title() or "").lower()
+    except Exception:
+        return False
+
+    login_url_markers = ("login.microsoftonline.com", "login.live.com", "/login", "signin", "adfs", "sts")
+    if any(m in url for m in login_url_markers):
+        return True
+    if "sign in" in title:
+        return True
+
+    # Presence of typical sign-in fields
+    try:
+        if page.query_selector("input[type='email'], input[name='loginfmt'], input[type='password']"):
+            return True
+    except Exception:
+        pass
+    return False
+
+
+def _wait_for_login(page, timeout_seconds: int = 300, poll_seconds: int = 3) -> bool:
+    """Polls until the page is no longer a login page (login completed) or timeout."""
+    deadline = time.time() + timeout_seconds
+    while time.time() < deadline:
+        if not _is_login_page(page):
+            # Give SharePoint a moment to finish loading the folder view
+            time.sleep(3)
+            if not _is_login_page(page):
+                return True
+        remaining = int(deadline - time.time())
+        print(f"[Step 0] Waiting for login to complete... ({remaining}s left)")
+        time.sleep(poll_seconds)
+    return False
+
+
+def download_latest_from_sharepoint(target_dir: str = None, headless: bool = False, login_wait_seconds: int = 300) -> bool:
     """
     Automates opening SCG SharePoint folder and downloading latest Excel logbook files.
     """
@@ -47,11 +128,24 @@ def download_latest_from_sharepoint(target_dir: str = None, headless: bool = Fal
             page.goto(SHAREPOINT_URL, wait_until="networkidle", timeout=45000)
             time.sleep(3)
 
-            # Check if redirected to login page
-            if "login" in page.url.lower() or "signin" in page.url.lower() or "Sign in" in page.title():
-                print(" SCG Microsoft Login required in browser window!")
-                print("   Please complete login in the opened browser window within 25 seconds...")
-                time.sleep(25)
+            # Wait until the user completes SSO/MFA login instead of a fixed short sleep.
+            if _is_login_page(page):
+                if headless:
+                    print("[Step 0] Login required but browser is headless. Re-run with headless=False to sign in.")
+                    browser_context.close()
+                    return False
+
+                print("=" * 60)
+                print("[Step 0] SCG Microsoft Login required in the opened browser window.")
+                print(f"[Step 0] Please complete sign-in (including MFA). Waiting up to {login_wait_seconds}s...")
+                print("=" * 60)
+
+                if not _wait_for_login(page, timeout_seconds=login_wait_seconds):
+                    print("[Step 0] Login not detected within the allotted time. Aborting.")
+                    browser_context.close()
+                    return False
+
+                print("[Step 0] Login detected. Continuing to folder view...")
 
             time.sleep(3)
 
@@ -78,14 +172,20 @@ def download_latest_from_sharepoint(target_dir: str = None, headless: bool = Fal
 
                 if excel_rows:
                     # Pick the latest logbook file row (highest month number / newest file)
-                    # Sort helper: look for month keywords or month numbers in row text
+                    # Score by the leading file-number prefix (e.g. "9." = September) to avoid
+                    # matching month words inside notes/comments in the row text.
                     def get_row_month_score(row_tuple):
-                        row_txt = row_tuple[1].lower()
+                        row_txt = row_tuple[1]
+                        m = re.search(r'(\d{1,2})\s*\.?\s*LINE', row_txt, re.IGNORECASE)
+                        if m:
+                            return int(m.group(1))
+                        # Fallback: match month keyword only in the filename part (before ".xlsx")
+                        fname_part = row_txt.split(".xlsx")[0].lower()
                         for m_str, m_num in [
                             ('dec', 12), ('nov', 11), ('oct', 10), ('sep', 9), ('aug', 8),
                             ('jul', 7), ('jun', 6), ('may', 5), ('apr', 4), ('mar', 3), ('feb', 2), ('jan', 1)
                         ]:
-                            if m_str in row_txt:
+                            if m_str in fname_part:
                                 return m_num
                         return 0
 
@@ -103,23 +203,7 @@ def download_latest_from_sharepoint(target_dir: str = None, headless: bool = Fal
                             with page.expect_download(timeout=35000) as download_info:
                                 context_dl.click()
                             download = download_info.value
-                            save_file_path = os.path.join(dest_dir, download.suggested_filename)
-                            temp_save_path = save_file_path + ".tmp"
-                            download.save_as(temp_save_path)
-                            
-                            # Safe atomic file replacement with fallback if locked by Windows
-                            if os.path.exists(save_file_path):
-                                try:
-                                    os.remove(save_file_path)
-                                except Exception:
-                                    pass
-                            try:
-                                os.replace(temp_save_path, save_file_path)
-                                final_path = save_file_path
-                            except Exception:
-                                # Fallback: keep temp file path if main file is locked
-                                final_path = temp_save_path
-
+                            final_path = _safe_save_download(download, dest_dir)
                             print(f"[Step 0] READ-ONLY DOWNLOAD SUCCESS: Saved '{os.path.basename(final_path)}' ({os.path.getsize(final_path)} bytes)")
                             download_triggered = True
                     except Exception as e_ctx:
@@ -140,17 +224,8 @@ def download_latest_from_sharepoint(target_dir: str = None, headless: bool = Fal
                             with page.expect_download(timeout=35000) as download_info:
                                 dl_btn.click()
                             download = download_info.value
-                            save_file_path = os.path.join(dest_dir, download.suggested_filename)
-                            temp_save_path = save_file_path + ".tmp"
-                            download.save_as(temp_save_path)
-                            
-                            if os.path.exists(save_file_path):
-                                try:
-                                    os.chmod(save_file_path, 0o777)
-                                except Exception:
-                                    pass
-                            os.replace(temp_save_path, save_file_path)
-                            print(f"[Step 0] READ-ONLY DOWNLOAD SUCCESS: Saved '{download.suggested_filename}' ({os.path.getsize(save_file_path)} bytes)")
+                            final_path = _safe_save_download(download, dest_dir)
+                            print(f"[Step 0] READ-ONLY DOWNLOAD SUCCESS: Saved '{os.path.basename(final_path)}' ({os.path.getsize(final_path)} bytes)")
                             download_triggered = True
 
                 if not download_triggered:
@@ -160,9 +235,8 @@ def download_latest_from_sharepoint(target_dir: str = None, headless: bool = Fal
                         with page.expect_download(timeout=35000) as download_info:
                             dl_top.click()
                         download = download_info.value
-                        save_file_path = os.path.join(dest_dir, download.suggested_filename)
-                        download.save_as(save_file_path)
-                        print(f"[Step 0] [SUCCESS] Saved '{download.suggested_filename}' ({os.path.getsize(save_file_path)} bytes)")
+                        final_path = _safe_save_download(download, dest_dir)
+                        print(f"[Step 0] [SUCCESS] Saved '{os.path.basename(final_path)}' ({os.path.getsize(final_path)} bytes)")
 
             except Exception as e_dl:
                 print(f"[Step 0] Note during automatic download trigger: {e_dl}")

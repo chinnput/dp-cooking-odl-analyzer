@@ -19,3 +19,10 @@ Thumbs.db
 
 # Lab_Analysis PI data cache (re-fetched automatically)
 DP Cooking ODL Analyzer/Lab_Analysis/data/
+
+# Local secrets
+.env
+
+# Temp and log files
+*.tmp
+*.log

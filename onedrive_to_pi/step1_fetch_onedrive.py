@@ -28,12 +28,24 @@ def infer_year_month_from_fname(fname: str):
     """Infers (year, month) from file name, e.g. 'march 2026' -> (2026, 3)."""
     fname_lower = fname.lower()
     m_num = None
+    m_pos = -1
     for m_str, num in MONTH_MAP.items():
-        if m_str in fname_lower:
+        idx = fname_lower.find(m_str)
+        if idx != -1:
             m_num = num
+            m_pos = idx
             break
-    y_match = re.search(r'202\d', fname)
-    y_num = int(y_match.group(0)) if y_match else 2026
+
+    # Prefer the year that appears right after the month name (e.g. "JAN 2026"),
+    # so files like "...2025 in JAN 2026.xlsx" resolve to 2026, not 2025.
+    y_num = None
+    if m_pos != -1:
+        after = re.search(r'202\d', fname[m_pos:])
+        if after:
+            y_num = int(after.group(0))
+    if y_num is None:
+        all_years = re.findall(r'202\d', fname)
+        y_num = int(all_years[-1]) if all_years else 2026
     return y_num, m_num
 
 
@@ -282,20 +294,28 @@ def fetch_onedrive_data(target_path: str = None, sheet_names: list = None, proce
 
     # Gather list of Excel files (include .xlsx, .xls, and .tmp files downloaded from SharePoint)
     if os.path.isdir(path_to_use):
-        all_raw_files = sorted(
+        all_raw_files = (
             glob.glob(os.path.join(path_to_use, "*.xlsx")) +
             glob.glob(os.path.join(path_to_use, "*.xls")) +
-            glob.glob(os.path.join(path_to_use, "*.tmp")),
-            key=os.path.getmtime
+            glob.glob(os.path.join(path_to_use, "*.tmp"))
         )
-        
-        # Prefer fresh .tmp files if a main .xlsx file has a corresponding fresh .tmp file
-        excel_files_map = {}
+        # Ignore quarantine/backup copies so stale duplicates never get picked.
+        all_raw_files = [f for f in all_raw_files if "_quarantine_" not in f.replace("\\", "/")]
+
+        # Deduplicate by (year, month) inferred from the filename so that naming
+        # variants like "9." vs "09." map to the same logical month. Within a
+        # month, keep the file with the newest modification time.
+        best_by_month = {}
         for f in all_raw_files:
-            clean_name = os.path.basename(f).replace(".tmp", "")
-            excel_files_map[clean_name] = f
-            
-        excel_files = sorted(list(excel_files_map.values()))
+            base = os.path.basename(f)
+            y, m = infer_year_month_from_fname(base)
+            key = (y, m if m else 0)
+            prev = best_by_month.get(key)
+            if not prev or os.path.getmtime(f) >= os.path.getmtime(prev):
+                best_by_month[key] = f
+
+        # Sort by (year, month) so the newest calendar month is always last.
+        excel_files = [best_by_month[k] for k in sorted(best_by_month.keys())]
     else:
         excel_files = [path_to_use]
 

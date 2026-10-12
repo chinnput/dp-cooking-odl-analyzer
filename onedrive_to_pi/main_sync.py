@@ -30,7 +30,8 @@ def run_pipeline(mode: str = "hourly", dry_run: bool = True, auto_download_share
     # Step 0: Auto-Download latest logbook from SharePoint Online if enabled
     if auto_download_sharepoint:
         print("\n--- [Step 0] Auto-Fetching Latest Logbook from SCG SharePoint Online ---")
-        download_latest_from_sharepoint(headless=True)
+        # headless=False so SSO/MFA login is visible; persistent profile reuses the session next time.
+        download_latest_from_sharepoint(headless=False, login_wait_seconds=300)
 
     # Step 1: Fetch data from Excel Log Book files
     print("\n--- [Step 1] Reading and Extracting Excel Log Book Data ---")
