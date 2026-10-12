@@ -23,21 +23,22 @@ def h_factor(temp):
 def h_factor_per_batch(df, phases, phase_names=("HEAT&COOK",)):
     """
     H-factor for every batch, using the temperature during the given phases.
-    Returns: digester, batch_id, h_factor, max_temp
+    Returns: digester, batch_id, h_factor, max_circulation_temp
     """
     cook = phases[phases["phase"].isin(phase_names) & (phases["batch_id"] > 0)]
 
     rows = []
     for _, p in cook.iterrows():
-        temp = df.loc[p["start"]:p["end"], f"D{p['digester']}_temp"]
+        temp = df.loc[p["start"]:p["end"], f"D{p['digester']}_circulation_temp"]
         rows.append({
             "digester": p["digester"],
             "batch_id": p["batch_id"],
             "h_factor": h_factor(temp),
-            "max_temp": temp.max(),
+            "max_circulation_temp": temp.max(),
         })
 
     result = pd.DataFrame(rows)
     # A batch can have more than one HEAT&COOK run (e.g. a short interruption) -> add them up
     return result.groupby(["digester", "batch_id"]).agg(
-        h_factor=("h_factor", "sum"), max_temp=("max_temp", "max")).reset_index()
+        h_factor=("h_factor", "sum"),
+        max_circulation_temp=("max_circulation_temp", "max")).reset_index()

@@ -71,8 +71,12 @@ def save_data(df, name):
 
 
 def load_data(name):
-    path = os.path.join(config.DATA_DIR, f"{name}.csv.gz")
-    return pd.read_csv(path, index_col="timestamp", parse_dates=True)
+    """Read data/name.csv.gz, or data/name.csv if the file was extracted."""
+    for ext in (".csv.gz", ".csv"):
+        path = os.path.join(config.DATA_DIR, name + ext)
+        if os.path.exists(path):
+            return pd.read_csv(path, index_col="timestamp", parse_dates=True)
+    raise FileNotFoundError(f"No {name}.csv.gz or {name}.csv in {config.DATA_DIR}")
 
 
 if __name__ == "__main__":
@@ -80,7 +84,7 @@ if __name__ == "__main__":
     print(f"Tags: {len(tags)} | {config.START_TIME} -> {config.END_TIME} | interval {config.INTERVAL}")
 
     df = pull_tags(tags, config.START_TIME, config.END_TIME, config.INTERVAL, config.CHUNK_DAYS)
-    df = df.rename(columns=config.tag_to_name())   # PI tag -> friendly name (D1_temp, ...)
+    df = df.rename(columns=config.tag_to_name())   # PI tag -> column name (D1_circulation_temp, ...)
 
     name = f"digester_{config.START_TIME[:10]}_{config.END_TIME[:10]}"
     save_data(df, name)

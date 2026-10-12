@@ -27,5 +27,5 @@ Batch-level analysis of digesters D1–D4: phases, H-factor, and how much each v
 
 - Use a 1-minute interval. The temperature ramps quickly, and a coarser interval misses part of the H-factor.
 - MI Cube timestamps are labelled `+00:00`, but they are local plant time. `pull_data.py` removes the label without converting.
-- `batch_id` starts a new batch at every CHIP FILLING. `batch_no` is the DCS batch number, kept for reference.
+- `batch_id` starts a new batch at every CHIP FILLING. `batch_number` is the DCS batch number, kept for reference.
 - The H-factor uses the `HEAT&COOK` phase by default (`H_FACTOR_PHASES` in config).
