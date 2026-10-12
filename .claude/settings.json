@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(PYTHONIOENCODING=utf-8 \"d:/chinnput/DP Cooking ODL Analyzer/.venv/Scripts/python.exe\" make_tag_csv.py)"
+      "Bash(PYTHONIOENCODING=utf-8 \"d:/chinnput/DP Cooking ODL Analyzer/.venv/Scripts/python.exe\" make_tag_csv.py)",
+      "Bash(git commit *)"
     ]
   }
 }
