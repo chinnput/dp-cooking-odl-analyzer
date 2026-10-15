@@ -17,10 +17,15 @@ The project analyzes and reduces process variation in **DP Cooking (Digesters D1
 
 ## Current State
 
-*As of 2026-10-12.*
+*As of 2026-10-15.*
 
-- **Branch:** `feat/press1-digester-exact-match` (last commit `601dbdd`, 2026-10-12 08:06). Not merged to `main` and not pushed.
-- **Main notebook:** `Lab_Analysis/realtime_pi_press1_analysis.ipynb`
+- **Branch:** `feat/press1-digester-exact-match`, pushed to GitHub (last pushed commit `4d9c5f9`). Not merged to `main`.
+- **Digester batch analysis (new main work):** `Digester_Analysis/` — see its `README.md` (Thai, detailed)
+  - `pull_data.py` pulls 99 digester/lab/status tags at 5 min; `01_build_master.ipynb` builds `data/batch_master.csv` (1 row = 1 batch) and `data/lab_linked.csv`; `02_analysis.ipynb` reads only those CSV files.
+  - H-factor = HOT LIQUOR FILLING + HEAT&COOK + DISPLACEMENT (`config.H_FACTOR_PHASES`); per-phase H kept for comparison.
+  - Lab = real log-book samples only, linked to the batch through the (AF-lagged) Press 1 status.
+  - Batches are flagged (`quality_flag`), not removed.
+- **Press 1 overview notebook:** `Lab_Analysis/realtime_pi_press1_analysis.ipynb` (still uses PI-interpolated lab values and same-time sensor pairing — use for overview only)
   - Range 2026-08-01 → 2026-10-01, `INTERVAL = "15m"`, interpolated values from the MI Cube API.
   - **Digester assignment:** a row belongs to Dk only if `Bk == k` exactly and no other digester matches. Otherwise the row is NaN.
   - **Summary tables** (Mean, Median, SD, ±2σ, SOP, % in SOP) follow each Kappa, Viscosity and Brightness histogram.
@@ -34,6 +39,11 @@ The project analyzes and reduces process variation in **DP Cooking (Digesters D1
   - Notebook N counts interpolated points, not real lab samples. Kappa and Viscosity are sampled every 4 h and Brightness every 2 h.
   - Samples taken during downtime (production ≈ 0) are not yet excluded.
   - The MI Cube token is still in git history (`a7b9d17`, `eddf86a`) and should be rotated. Hard-coded tokens remain in `onedrive_to_pi/config.py`, the `test_*` scripts and the gateway default.
+  - D4 temperature tag (`PM2.404TI423` vs `TI418`) behaves differently from D1–D3 — D4 H-factor is provisional until confirmed.
+  - H-factor ignores the chip weight (temperature × time only). Chips per batch vary (SD 5–7 t) while the white liquor volume is almost fixed (median 12.86 m³ in every digester), so fewer chips = more alkali per ton at the same H. Added `white_liquor_m3` and `white_liquor_per_ton_chip`; per ton vs Kappa is negative in all 4 digesters (Spearman −0.12 to −0.19, weak). Next: ask whether WL is dosed by fixed volume or by chip weight; confirm `PM2.104FIC532`; get a usable chip moisture (`MI801` stuck at 35) for dry weight; EA vs AA → alkali charge % on wood; then look at Kappa vs H-factor + alkali charge together on Jun–Oct data.
+  - D4 is a newer digester; its volume may differ from D1–D3 (to confirm). Chips per batch: D4 ≈ 72 t vs D1–D3 87–95 t; steam to heater D4 ≈ 20 vs 1–3. Size-dependent values (weight, flows, L:W) should not be compared across D4 and D1–D3 directly.
+  - PI AF "4. LC Chest Outlet Flow" = `PM2.105FIC544` (PI descriptor: Press 3 Pulp Feed) + `PM2.105FIC238` (Press 1 Pulp Feed), with a 125 m³ chest (= LC Chest 2 size) — to confirm with the AF author.
+  - Alkali tags `PM2.404AIC670/667` (g/l): EA or AA, and fresh WL or accumulator mix? To confirm.
 
 ---
 
@@ -195,3 +205,36 @@ The project analyzes and reduces process variation in **DP Cooking (Digesters D1
 - Committed the notebook tables, `.env` handling, `onedrive_to_pi` fixes, gateway with 2 workers, the lag-time docs and `skillsAI/`
 - `.gitignore` now covers `.env`, `*.tmp`, `*.log` and `Lab_Analysis/data/`
 - Excluded a lab log sheet `.xlsx.tmp` and `debug.log` from git
+
+### 2026-10-12 → 2026-10-14 — Digester tags found, `Digester_Analysis` structure (commits `f05336a`, `4d9c5f9`)
+- Found the batch digester tags (area `PM2.104` for D1–D3, `PM2.404` for D4) via the PI AF element and a PI point search; listed in `batch_digester_tags.csv` and `batch_digester_tags_per_digester.csv`
+- "DP" here is prehydrolysis kraft (Dissolving Pulp): each digester has P-factor tags and a PREHYDRAU phase
+- No H-factor tag exists for Line 2 (only Line 1 `PM1.204H_FACTOR_CTRL`), so H-factor is calculated from the circulation temperature
+- Built `Digester_Analysis/` (config by category, `pull_data.py`, batch/phase split from `MAINSEQ`, H-factor, real lab samples from the log book linked to batches)
+
+**Results:**
+- LC chest lag (AF formula, Aug–Sep): median 26 min retention + 5 min = ~31 min; flow ≤ 0 (lag forced to 5 min) 2.8% of the time.
+  - *Found by:* recomputing the AF formula from `FIC544` + `FIC238`.
+
+### 2026-10-15 — H-factor window check, clean `Digester_Analysis`, batch features
+- Checked where the cooking happens: temperature profiles with phase bands and H-factor per phase
+- H-factor window changed from HEAT&COOK only to HOT LIQUOR FILLING + HEAT&COOK + DISPLACEMENT; H is now calculated once over the timeline (the first version lost the first step of every phase, ~14% of HEAT&COOK)
+- Clean structure: `build_master.py` (one function), `01_build_master.ipynb` (build + checks), `02_analysis.ipynb` (reads CSV, follows `workflow.md`), old notebook moved to `archive/`
+- Batch features defined in `config.BATCH_FEATURES` (sensor, phase, statistic); added L:W ratio (approx.), P-factor gap, `quality_flag`
+- Detailed Thai README written for `Digester_Analysis/`
+- `Digester_Analysis` made standalone: own log book reader `logbook.py` (read only, folder in `config.LOG_BOOK_DIR`); no code imported from `onedrive_to_pi` any more
+  - The new reader matches the old one 100% on shared sample times and recovers 2 days the old one skipped (2026-01-23, 2026-04-21: sheets narrower than column AD were dropped by `onedrive_to_pi` step 1)
+  - *Found by:* comparing both readers' output sample by sample
+
+**Results (Aug–Sep 2026):**
+- Cooking already happens in HOT LIQUOR FILLING (liquor 130–165 °C) and DISPLACEMENT (~157 °C): HEAT&COOK is only 31% (D1), 50% (D2), 57% (D3) of the H-factor.
+  - *Found by:* H-factor split per phase and temperature plots in `01_build_master.ipynb`.
+- Circulation temperature is not valid in PREHYDRAU (pressure 7–9 bar but temperature ~85 °C, no circulation).
+  - *Found by:* the same temperature plots.
+- D4 `TI423` gives a large H during PREHYDRAU (median 577) unlike D1–D3 → D4 tag to verify.
+- 949 batches; 904 `ok`, 27 `long_batch`, 11 `missing_phase`, 8 `unknown_phase` (one batch has two flags); 297 batches have a Kappa value (lab samples every 4 h).
+- H-factor (new and HEAT&COOK-only) shows **no relationship** with Press 1 Kappa within each digester (Spearman ≈ 0).
+  - *Found by:* scatter, 5 H-factor groups and good-vs-bad comparison per digester.
+- P-factor reached is positively related to Kappa in D1–D3 (D2 Spearman +0.34, p < 0.01) — the strongest repeated signal so far; plausible for prehydrolysis kraft but not yet confirmed (time trend not yet removed).
+- Accumulator alkali concentration is positively related to Kappa (D1 +0.31, D2 +0.30) — unexpected; tag meaning to confirm.
+  - *Found by:* Spearman correlation of batch features vs Kappa per digester (`02_analysis.ipynb`).

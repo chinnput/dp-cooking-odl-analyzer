@@ -86,5 +86,4 @@ if __name__ == "__main__":
     df = pull_tags(tags, config.START_TIME, config.END_TIME, config.INTERVAL, config.CHUNK_DAYS)
     df = df.rename(columns=config.tag_to_name())   # PI tag -> column name (D1_circulation_temp, ...)
 
-    name = f"digester_{config.START_TIME[:10]}_{config.END_TIME[:10]}"
-    save_data(df, name)
+    save_data(df, config.data_name())

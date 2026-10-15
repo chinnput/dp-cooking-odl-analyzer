@@ -121,12 +121,42 @@ EXTRA_CHEMICAL_SHARED = {
 }
 
 # ===== 9. LAB QUALITY AT PRESS 1 (Y) =====
-# Written to PI by onedrive_to_pi. PI interpolates between samples (Step = 0):
-# in the analysis keep only the real sample times from the log book.
+# NOT pulled from PI - the lab values come from the log book Excel files (logbook.py).
+# Reason: PI interpolates between samples (Step = 0), so the real sample times are lost.
+# The PI tag names are kept here for reference only.
 LAB_TAGS = {
     "press1_kappa": "PULP-LINE2-KAPPA-PRESS1",
     "press1_viscosity": "PULP-LINE2-VISCOSITY-PRESS1",
     "press1_brightness": "PULP-LINE2-BRIGHTNESS-PRESS1",
+}
+
+# ---- Log book Excel files (read only) - the source of the REAL lab sample times (logbook.py)
+# Folder with the monthly files, e.g. "10. LINE NO.2_Log Sheet_ in Oct 2026.xlsx" (one sheet per day "1".."31").
+# Default = the copy that onedrive_to_pi downloads; point it anywhere else if you keep your own copy.
+LOG_BOOK_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "onedrive_to_pi",
+                            "OneDrive_2026-08-26", "Log book Pulp Line 2 - 2026")
+LOG_BOOK_FIRST_ROW = 7      # Excel row where the hourly data starts
+LOG_BOOK_LAST_ROW = 30      # last Excel row to read
+LOG_BOOK_TIME_COLUMN = 1    # column B (0 = A)
+LOG_BOOK_LAB_COLUMNS = {    # name used here -> column (0 = A)
+    "press1_kappa": 5,       # column F
+    "press1_viscosity": 8,   # column I
+    "press1_brightness": 15, # column P
+}
+LOG_BOOK_DAY_STARTS_HOUR = 8   # a sheet runs 08:00 -> 07:00 next day: times before 08:00 belong to the next date
+
+# ---- Lab tables (lab.py): sensor values at real lab sample times
+LAB_INTERVAL = "1h"   # times to check: 10:00, 11:00, ... A time is skipped when the lab has no value.
+                      # The pulled data (INTERVAL) must contain these times, e.g. 5m data has every hour.
+LAB_VALID_RANGE = {   # values outside these ranges are typos/spikes -> treated as blank
+    "press1_kappa": (5, 20),
+    "press1_viscosity": (400, 2000),
+    "press1_brightness": (25, 50),
+}
+LAB_SOP_LIMITS = {    # (low, high) - same as Lab_Analysis notebook, NOT yet confirmed by the process team
+    "press1_kappa": (7.5, 8.5),
+    "press1_viscosity": (680, 710),
+    "press1_brightness": (37, 40),
 }
 
 # ---- All categories (name -> group). Used by tag_to_name() and columns_in().
@@ -143,18 +173,77 @@ SHARED_CATEGORIES = {
     "air_evacuation_shared": AIR_EVACUATION_SHARED,
     "headers": HEADERS_SHARED,
     "extra_chemical": EXTRA_CHEMICAL_SHARED,
-    "lab": LAB_TAGS,
+    # LAB_TAGS is left out on purpose: lab values come from the log book, not PI
 }
 
 # Tags that hold text states, not numbers (kept as text when pulled)
 TEXT_NAMES = ["main_sequence", "evacuation_valve"]
 
-# ---- Phase names seen in the MAINSEQ tags (for reference)
-PHASES = ["CHIP FILLING", "PREHYDRAU", "HOT LIQUOR FILLING", "HEAT&COOK",
-          "DISPLACEMENT", "DISCHARGE", "WAIT"]
+# =====================================================================
+# BATCH SETTINGS (used by build_master.py)
+# =====================================================================
 
-# Phases used for the H-factor (kraft cook)
-H_FACTOR_PHASES = ["HEAT&COOK"]
+# Phase text in the DCS main sequence -> short name used in column names (cooking order).
+# Any other text (e.g. "8", "0" = PI system states) is treated as an unknown phase.
+PHASE_NAMES = {
+    "CHIP FILLING": "chip_filling",
+    "PREHYDRAU": "prehydrolysis",
+    "HOT LIQUOR FILLING": "hot_liquor_filling",
+    "HEAT&COOK": "heat_and_cook",
+    "DISPLACEMENT": "displacement",
+    "DISCHARGE": "discharge",
+    "WAIT": "wait",
+}
+PHASES = list(PHASE_NAMES)
+
+# H-factor = cooking in these phases.
+# Checked on Aug-Sep 2026 data: the liquor is already 130-165 C during HOT LIQUOR FILLING and
+# still ~157 C during most of DISPLACEMENT, so HEAT&COOK alone misses 40-70% of the cook.
+# The H-factor of every single phase is also kept (h_<phase> columns) for comparison.
+H_FACTOR_PHASES = ["HOT LIQUOR FILLING", "HEAT&COOK", "DISPLACEMENT"]
+
+# Per-batch features: (sensor name in this config, phase(s) to look at, statistic)
+# statistic: "max", "min", "mean" or "last" (last valid value in the phase)
+# Column name = <sensor>_<statistic>_<phase short name>, e.g. chip_weight_max_chip_filling
+# Shared tags (no digester number) are read only while THIS digester is in the phase.
+BATCH_FEATURES = [
+    # Step 1 - chips in
+    ("chip_weight",               ["CHIP FILLING"],       "max"),   # chips loaded (wet, ton)
+    ("ventilation_temp",          ["CHIP FILLING"],       "max"),
+    # Step 2 - prehydrolysis
+    ("pfactor_actual",            ["PREHYDRAU"],          "last"),  # P-factor reached
+    ("pfactor_setpoint",          ["PREHYDRAU"],          "last"),
+    ("digester_pressure",         ["PREHYDRAU"],          "max"),
+    # Liquor in
+    ("chip_weight",               ["HOT LIQUOR FILLING"], "max"),   # chips + liquor (for L:W ratio)
+    ("circulation_temp",          ["HOT LIQUOR FILLING"], "max"),
+    ("white_liquor_dosing_flow",  ["HOT LIQUOR FILLING"], "mean"),  # shared tag
+    ("alkali_accumulator1_conc",  ["HOT LIQUOR FILLING"], "mean"),  # shared tag
+    ("alkali_accumulator2_conc",  ["HOT LIQUOR FILLING"], "mean"),  # shared tag
+    # Step 3 - heat and cook
+    ("circulation_temp",          ["HEAT&COOK"],          "max"),
+    ("circulation_temp",          ["HEAT&COOK"],          "mean"),
+    ("bottom_circulation_temp",   ["HEAT&COOK"],          "mean"),
+    ("digester_pressure",         ["HEAT&COOK"],          "mean"),
+    ("steam_to_heater_flow",      ["HEAT&COOK"],          "mean"),
+    ("screen_diff_pressure",      ["HEAT&COOK"],          "mean"),  # no D4 tag
+    ("circulation_pump_current",  ["HEAT&COOK"],          "mean"),
+    # Step 4 - displacement
+    ("displacement_liquor_temp",  ["DISPLACEMENT"],       "mean"),
+    ("black_liquor_conductivity", ["DISPLACEMENT"],       "mean"),  # shared tag
+]
+
+# Quality flag: a batch longer than this (hours) probably includes a stop
+LONG_BATCH_HOURS = 12
+
+# Output files written by 01_build_master.ipynb into DATA_DIR
+BATCH_MASTER_FILE = "batch_master.csv"   # 1 row = 1 batch
+LAB_LINKED_FILE = "lab_linked.csv"       # 1 row = 1 real lab sample, with its digester and batch
+
+
+def data_name():
+    """Name of the pulled data file for the current START_TIME / END_TIME."""
+    return f"digester_{START_TIME[:10]}_{END_TIME[:10]}"
 
 
 def tag_to_name():
