@@ -2,7 +2,13 @@
   "permissions": {
     "allow": [
       "Bash(PYTHONIOENCODING=utf-8 \"d:/chinnput/DP Cooking ODL Analyzer/.venv/Scripts/python.exe\" make_tag_csv.py)",
-      "Bash(git commit *)"
+      "Bash(git commit *)",
+      "Bash(PYTHONIOENCODING=utf-8 .venv/Scripts/python.exe -c ' *)",
+      "Bash(PYTHONIOENCODING=utf-8 'd:/chinnput/DP Cooking ODL Analyzer/.venv/Scripts/python.exe' -c ' *)",
+      "Bash(PYTHONIOENCODING=utf-8 \"d:/chinnput/DP Cooking ODL Analyzer/.venv/Scripts/python.exe\" check_hfactor_window.py)",
+      "Bash(\"d:/chinnput/DP Cooking ODL Analyzer/.venv/Scripts/python.exe\" -c \"import nbformat, nbconvert; print\\('nbconvert ok'\\)\")",
+      "Bash(\"d:/chinnput/DP Cooking ODL Analyzer/.venv/Scripts/python.exe\" -m jupyter --version)",
+      "Bash(PYTHONIOENCODING=utf-8 \"d:/chinnput/DP Cooking ODL Analyzer/.venv/Scripts/python.exe\" make_notebooks.py)"
     ]
   }
 }
