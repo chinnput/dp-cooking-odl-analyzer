@@ -109,6 +109,59 @@ def batch_features(df, phases, features):
     return pd.DataFrame(rows)
 
 
+def phase_summary(df, phases, stats=None):
+    """
+    One row per phase run (not per batch): keeps start/end/minutes and adds
+    <sensor>_mean / _min / _max for every numeric sensor of THIS digester, plus every shared sensor.
+    Sensors of other digesters are left out. Column name = <sensor>_<stat>, e.g. circulation_temp_mean.
+    Returns a long table sorted by digester, batch_id, start - open in Excel and pivot there.
+    """
+    stats = stats or config.PHASE_SUMMARY_STATS
+    skip = set(config.text_columns())
+    for dig in (1, 2, 3, 4):                                  # drop ids/timers for every digester
+        skip.update(f"D{dig}_{name}" for name in config.PHASE_SUMMARY_SKIP)
+    numeric = [c for c in df.columns if c not in skip]
+
+    rows = []
+    for p in phases.itertuples():
+        dig_prefix = f"D{p.digester}_"
+        # sensors to summarise: this digester's own tags + shared tags (no D<k>_ prefix)
+        sensors = [c for c in numeric
+                   if c.startswith(dig_prefix) or not c.startswith(("D1_", "D2_", "D3_", "D4_"))]
+        window = df.loc[p.start:p.end, sensors]
+        row = {
+            "digester": p.digester,
+            "batch_id": p.batch_id,
+            "batch_number": p.batch_number,
+            "phase": p.phase,
+            "start": p.start,
+            "end": p.end,
+            "minutes": p.duration_minutes,
+        }
+        for col in sensors:
+            short = col[len(dig_prefix):] if col.startswith(dig_prefix) else col
+            for stat in stats:
+                row[f"{short}_{stat}"] = summarise(window[col], stat)
+        rows.append(row)
+
+    summary = pd.DataFrame(rows)
+    return summary.sort_values(["digester", "batch_id", "start"]).reset_index(drop=True)
+
+
+def phase_summary_with_lab(phases_summary, lab_batch):
+    """
+    phase_summary plus the batch's Press 1 lab values and low/good/high grades.
+    lab_batch = add_lab_grades(lab.lab_per_batch(...)) output (1 row = 1 batch). Merged on
+    (digester, batch_id), so every phase run of a batch gets the same lab value / grade;
+    a batch with no sample stays blank.
+    """
+    grades = [config.QUALITY_GRADE_NAMES.get(c, c) + "_grade" for c in config.QUALITY_TARGETS]
+    wanted = config.PHASE_SUMMARY_LAB_FIELDS + grades
+    fields = [c for c in wanted if c in lab_batch.columns]
+    lab = lab_batch[["digester", "batch_id"] + fields]
+    return phases_summary.merge(lab, on=["digester", "batch_id"], how="left")
+
+
 def add_quality_flags(master):
     """
     Column quality_flag: "ok", or one or more of (joined with ";"):
@@ -133,3 +186,32 @@ def add_quality_flags(master):
     master = master.copy()
     master["quality_flag"] = flags
     return master
+
+
+def add_lab_grades(df):
+    """
+    Add a <name>_grade column (low / normal / high) for each lab target in
+    config.QUALITY_TARGETS. "normal" = inside the band, "low"/"high" = outside it,
+    blank where there is no lab sample. Deviation is left out on purpose - compute
+    it from the raw value when needed.
+    """
+    df = df.copy()
+    for col, (low, high) in config.QUALITY_TARGETS.items():
+        if col not in df.columns:
+            continue
+        name = config.QUALITY_GRADE_NAMES.get(col, col)
+        v = df[col]
+        grade = np.where(v < low, "low", np.where(v > high, "high", "normal"))
+        df[name + "_grade"] = pd.Series(grade, index=df.index).where(v.notna(), np.nan)
+
+    # overall_grade: "normal" only when every target grade is "normal"; "abnormal" if any is off;
+    # blank when any target has no lab sample (so we never judge on partial data).
+    grade_cols = [config.QUALITY_GRADE_NAMES.get(col, col) + "_grade"
+                  for col in config.QUALITY_TARGETS]
+    grade_cols = [c for c in grade_cols if c in df.columns]
+    if grade_cols:
+        present = df[grade_cols].notna().all(axis=1)
+        all_normal = (df[grade_cols] == "normal").all(axis=1)
+        overall = np.where(all_normal, "normal", "abnormal")
+        df["overall_grade"] = pd.Series(overall, index=df.index).where(present, np.nan)
+    return df

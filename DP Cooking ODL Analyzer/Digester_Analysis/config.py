@@ -5,8 +5,8 @@
 import os
 
 # ---- Time range for the pull
-START_TIME = "2026-08-01 00:00:00"
-END_TIME = "2026-10-01 00:00:00"
+START_TIME = "2026-07-01 00:00:00"
+END_TIME = "2026-10-10 00:00:00"
 INTERVAL = "5m"        # temperature ramps fast, needed for H-factor
 CHUNK_DAYS = 7         # pull one week per request
 
@@ -69,8 +69,20 @@ COOKING = {
                                  3: "PM2.104D3PFACTOR.CALC", 4: "PM2.404D4PFACTOR.CALC"},
     "pfactor_setpoint":         {1: "PM2.104D1OPESPPF.CALC", 2: "PM2.104D2OPESPPF.CALC",
                                  3: "PM2.104D3OPESPPF.CALC", 4: "PM2.404D4OPESPPF.CALC"},
+    "pfactor_temp":             {1: "PM2.104D1PFTEMP.CALC", 2: "PM2.104D2PFTEMP.CALC",   # C, P-factor temperature
+                                 3: "PM2.104D3PFTEMP.CALC", 4: "PM2.404D4PFTEMP.CALC"},
+    "pfactor_temp_setpoint":    {2: "PM2.104D2OPESPPT.CALC", 3: "PM2.104D3OPESPPT.CALC",  # C (no D1 tag)
+                                 4: "PM2.404D4OPESPPT.CALC"},
     "displacement_liquor_temp": {1: "PM2.104TIS114", 2: "PM2.104TIS214",
                                  3: "PM2.104TIS314", 4: "PM2.404TIS414"},
+    "steam_heater_temp":        {1: "PM2.104TIC120:MV", 2: "PM2.104TIC220:MV",   # C, steam heater
+                                 3: "PM2.104TIC320:MV", 4: "PM2.404TIC420:MV"},
+    "lp_steam_valve":           {1: "PM2.404HIC144:MV", 2: "PM2.404HIC244:MV",   # %, LP steam valve
+                                 3: "PM2.404HIC344:MV", 4: "PM2.404HIC444:MV"},
+    "mp_steam_valve":           {1: "PM2.404HIC145:MV", 2: "PM2.404HIC245:MV",   # %, MP steam valve
+                                 3: "PM2.404HIC345:MV", 4: "PM2.404HIC445:MV"},
+    "LP_pressure":              {1: "PM2.104PIC102:MV", 2: "PM2.104PIC202:MV",   # bar, LP pressure (PIC102)
+                                 3: "PM2.104PIC302:MV", 4: "PM2.404PIC402:MV"},
 }
 
 # ===== 4. RAW MATERIAL & CHEMICAL CHARGE =====
@@ -120,6 +132,23 @@ EXTRA_CHEMICAL_SHARED = {
     "cooking_aid_flow": "PM2.104FI638",                        # L/h
 }
 
+# ===== 10. EXTRA ALKALI, CONDUCTIVITY, HEAT EXCHANGER, MOISTURE (from workflow.md focus) =====
+# Added to cover the "alkaline, steam, heat exchanger" focus in workflow.md. Verify meaning before use.
+ALKALI_SHARED = {
+    "dig4_alkali_conc": "PM2.404AI446",            # g/l, DIG.4 alkali
+    "bl_conductivity_acc": "PM2.104AIC664:MV",     # mS, B.L. cond (accumulator)
+    "hbl_accumulator_cond": "PM2.104CIC660:MV",    # mS/cm, HBL accumulator cond
+}
+HEAT_EXCHANGER_SHARED = {
+    "heat_exchanger_in_temp": "PM2.104TI611A",     # C, heat exchanger WL/BL inlet
+    "heat_exchanger_temp": "PM2.104TI611",         # C, heat exchanger WL/BL
+    "heat_exchanger_wl_temp": "PM2.104TIC614:MV",  # C, heat exchanger WL/steam
+    "heat_exchanger_bl_temp": "PM2.104TIC642:MV",  # C, heat exchanger BL/steam
+}
+MOISTURE_SHARED = {
+    "chip_moisture": "PM2.404MI801",               # %, chip moisture (reported stuck at 35 - verify)
+}
+
 # ===== 9. LAB QUALITY AT PRESS 1 (Y) =====
 # NOT pulled from PI - the lab values come from the log book Excel files (logbook.py).
 # Reason: PI interpolates between samples (Step = 0), so the real sample times are lost.
@@ -159,6 +188,14 @@ LAB_SOP_LIMITS = {    # (low, high) - same as Lab_Analysis notebook, NOT yet con
     "press1_brightness": (37, 40),
 }
 
+# Target band (low, high) for the "good" quality zone -> grade column (low / good / high).
+# lab column -> short name used for the grade column (e.g. press1_kappa -> kappa_grade).
+QUALITY_TARGETS = {
+    "press1_kappa": (8, 10),
+    "press1_viscosity": (700, 800),
+}
+QUALITY_GRADE_NAMES = {"press1_kappa": "kappa", "press1_viscosity": "viscosity"}
+
 # ---- All categories (name -> group). Used by tag_to_name() and columns_in().
 PER_DIGESTER_CATEGORIES = {
     "batch_status": BATCH_STATUS,
@@ -173,6 +210,9 @@ SHARED_CATEGORIES = {
     "air_evacuation_shared": AIR_EVACUATION_SHARED,
     "headers": HEADERS_SHARED,
     "extra_chemical": EXTRA_CHEMICAL_SHARED,
+    "alkali": ALKALI_SHARED,
+    "heat_exchanger": HEAT_EXCHANGER_SHARED,
+    "moisture": MOISTURE_SHARED,
     # LAB_TAGS is left out on purpose: lab values come from the log book, not PI
 }
 
@@ -214,23 +254,28 @@ BATCH_FEATURES = [
     ("pfactor_actual",            ["PREHYDRAU"],          "last"),  # P-factor reached
     ("pfactor_setpoint",          ["PREHYDRAU"],          "last"),
     ("digester_pressure",         ["PREHYDRAU"],          "max"),
+    ("steam_to_heater_flow",      ["PREHYDRAU"],          "mean"),
     # Liquor in
     ("chip_weight",               ["HOT LIQUOR FILLING"], "max"),   # chips + liquor (for L:W ratio)
     ("circulation_temp",          ["HOT LIQUOR FILLING"], "max"),
     ("white_liquor_dosing_flow",  ["HOT LIQUOR FILLING"], "mean"),  # shared tag
-    ("alkali_accumulator1_conc",  ["HOT LIQUOR FILLING"], "mean"),  # shared tag
+    ("alkali_accumulator1_conc",  ["HOT LIQUOR FILLING"], "mean"),  # shared tag g/l
     ("alkali_accumulator2_conc",  ["HOT LIQUOR FILLING"], "mean"),  # shared tag
+    ("hbl_accumulator_cond",      ["HOT LIQUOR FILLING"],       "mean"),  # shared tag
     # Step 3 - heat and cook
     ("circulation_temp",          ["HEAT&COOK"],          "max"),
     ("circulation_temp",          ["HEAT&COOK"],          "mean"),
     ("bottom_circulation_temp",   ["HEAT&COOK"],          "mean"),
     ("digester_pressure",         ["HEAT&COOK"],          "mean"),
     ("steam_to_heater_flow",      ["HEAT&COOK"],          "mean"),
+    ("LP_pressure",               ["HEAT&COOK"],          "mean"),
+    ("steam_heater_temp",         ["HEAT&COOK"],          "max"),   # D4 tag differs (TIC420) - compare per digester
     ("screen_diff_pressure",      ["HEAT&COOK"],          "mean"),  # no D4 tag
     ("circulation_pump_current",  ["HEAT&COOK"],          "mean"),
     # Step 4 - displacement
     ("displacement_liquor_temp",  ["DISPLACEMENT"],       "mean"),
     ("black_liquor_conductivity", ["DISPLACEMENT"],       "mean"),  # shared tag
+    
 ]
 
 # Quality flag: a batch longer than this (hours) probably includes a stop
@@ -239,6 +284,20 @@ LONG_BATCH_HOURS = 12
 # Output files written by 01_build_master.ipynb into DATA_DIR
 BATCH_MASTER_FILE = "batch_master.csv"   # 1 row = 1 batch
 LAB_LINKED_FILE = "lab_linked.csv"       # 1 row = 1 real lab sample, with its digester and batch
+PHASE_SUMMARY_FILE = "phase_summary.csv" # 1 row = 1 phase run, with mean/min/max of every sensor
+PHASE_SUMMARY_LAB_FILE = "phase_summary_with_lab.csv" # phase_summary + the batch's Press 1 lab values
+
+# Phase summary (batch.phase_summary): statistics taken for every numeric sensor in each phase run
+PHASE_SUMMARY_STATS = ["mean", "min", "max"]
+# Batch lab columns (from lab.lab_per_batch) added to phase_summary_with_lab.csv.
+# Same value for every phase run of a batch (lab belongs to the whole batch); blank when the batch has no sample.
+PHASE_SUMMARY_LAB_FIELDS = [c for col in LOG_BOOK_LAB_COLUMNS
+                           for c in (col, f"{col}_samples")]
+# Sensors whose mean/min/max is meaningless in a phase window, so they are left out:
+#   batch_number  - an id (already a column of its own)
+#   press1_status - digester-at-Press1 state (0-4), not a measurement
+#   *_time        - the phase step timer (cumulative minutes, use *_minutes instead)
+PHASE_SUMMARY_SKIP = ["batch_number", "press1_status"] + list(PHASE_TIMERS.keys())
 
 
 def data_name():
@@ -272,6 +331,16 @@ def text_tags():
             if name in group:
                 tags += list(group[name].values())
     return tags
+
+
+def text_columns():
+    """Return the renamed column names that hold text, e.g. ['D1_main_sequence', 'D1_evacuation_valve', ...]."""
+    cols = []
+    for group in PER_DIGESTER_CATEGORIES.values():
+        for name in TEXT_NAMES:
+            if name in group:
+                cols += [f"D{dig}_{name}" for dig in group[name]]
+    return cols
 
 
 def columns_in(category):

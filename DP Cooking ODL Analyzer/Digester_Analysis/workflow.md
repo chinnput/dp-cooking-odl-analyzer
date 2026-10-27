@@ -175,12 +175,12 @@ Ventilation / Air Evacuation Temperature
 
 pumpเริ่มทำงานตอน HEAT&COOK
 
-| Tag         | PI_Discription  | Unit  |
-| ----------- | --------------- | ----- |
-| PM2.104M561 | DIG 1 CIRC.PUMP | A     |
-| PM2.104M562 | DIG 2 CIRC.PUMP | A     |
-| PM2.104M563 | DIG 3 CIRC.PUMP | A     |
-| PM2.404M564 | DIG 4 CIRC.PUMP | A     |
+| Tag         | PI_Discription  | Unit |
+| ----------- | --------------- | ---- |
+| PM2.104M561 | DIG 1 CIRC.PUMP | A    |
+| PM2.104M562 | DIG 2 CIRC.PUMP | A    |
+| PM2.104M563 | DIG 3 CIRC.PUMP | A    |
+| PM2.404M564 | DIG 4 CIRC.PUMP | A    |
 
 Press 1 Lab Quality
 
@@ -221,55 +221,49 @@ Digester Chip Weight
 
 		อุณหภูมิน้ำล้าง (`TIS114`–`TIS414`) และประสิทธิภาพการเปลี่ยนถ่ายน้ำต้ม (Displacement Efficiency)
 
-## **Phase 3:Analytic**
+## **Phase 3: Analytic**
 
-* [X] **	- Lag time**
+### 3.1 Lag Time Alignment
 
-		เมื่อDigester after press1 เลื่อนเวลาแล้ว ตัว sensor parameter ควรถูกเลื่อนตามผล After press1
+* [X] **Lag time** — เมื่อ Digester after Press 1 เลื่อนเวลาแล้ว ตัว sensor parameter ควรถูกเลื่อนตามผล After Press 1
+  1. รู้ก่อนว่า tag อะไรบ้างที่จะใช้ อยู่ตรงไหน
+  2. lag time เวลาเท่าไหร่ สำหรับวิเคราะห์ที่ After Press 1
 
-		1.รู้ก่อน tagอะไรบ้างที่จะใช้ อยู่ตรงไหน
-		2.lag time เวลาเท่าไหร่ สำหรับวิเคราะห์ที่ After press1
+### 3.2 Golden Batch Reference
 
+* [X] **หา Best Baseline Quality (Golden Batch Reference)** — รวบรวมข้อมูล Batch ที่ได้ค่า Viscosity และ Kappa Number อยู่ในเกณฑ์มาตรฐานสูงสุด เพื่อกำหนดเป็น Baseline Profile Reference
+  สมมติว่าถ้าได้แล้ว เช่น
+  KAPPA = 9.0-9.5
+  VISCOSITY = 725-775
+  ทุกDigester ใช้เท่ากันก่อน
+* [ ] **หา Parameter ในแต่ละ Batch ที่ได้Good มาแล้ว**
+  หาว่าparameterแต่ละDigesterมีค่าเฉลี่ยเท่าไหร่
+  parameter ที่เกี่ยวข้องกับ Viscosity Focusที่ hydrolysis
+  1.P-factor ส่งผลให้hydrolysis time ช้าเร็ว ต้องไปดูต่อว่าการที่P-factorเท่า แต่ Temp ไม่เท่าก้ได้ แค่เวลาเปลี่ยนตาม ต้องดูว่าที่ tempไหน ดีที่สุด P-factor อาจมาจาก Steam Heater
+  จากที่ทดลอง steam temp ไม่ค่อยเปลี่ยน P-Factor setpoint เปลี่ยน
+  2.Chip weight
+  3.Chip moisture
+  4.steam_heater_flow ถ้าสูงเกิน P-Factor สะสมเร็วขึ้น  อาจทำให้ cellulose ถูกทำลาย
 
-* [ ] 	**-** **หา Best Baseline (Golden Batch Reference)**
+### 3.3 Digester Comparison
 
-		รวบรวมข้อมูล Batch ที่ได้ค่า Viscosity และ Kappa Number อยู่ในเกณฑ์มาตรฐานสูงสุด เพื่อกำหนดเป็น Baseline Profile Reference
+* ** การวิเคราะห์เปรียบเทียบ (Self & Cross-Digester Comparison)**
 
+  * เปรียบเทียบกับตัวเอง (Self-Comparison): ตรวจสอบความผันผวนระหว่างรอบการต้มของหม้อเดียวกัน
+  * 
+  * เปรียบเทียบระหว่างหม้อต้ม (D1 vs D2 vs D3 vs D4): เนื่องจาก Setpoint หลักของทั้ง 4 หม้อต้มถูกตั้งไว้เท่ากัน ให้ทำการเปรียบเทียบเพื่อหา Root Cause ว่าหม้อใดมีพฤติกรรมเบี่ยงเบนไปจากกลุ่ม
 
-* [ ] 	**-** **การวิเคราะห์เปรียบเทียบ (Self & Cross-Digester Comparison)**
+### 3.4 Root-Cause Checks
 
-			- เปรียบเทียบกับตัวเอง (Self-Comparison): ตรวจสอบความผันผวนระหว่างรอบการต้มของหม้อเดียวกัน
-
-			- เปรียบเทียบระหว่างหม้อต้ม (D1 vs D2 vs D3 vs D4): เนื่องจาก Setpoint หลักของทั้ง 4 หม้อต้มถูกตั้งไว้เท่ากัน ให้ทำการเปรียบเทียบเพื่อหา Root Cause ว่าหม้อใดมีพฤติกรรมเบี่ยงเบนไปจากกลุ่ม
-
-
-* [ ] 	- **การตรวจสอบสภาวะ Cooldown ก่อน Discharge**
-
-			- ตรวจสอบอุณหภูมิในเฟส DISPLACEMENT ว่าถูกกดอุณหภูมิลงอย่างสมบูรณ์ (Cold Blow Concept) ก่อนทำการ Discharge หรือไม่ เพื่อหยุดปฏิกิริยาการต้มและป้องกันเส้นใยถูกย่อยสลายทางกล
-
-* [ ] 	- **วิเคราะห์ความผันผวนของ Alkali ใน WL และ BL**
-
-			ตรวจสอบค่าด่างจากถังสะสม
-
-* [ ] **	- การตรวจจับปัญหาวาล์วเปิดไม่สุด (Valve Anomaly Detection Logic)**
-
-			(PM2.104FIC532:MV) flow ไม่ค่อยไม่ปัญหา นิ่งตลอด เปิดลากยาว
-
-* [ ] 	**- วิเคราะห์ P-Factor เทียบกับผลแล็บ**
-* [ ] 	- **ควบคุมการฉีดไอน้ำ (LP & MP Steam Control)**
-
-			ถ้าอัดไอน้ำนานเกินไป เนื้อๆไม้ยุ่ย Viscos ดิ่ง
-
-				จากการเช็ค (PM2.404HIC145:MV)  DIG.1 MP STEAM เปิดวาล์วจนกว่าอุณหภูมิของ()PM2.104TIC120:MV) STEAM HEATER ไปถึงที่164องศา จึงปิดวาล์ว แล้วอุณหภูมิก้ดันตัวเองไปเรื่อยๆ จนถึงจุดนึงดรอปลง แล้วก้ขึ้นไปอีกเพื่อดันp-factor แต่จากสังเกตุ วาล์วก้ไม่ได้เปิดทั้งLP และ MP
-
-	ตั้งคำถาม: แล้วอะไรดันอุณหภูมิขึ้นไป
-
-				P-Factor คือ "ตัวเงื่อนไขการเปลี่ยนเฟส" (Phase Transition Condition) ไม่ใช่ตัวปรับตำแหน่งวาล์วโดยตรง
-
-				
-
-* [ ] 	- เปรียบเทียบคุณภาพ Viscosity กับสองเงื่อนไข
-
-		- ไม้เก่า
-
-		- อัดsteamนานเกิน
+* [ ] **Cold Blow Concept** — ตรวจสอบอุณหภูมิในเฟส DISPLACEMENT ว่าถูกกดอุณหภูมิลงอย่างสมบูรณ์ก่อนทำการ Discharge หรือไม่ เพื่อหยุดปฏิกิริยาการต้มและป้องกันเส้นใยถูกย่อยสลายทางกล
+* [ ] **ค่าด่างจากถังสะสม** — ตรวจสอบค่าด่างจากถังสะสม
+* [ ] **การตรวจจับปัญหาวาล์วเปิดไม่สุด (Valve Anomaly Detection Logic)**
+  * (PM2.104FIC532:MV) flow ไม่ค่อยมีปัญหา นิ่งตลอด เปิดลากยาว
+* [ ] **วิเคราะห์ P-Factor เทียบกับผลแล็บ**
+* [ ] **Over-cooking** — ถ้าอัดไอน้ำนานเกินไป เนื้อไม้ยุ่ย Viscos ดิ่ง
+  * จากการเช็ค (PM2.404HIC145:MV) DIG.1 MP STEAM เปิดวาล์วจนกว่าอุณหภูมิของ (PM2.104TIC120:MV) STEAM HEATER ไปถึงที่ 164 องศา จึงปิดวาล์ว แล้วอุณหภูมิก็ดันตัวเองไปเรื่อยๆ จนถึงจุดนึงดรอปลง แล้วก็ขึ้นไปอีกเพื่อดัน P-factor แต่จากสังเกต วาล์วก็ไม่ได้เปิดทั้ง LP และ MP
+  * ตั้งคำถาม: แล้วอะไรดันอุณหภูมิขึ้นไป
+  * P-Factor คือ "ตัวเงื่อนไขการเปลี่ยนเฟส" (Phase Transition Condition) ไม่ใช่ตัวปรับตำแหน่งวาล์วโดยตรง
+* [ ] **ไม้เก่า**
+  * ไม้เก่า
+  * อัด steam นานเกิน
