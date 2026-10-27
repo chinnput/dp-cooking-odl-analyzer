@@ -17,7 +17,7 @@ The project analyzes and reduces process variation in **DP Cooking (Digesters D1
 
 ## Current State
 
-*As of 2026-10-21.*
+*As of 2026-10-27.*
 
 - **Branch:** `feat/press1-digester-exact-match`, pushed to GitHub (last pushed commit `4d9c5f9`). Not merged to `main`.
 - **Digester batch analysis (new main work):** `Digester_Analysis/` — see its `README.md` (Thai, detailed)
@@ -47,7 +47,10 @@ The project analyzes and reduces process variation in **DP Cooking (Digesters D1
   - D4 is a newer digester; its volume may differ from D1–D3 (to confirm). Chips per batch: D4 ≈ 72 t vs D1–D3 87–95 t; steam to heater D4 ≈ 20 vs 1–3. Size-dependent values (weight, flows, L:W) should not be compared across D4 and D1–D3 directly.
   - PI AF "4. LC Chest Outlet Flow" = `PM2.105FIC544` (PI descriptor: Press 3 Pulp Feed) + `PM2.105FIC238` (Press 1 Pulp Feed), with a 125 m³ chest (= LC Chest 2 size) — to confirm with the AF author.
   - Alkali tags `PM2.404AIC670/667` (g/l): EA or AA, and fresh WL or accumulator mix? To confirm.
-  - `LP_pressure` (PIC102/202/302/402, bar) was added to `config.COOKING` + `BATCH_FEATURES` (`HEAT&COOK` mean) on 2026-10-27, but the current cache has no data for these tags, so `LP_pressure_mean_heat_and_cook` is all NaN until a PI re-pull. The exact meaning of PIC102 (vs PIC104 digester_pressure) is to confirm.
+  - **Per-digester surrogate check (2026-10-27):** per-digester models do not beat pooled; Kappa out-of-time R² < 0 in every set-up (Kappa is dominated by slow day-to-month drift the batch features don't capture). Viscosity drivers have the same sign in all 4 digesters. Steam flow tags are unreliable (D1–D3 negative zero offset, D4 pegged at 21). See the Progress Log entry of the same date.
+  - **Viscosity surrogate (2026-10-27, focus now):** best out-of-time R² 0.11 (GBM pooled) — gate (0.30) not passed. Main driver `alkali_accumulator1_conc` (`PM2.404AIC670`, shared tag), ≈ −16 Viscosity per g/l, partly slow monthly drift. Pooled > partial pooling > per digester. Next: confirm AIC670 meaning/controllability, longer data (from Jan), alkali charge per ton.
+  - **Prehydrolysis speed (2026-10-27):** P-factor rate / P-temp drive Viscosity more than prehydrolysis time or P-factor amount (within-week ρ −0.20 vs −0.01). P-temp SP 162 → 809, 163 → 780, 164 °C → 772 Viscosity (partly season). Hot vs cool at same PF setpoint −6 Visc, Kappa unchanged. Ridge with these features R² 0.21 (best, gate 0.30 not passed). Code: `XGboost_Model/`.
+  - ~~`LP_pressure` all NaN~~ now populated in the cache and master (1529/1540, checked 2026-10-27). Original note: `LP_pressure` (PIC102/202/302/402, bar) was added to `config.COOKING` + `BATCH_FEATURES` (`HEAT&COOK` mean) on 2026-10-27, but the current cache has no data for these tags, so `LP_pressure_mean_heat_and_cook` is all NaN until a PI re-pull. The exact meaning of PIC102 (vs PIC104 digester_pressure) is to confirm.
 
 ---
 
@@ -393,3 +396,90 @@ The project analyzes and reduces process variation in **DP Cooking (Digesters D1
 - `LP_pressure_mean_heat_and_cook` exists but is all NaN (count 0 in every digester) — the cache has no PIC102/202/302/402 data yet. Needs a PI re-pull (done by the user) before the column carries values.
 - Notebook grade cells (5, 7) run headless with the new labels; no Pylance problems in `batch.py`, `config.py` or the notebook.
 - *Found by:* headless rebuild + value-set check on the saved master, and a headless exec of the two grade cells.
+
+### 2026-10-27 — Per-digester model check, Kappa noise ceiling, steam tag audit
+
+**What was done:**
+
+- Tested whether training one model per digester (D1–D4) beats a pooled model for the Desirability surrogate. Local files only (`Digester_Analysis/data/batch_master.csv`, `lab_samples.csv`, 5-min cache); no PI access. Validation = `TimeSeriesSplit(4)` (out-of-time R²), GradientBoosting depth 2 (xgboost not installed) + Ridge, 9 batch features (H-factor, P-factor actual, WL m³ and per ton chip, chip weight, L:W, heat&cook minutes, circulation temp, alkali conc 1).
+- Noise ceiling on the raw lab log (Jan–Oct 2026): lag autocorrelation, short-term σ from consecutive diffs, variance between days / weeks / months.
+- Per-digester good-vs-rest (good = Kappa ≤ 9.8 and Viscosity 700–800) with Mann-Whitney + within-digester Spearman.
+- Audit of the steam tags in the 5-min cache during HEAT&COOK.
+- Scripts were throwaway (session scratchpad), not added to the repo.
+
+**Results:**
+
+- **Data per digester is small:** batches with a Kappa result D1 111, D2 125, D3 129, D4 85 (median 1 real lab sample per batch).
+- **Digesters differ in level:** Kappa D1 10.0 vs D2–D4 ≈ 10.4 (Kruskal p = 0.001); Viscosity not clearly different (p = 0.09). Setpoints differ too: H-factor D1 511 / D2 330 / D3 302 / D4 398; chip weight D4 72 t vs 86–93 t, so WL per ton chip is highest in D4 (0.187).
+- **Per-digester models do not help.** Out-of-time R²: Kappa pooled −0.19 (GBM) / −0.11 (Ridge), per digester −0.42 to −0.10; Viscosity pooled 0.04 / 0.15, per digester −0.15 to 0.23 (the 0.23 is D4, n = 85, not reliable). Adding `Digester_ID` to the pooled model changes nothing. Random-split R² from Step 0 was optimistic.
+- **Kappa is a slow-drift signal, not batch noise:** lag-1 autocorr 0.62 (4 h), lag-6 0.41; 59% of variance is between days, 31% between months. Monthly mean drifts up from 8.7 (Jan) to 10.5 (Sep). Short-term σ 0.59 vs total 0.96. Batch-level setpoints have ~0 within-digester correlation with Kappa (mean Spearman ≈ 0), so the drift comes from something the batch features do not capture (wood/chip quality, liquor strength, blending in the discharge tank).
+- **Viscosity has consistent drivers in all 4 digesters** (same sign in each one): alkali accumulator 1 conc ρ −0.34 to −0.55, heat&cook minutes −0.24 to −0.45, WL m³ −0.20 to −0.34, P-factor −0.15 to −0.40. Same sign everywhere suggests a common response (setpoint difference, not a different digester response) → a pooled Viscosity model is the right shape.
+- **Strict target hits are rare:** Kappa 9.0–9.5 and Viscosity 700–800 in 15 / 11 / 10 / 9 batches (D1–D4). Good-vs-rest differences are mostly not significant (only D1 chip weight p = 0.017 and alkali conc p = 0.027), so no per-digester operating window is supported yet.
+- **Steam tag audit (HEAT&COOK, 5-min cache):**
+  - `steam_to_heater_flow` D1–D3 is negative 52% / 85% / 93% of the time (resting value ≈ −5.7 / −2 / −3 t/h) → zero offset on the transmitter; phase means are biased.
+  - `steam_to_heater_flow` D4 sits at 21.0 from P10 to P99 → pegged at range max (or wrong tag). Unusable. This corrects the earlier note "D4 steam ≈ 20 vs 1–3" — it is not a size effect.
+  - `steam_heater_temp` D4 (`TIC420`) ranges 75–223 °C with only 1608 unique values (D1–D3 ≈ 7–8k) → different signal type; do not compare with D1–D3.
+  - `LP_pressure` now has data in the cache and in `batch_master.csv` (1529 / 1540 batches), so the open issue "all NaN" is resolved.
+- *Found by:* AI assistant (Claude), per-digester XGBoost-style feasibility check requested by the user.
+
+**Next:** do not optimize Kappa from batch setpoints yet. Options: (1) model Kappa with slow features (daily/weekly drift, wood/chip, liquor strength) or a residual-after-daily-mean target; (2) pooled Viscosity model with alkali conc + cook time + P-factor; (3) fix/confirm steam flow tags (zero offset D1–D3, D4 range) with instrument team.
+
+### 2026-10-27 — Viscosity-only surrogate (pooled vs partial pooling vs per digester)
+
+**What was done:**
+
+- Focus moved to Viscosity only (Kappa parked: dominated by slow drift). Local `batch_master.csv` only, no PI access; scratchpad scripts, no repo code changed.
+- Data: `quality_flag == ok`, Viscosity 400–2000, all X present → **447 batches** (2026-07-01 → 2026-10-09; D1 108, D2 125, D3 129, D4 85).
+- X and source tags: `alkali_accumulator1_conc` (`PM2.404AIC670:MV`, **shared**, mean HOT LIQUOR FILLING), `alkali_accumulator2_conc` (`PM2.404AIC667:MV`, shared), `pfactor_actual` (`PM2.10xDkPFACTOR.CALC`, last PREHYDROLYSIS), `heat_and_cook_minutes` (main sequence), `LP_pressure` (`PICk02:MV`, mean HEAT&COOK), `white_liquor_per_ton_chip` and `liquor_to_wood_ratio` (from `FIC532` + chip weight `WIk29`), Digester_ID dummies. Steam flow tags excluded (unreliable).
+- Models: Ridge pooled, Ridge pooled + Digester_ID, Ridge partial pooling (per-digester slope as ridge-shrunk feature × digester terms), GBM depth 2 pooled (± Digester_ID), Ridge per digester. `TimeSeriesSplit(4)`; gate R² ≥ 0.30. Drop-one feature check, GBM permutation importance on the last 30%, quintile means, within-month / within-week correlation.
+
+**Results:**
+
+- **Gate not passed.** Out-of-time R² / MAE: baseline MAE 32.2; Ridge pooled 0.07 / 32.8; + Digester_ID 0.07 / 32.9; partial pooling 0.04 / 33.8; **GBM pooled 0.11 / 31.9** (best); Ridge per digester D1 0.01, D2 0.09, D3 −0.44, D4 0.25. Partial pooling is not better than pooled → no evidence the digesters respond differently; pooled is the right shape for now.
+- **Main driver: `alkali_accumulator1_conc` (AIC670).** Removing it drops R² by 0.17 (others ≤ 0.03). Ridge ≈ −16 Viscosity per 1 g/l. Quintiles: ≤ 36.0 g/l → ~805; > 37.3 g/l → ~752 (monotonic).
+- Secondary: P-factor actual > 361 → ~754 (other quintiles 790–800); heat&cook > 35 min → 761–770 vs 801 at ≤ 30 min. Alkali conc 2, LP_pressure and L:W add nothing. Signs match the chemistry (more alkali / longer cook → more cellulose degradation).
+- **Caveat 1 — drift:** alkali vs Viscosity Spearman pooled −0.47, within-month −0.26, within-week −0.13; negative in every month (Jul −0.13, Aug −0.14, Sep −0.38, Oct −0.28). Monthly means move opposite (Oct alkali 37.9 / Viscosity 749). Part of the effect is slow co-movement — could be real (liquor strength changes slowly) or a shared confounder.
+- **Caveat 2 — shared tag (corrects the earlier entry today):** AIC670 is one plant-level tag used for all digesters, so "same sign in all 4 digesters" for alkali is not independent evidence of a common digester response. The pooled choice still stands on the R² comparison.
+- Status: alkali conc 1 is a strong **hypothesis** for Viscosity, not an operating window (model explains ~10%).
+- *Found by:* AI assistant (Claude), Viscosity surrogate check requested by the user.
+
+**Next:** (1) confirm with process team whether AIC670 is adjustable or a causticizing disturbance, and EA vs AA; (2) user to re-pull digester data back to Jan 2026 (≈3× data, helps separate drift); (3) add alkali charge per ton chip = conc × WL m³ / chip weight.
+
+### 2026-10-27 — `XGboost_Model/` created; prehydrolysis speed and P-temp vs Viscosity
+
+**What was done:**
+
+- **New folder `XGboost_Model/`** (Viscosity only): `config.py` is the single edit point (`FEATURES` = batch_master column → plot label, one line each, with the PI tag in a comment), `data.py` (load/filter/coverage, `list_columns()`, `add_derived()`), `models.py` (baseline / Ridge / RF / sklearn GBM / XGBoost, `TimeSeriesSplit(4)` leaderboard, per-digester check), `explain.py` (feature-effect table: Spearman, Ridge per unit, RF/XGB permutation, XGB SHAP, drop-one, rank; binned means), `plots.py`, `01_compare.ipynb`, `README.md` (how to add a tag: A existing column / B new PI tag / C derived), `update.md`. `output/` is git-ignored. Installed `xgboost` 3.4.1 + `shap` 0.54.1 into system Python 3.13 (`C:\Python313\python.exe` = the notebook kernel; Python 3.12 lacks pandas).
+- **Digester_Analysis:** `config.BATCH_FEATURES` += PREHYDRAU `pfactor_temp` (max, mean), `pfactor_temp_setpoint` (last), `mp_steam_valve` and `lp_steam_valve` (mean); `build_master.py` derives `pfactor_rate` = P-factor / prehydrolysis minutes. Rebuilt `batch_master.csv` and the phase tables from the local cache with `load_lab_samples(refresh=False)` — no PI pull. 76 → 82 columns; every old column identical.
+- Analysis of the user question "low steam = slow prehydrolysis vs high steam = fast — does it matter?", and of the P-factor temperature (setpoint `OPESPPT`, actual `PFTEMP`).
+
+**Results:**
+
+- **Steam → time: yes.** MP steam valve % vs prehydrolysis minutes Spearman −0.62 / −0.63 / −0.42 / −0.57 (D1–D4); P-temp max −0.41 … −0.53. `steam_to_heater_flow` cannot confirm it (still no signal after removing the WAIT offset).
+- **Time alone does not move Viscosity** (quintiles 784–793). **Speed does:** P-factor rate top quintile (> 4.66 /min) → ~762 vs 785–800; within-week Spearman −0.20 (P-factor amount drops to −0.01 within-week, so the earlier P-factor effect was mostly the season).
+- **P-temp setpoint** exists for D2–D4 only (no D1 tag), almost always 162 / 163 / 164 °C. Actual P-temp max overshoots the setpoint by +3 to +4 °C; D1 (no setpoint tag) runs hottest (median 171.5 °C vs ~166–167). Setpoint drives speed (SP vs rate +0.31 … +0.54) but not minutes (≈ 0).
+- Viscosity by P-temp SP (D2–D4): 162 °C → 809 (n 106), 163 → 780 (n 188), 164 → 772 (n 42). Confounded with time (162 °C only used Jul–Aug), but within Jul and Aug the order holds (Jul 796 / 789 / 750, Aug 819 / 805 / 767; n at 164 °C only 5–7). Sep is mixed (163 → 780, 164 → 788).
+- Same P-factor setpoint, hot vs cool prehydrolysis (split at median P-temp max inside digester × PF-SP tertile): hot − cool = −6.0 Viscosity (p = 0.051); high PF-SP tertile −11.6 (p = 0.036). **Kappa unchanged (−0.03)** — hotter prehydrolysis gives no Kappa benefit but costs Viscosity (hypothesis: cellulose hydrolysis is more temperature-sensitive than the hemicellulose kinetics the P-factor is built on).
+- Season confound: Jul → Oct the PF setpoint rose 340 → 430, P-temp SP 162 → 163, P-temp max 166.6 → 169.6 and alkali rose while Viscosity fell — several knobs moved together.
+- **Model:** with `pfactor_rate`, P-temp max and MP valve, Ridge pooled R² 0.074 → **0.213** (MAE 29.4, best so far); XGBoost 0.121. Gate 0.30 still not passed. Linear > trees.
+- *Found by:* AI assistant (Claude), from the user's flow / P-factor question.
+
+**Next:** confirm with the process team why P-temp SP moved 162 → 163 °C (Sep) and the PF setpoint 340 → 430; propose a short trial: same PF setpoint, P-temp SP 162 vs 164 °C, watch Viscosity and Kappa. D1 P-temp setpoint tag to find.
+
+### 2026-10-27 — Prehydrolysis detail: P-factor keeps rising after the phase
+
+**What was done:**
+
+- New `Digester_Analysis/prehydrolysis.py` (called from `build_master.py`; thresholds in `config.PH_TEMP_THRESHOLDS = [165, 168]`, steam phases in `config.STEAM_PHASES`) adds per batch: `pfactor_final` (max P-factor over PREHYDRAU + HOT LIQUOR FILLING), `pfactor_overshoot` (= final − setpoint), `ptemp_overshoot` (P-temp max − P-temp SP, D2–D4), `minutes_above_165` / `minutes_above_168` (PREHYDRAU), `steam_users_other` (mean number of other digesters in PREHYDRAU/HEAT&COOK during this PREHYDRAU). Master rebuilt from the local cache (`refresh=False`, no PI): 82 → 88 columns, all old columns identical.
+
+**Results:**
+
+- **P-factor does reach the setpoint** — the phase ends there (confirmed by the user). The negative `pfactor_gap` (median −15 … −23) is only the 5-min sampling: the last sample in PREHYDRAU comes just before the switch.
+- **But the P-factor counter keeps rising during HOT LIQUOR FILLING** (digester still hot and acid until the white liquor neutralises it): final = setpoint **+67** median (P10 +43, P90 +100), e.g. SP 350 → 408. The overshoot follows the P-temp max (ρ +0.70). So the P-factor the chips really get is ~15–20% above the setpoint, and more when prehydrolysis runs hot.
+- Viscosity, within-week Spearman (season removed): `pfactor_final` **−0.26** (strongest single X so far; alkali −0.13), overshoot −0.23, minutes > 165 °C −0.17, minutes > 168 °C −0.15, P-temp overshoot −0.11. **Kappa ≈ 0 for all of them** — the extra P-factor / heat buys no Kappa, only lower Viscosity.
+- Bins: P-factor final > 469 → Viscosity 755 vs ~800 below 436; > 20 min above 168 °C → 755 vs 793 at 0 min.
+- **Steam sharing (A4):** other digesters on steam make PREHYDRAU longer (ρ +0.44 with minutes) but do not change the P-factor rate (−0.03) and have no Viscosity effect within week (+0.03). Not the cause of the speed differences.
+- **Model:** these features do not raise out-of-time R² (Ridge 0.17–0.18 vs 0.213) — they carry the same information as P-factor rate / P-temp max. Kept commented in `XGboost_Model/config.py` for easy switching.
+- *Found by:* AI assistant (Claude), user question on P-factor ending at setpoint + A1/A2/A4.
+
+**Next:** ask the process team whether the P-factor after PREHYDRAU (HLF overshoot) is known/controlled; candidates to test in a trial: lower P-temp SP (162 °C), or PF setpoint that targets the *final* P-factor.

@@ -12,6 +12,7 @@ import config
 from batch import (all_phase_tables, build_batch_table, batch_features,
                    phase_summary, phase_summary_with_lab, add_quality_flags, add_lab_grades)
 from hfactor import h_factor_per_batch
+from prehydrolysis import prehydrolysis_features
 from lab import lab_tables, assign_digester, link_to_batch, lab_per_batch, lab_long_table
 
 
@@ -34,8 +35,9 @@ def build_master(df, lab):
     # 2. H-factor (phases in config.H_FACTOR_PHASES) + H of every single phase
     master = master.merge(h_factor_per_batch(df), on=keys, how="left")
 
-    # 3. Batch features from config.BATCH_FEATURES
+    # 3. Batch features from config.BATCH_FEATURES + prehydrolysis features (prehydrolysis.py)
     master = master.merge(batch_features(df, phases, config.BATCH_FEATURES), on=keys, how="left")
+    master = master.merge(prehydrolysis_features(df, phases), on=keys, how="left")
 
     # 4. Derived values
     chips = master.get("chip_weight_max_chip_filling")
@@ -51,6 +53,10 @@ def build_master(df, lab):
         master["white_liquor_per_ton_chip"] = master["white_liquor_m3"] / chips.where(chips > 0)
     if "pfactor_actual_last_prehydrolysis" in master and "pfactor_setpoint_last_prehydrolysis" in master:
         master["pfactor_gap"] = master["pfactor_actual_last_prehydrolysis"] - master["pfactor_setpoint_last_prehydrolysis"]
+    if "pfactor_actual_last_prehydrolysis" in master:
+        # P-factor built per minute of PREHYDRAU: same P-factor reached fast (hot) or slow (cool)
+        minutes = master["prehydrolysis_minutes"]
+        master["pfactor_rate"] = master["pfactor_actual_last_prehydrolysis"] / minutes.where(minutes > 0)
 
     # 5. Lab: real samples -> digester at Press 1 -> batch, with a low/good/high grade per target
     tables = {name: assign_digester(t) for name, t in lab_tables(df, lab, config.LAB_INTERVAL).items()}

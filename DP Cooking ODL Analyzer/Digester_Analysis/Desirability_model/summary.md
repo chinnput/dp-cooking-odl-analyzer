@@ -30,7 +30,15 @@ Config in `surrogate.py :: CONTROLLABLE` (one line each, easy to add/remove).
   - Viscosity: test R^2 RF = 0.17, Linear = 0.20 (n=447) -> explains only ~17%.
 - `desirability.py` verified (Kappa 9.2 -> d=1, Viscosity 750 -> d=1, one bad target sinks D).
 - `01_optimize.ipynb` NOT built yet - optimizing on this model would give junk setpoints.
-- `LP_pressure` still all-NaN until PI is re-pulled (does not enter the model yet).
+- `LP_pressure` now populated in the master (1529/1540) - can be added as a feature.
+- **Per-digester check (2026-10-27): no gain.** Time-split R^2 Kappa < 0 in every set-up
+  (pooled, pooled + Digester_ID, D1..D4 alone). Viscosity best = pooled Ridge 0.15.
+  Kappa is mostly slow drift (59% of variance between days); batch setpoints barely
+  move it within a digester. Viscosity drivers share the same sign in all 4 digesters.
+- Steam flow tags unreliable (D1-D3 negative zero offset, D4 pegged at 21) - keep out.
+- **Viscosity focus (2026-10-27):** best time-split R^2 0.11 (GBM pooled), gate not passed.
+  Main driver alkali_accumulator1_conc (PM2.404AIC670, shared tag), ~ -16 Visc per g/l,
+  partly monthly drift. Pooled > partial pooling > per digester.
 
 ## Decision
 

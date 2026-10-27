@@ -255,6 +255,11 @@ BATCH_FEATURES = [
     ("pfactor_setpoint",          ["PREHYDRAU"],          "last"),
     ("digester_pressure",         ["PREHYDRAU"],          "max"),
     ("steam_to_heater_flow",      ["PREHYDRAU"],          "mean"),
+    ("pfactor_temp",              ["PREHYDRAU"],          "max"),   # how hot the prehydrolysis ran
+    ("pfactor_temp",              ["PREHYDRAU"],          "mean"),
+    ("pfactor_temp_setpoint",     ["PREHYDRAU"],          "last"),  # no D1 tag
+    ("mp_steam_valve",            ["PREHYDRAU"],          "mean"),  # % open, steam proxy (flow tag unreliable)
+    ("lp_steam_valve",            ["PREHYDRAU"],          "mean"),
     # Liquor in
     ("chip_weight",               ["HOT LIQUOR FILLING"], "max"),   # chips + liquor (for L:W ratio)
     ("circulation_temp",          ["HOT LIQUOR FILLING"], "max"),
@@ -277,6 +282,10 @@ BATCH_FEATURES = [
     ("black_liquor_conductivity", ["DISPLACEMENT"],       "mean"),  # shared tag
     
 ]
+
+# Prehydrolysis features (prehydrolysis.py)
+PH_TEMP_THRESHOLDS = [165, 168]               # minutes_above_<T>: time in PREHYDRAU with P-temp >= T C
+STEAM_PHASES = ["PREHYDRAU", "HEAT&COOK"]     # phases that draw MP steam (for steam_users_other)
 
 # Quality flag: a batch longer than this (hours) probably includes a stop
 LONG_BATCH_HOURS = 12

@@ -23,6 +23,9 @@ DP Cooking ODL Analyzer/Lab_Analysis/data/
 # Digester_Analysis pulled data
 DP Cooking ODL Analyzer/Digester_Analysis/data/
 
+# XGboost_Model charts and tables (rebuilt on every run)
+DP Cooking ODL Analyzer/XGboost_Model/output/
+
 # Local secrets
 .env
 
