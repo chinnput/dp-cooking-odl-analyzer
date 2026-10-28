@@ -483,3 +483,35 @@ The project analyzes and reduces process variation in **DP Cooking (Digesters D1
 - *Found by:* AI assistant (Claude), user question on P-factor ending at setpoint + A1/A2/A4.
 
 **Next:** ask the process team whether the P-factor after PREHYDRAU (HLF overshoot) is known/controlled; candidates to test in a trial: lower P-temp SP (162 °C), or PF setpoint that targets the *final* P-factor.
+
+### 2026-10-28 — Golden Batch section added to `02_analysis.ipynb`
+
+**What was done:**
+
+- Added a **"Golden Batch analysis (Golden vs Non-Golden)"** section at the end of `Digester_Analysis/02_analysis.ipynb` (1 markdown + 4 code cells). Golden is **defined from Y** via the existing `overall_grade` column (no new numeric cut): Golden = `overall_grade == "normal"` (both Kappa 8–10 **and** Viscosity 700–800 in band), Non-Golden = `abnormal`, batches with no lab dropped. Scope = pooled over D1–D4 (`digester` kept only as a split-check). X = union of the notebook's Step 1–4 lists (22 params). Reuses existing `MIN_N`, `LAB_LABELS`, `master` (already `quality_flag=="ok"`). No PI access; local CSV only. Validated headless against real data via `.venv` (all four cells run clean; temp scripts removed).
+- Four views: (1) split counts overall + per digester; (2) **Mean + Variance (SD)** per X, Golden vs Non-Golden, with mean diff + Mann–Whitney U *p* + Cliff's delta, sorted by |delta|; (3) **Spearman** of each X vs Kappa/Viscosity (pooled) + heatmap; (4) **distribution** KDE Golden vs Non-Golden per X + Golden p10–p90 window table.
+
+**Results (654 graded batches: 251 Golden / 403 Non-Golden):**
+
+- Golden share by digester: D1 51.9%, D3 42.1%, D2 29.6%, D4 26.4% — Golden spans all digesters, not one.
+- Largest Golden-vs-Non-Golden separation (|Cliff's d|, MWU p<0.05): black_liquor_conductivity_mean_displacement −0.33, prehydrolysis_minutes −0.28, h_factor +0.27, ventilation_temp_max_chip_filling −0.25, digester_pressure_max_prehydrolysis +0.20, liquor_to_wood_ratio +0.19 — all small-to-medium effects only.
+- Consistent with earlier logs: effects are weak and are **hypotheses** (no lag/production adjustment; grade bands 8–10 / 700–800 still unconfirmed with the process team). Note `summaryUpdate.md`'s earlier "Kappa 9.0–9.5 / Viscosity 725–775" line is stale — `config.QUALITY_TARGETS` is **Kappa (8,10) / Viscosity (700,800)**.
+- *Found by:* AI assistant (Copilot), Golden Batch request from the user.
+
+**Next:** confirm the grade bands with the process team; if wanted, add Cliff's-delta CIs / KS test, or compute an alkali-charge-per-ton-chip X and re-run the Golden split.
+
+### 2026-10-28 — Golden Batch split **by digester** added to `02_analysis.ipynb`
+
+**What was done:**
+
+- Extended the Golden Batch section with a **"Golden vs Non-Golden, split by digester"** subsection (1 markdown + 4 code cells, ids `golden-dig-*`). Same Golden definition (`overall_grade`), same 22 X, but every view is computed per digester D1–D4. Reuses the pooled cells' `graded/golden/nongolden/GOLDEN_X/cliffs_delta/golden_window/MIN_N/LAB_LABELS`. No PI access; local CSV only. Validated headless against real data via `.venv` (all four cells run clean; temp scripts removed).
+- Four per-digester views: (5) **Mean + Variance (SD)** per X per digester (`golden_compare_dig`), Golden vs Non-Golden with mean diff + MWU p + Cliff's delta; (6) **Cliff's-delta heatmap** rows=X, cols=D1–D4 (look for a sign that holds across digesters = repeatable hypothesis); (7) **Spearman** rho of each X vs Kappa/Viscosity, one heatmap per Y with a column per digester; (8) **distribution** KDE of each X within Golden, one line per digester, plus a per-digester Golden p10–p90 window table.
+- Later added **view (9)** `golden_vs_non_by_digester(x)` (id `golden-dig-code-09`): for one chosen X, a panel per digester with **Golden vs Non-Golden overlaid** (green vs red) — answers "within each digester, do the good vs bad batches separate on this X?". Pick the X by editing the column name; defaults to `black_liquor_conductivity_mean_displacement`. Validated headless. **Switched from KDE to ECDF (cumulative)** at the user's request: at small per-digester n (esp. D4=28) ECDF has no bandwidth artifact, reads percentiles directly off the Y axis, and the line further LEFT = lower values with the largest vertical gap = best group separation.
+
+**Results / caveat:**
+
+- Per-digester graded n: **D1 83G/77N, D2 55G/131N, D3 85G/117N, D4 28G/78N.** D4 Golden (n=28) is small — treat its per-digester numbers as noisy.
+- Purpose is to check whether a pooled "Golden driver" is consistent across digesters or an artifact of one; the heatmaps make sign-consistency easy to scan. Effects remain **hypotheses** (small per-digester n, no lag/production adjustment, grade bands still unconfirmed).
+- *Found by:* AI assistant (Copilot), follow-up "แยกตาม digester" request from the user.
+
+**Tooling note:** `editNotebook` / `runNotebookCell` were unavailable in this environment; cells were appended by editing the `.ipynb` JSON directly (Python script) and validated headless with `matplotlib` Agg against `build_master.load_outputs()`. This workaround is the reliable path for future notebook edits here.

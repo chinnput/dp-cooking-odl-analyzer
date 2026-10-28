@@ -5,8 +5,8 @@
 import os
 
 # ---- Time range for the pull
-START_TIME = "2026-07-01 00:00:00"
-END_TIME = "2026-10-10 00:00:00"
+START_TIME = "2026-03-01 00:00:00"
+END_TIME = "2026-10-20 00:00:00"
 INTERVAL = "5m"        # temperature ramps fast, needed for H-factor
 CHUNK_DAYS = 7         # pull one week per request
 

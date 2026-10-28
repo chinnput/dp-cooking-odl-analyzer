@@ -20,22 +20,23 @@ TARGET_BAND = (700, 800)      # accept band, used for the PDP shading only
 # A derived feature (see data.add_derived) is added the same way, by its name.
 FEATURES = {
     "alkali_accumulator1_conc_mean_hot_liquor_filling": "Alkali conc 1",    # PM2.404AIC670 (shared, g/l)
-    "alkali_accumulator2_conc_mean_hot_liquor_filling": "Alkali conc 2",    # PM2.404AIC667 (shared, g/l)
+    #"alkali_accumulator2_conc_mean_hot_liquor_filling": "Alkali conc 2",    # PM2.404AIC667 (shared, g/l)
     "pfactor_actual_last_prehydrolysis":                "P-factor",         # PM2.10xDkPFACTOR.CALC
     "heat_and_cook_minutes":                            "H&C minutes",      # main sequence phase length
     "white_liquor_per_ton_chip":                        "WL / t chip",      # derived: FIC532 x HLF time / chip
     "liquor_to_wood_ratio":                             "L:W",              # derived: chip weight WIk29
     "LP_pressure_mean_heat_and_cook":                   "LP pressure",      # PM2.10xPICk02:MV (bar)
+    "black_liquor_conductivity_mean_displacement":      "BL conductivity",  # PM2.104CIC551 (shared, mS/cm)
     # --- prehydrolysis speed / temperature (added 2026-10-27)
     "pfactor_rate":                                     "P-factor rate",    # derived: P-factor / PREHYDRAU minutes
     "pfactor_temp_max_prehydrolysis":                   "P-temp max",       # PM2.10xDkPFTEMP.CALC (C)
-    "mp_steam_valve_mean_prehydrolysis":                "MP valve (PH)",    # PM2.404HICk45:MV (%)
+    #"mp_steam_valve_mean_prehydrolysis":                "MP valve (PH)",    # PM2.404HICk45:MV (%)
     # "pfactor_temp_setpoint_last_prehydrolysis":       "P-temp SP",        # OPESPPT, no D1 tag -> drops all D1 rows
     # "prehydrolysis_minutes":                          "Prehyd minutes",   # no effect on Viscosity alone
     # --- prehydrolysis.py features (2026-10-27). Strong alone, but collinear with the group above:
     #     switching them on did not raise out-of-time R^2 (Ridge 0.17-0.18 vs 0.21).
     # "pfactor_final":                                  "P-factor final",   # where the counter stops (in HLF)
-    # "pfactor_overshoot":                              "P-factor overshoot",  # final - setpoint
+     "pfactor_overshoot":                              "P-factor overshoot",  # final - setpoint
     # "minutes_above_168":                              "Min > 168C",       # P-temp >= 168 C in PREHYDRAU
     # "ptemp_overshoot":                                "P-temp overshoot", # max - SP, no D1 SP tag -> drops D1
     # "steam_users_other":                              "Other steam users",  # no effect within week
@@ -49,11 +50,11 @@ USE_DIGESTER_ID = True   # add D2..D4 dummies (D1 = reference)
 # ===== Filters =====
 QUALITY_FLAG_OK = True          # keep only batches with quality_flag == "ok"
 TARGET_RANGE = (400, 2000)      # Viscosity spike filter (same as the notebooks)
-DATE_FROM = None                # e.g. "2026-07-01"  (batch_start)
-DATE_TO = None
+DATE_FROM = "2026-08-01"        # e.g. "2026-07-01"  (batch_start)
+DATE_TO = "2026-10-16"
 
 # ===== Validation =====
-CV_FOLDS = 4      # TimeSeriesSplit: always train on the past, test on the future
+CV_FOLDS = 3      # TimeSeriesSplit: always train on the past, test on the future
 GATE_R2 = 0.30    # a model below this is too weak to optimize on
 
 # ===== Models =====
