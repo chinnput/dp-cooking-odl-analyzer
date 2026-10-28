@@ -72,3 +72,55 @@ Dated log for this folder only. Roll up big changes into the main `summaryUpdate
   pfactor_rate / P-temp max. Kept commented in config.FEATURES.
 
 **Found by** AI assistant (Claude), A1/A2/A4 + user's P-factor-setpoint question.
+
+---
+
+## 2026-10-28 - Golden window with statistical evidence
+
+**What was done**
+- `golden.py` + `02_golden_window.ipynb`; config `GOLDEN_SPEC` (Kappa 8-10, Viscosity 700-800, both sides,
+  confirmed by user), `GOLDEN_EXTRA` (H-factor, alkali / t chip, WL m3, chip weight, P-factor final),
+  `GOLDEN_WINDOW_RULES`, permutation / bootstrap / FDR settings. Plots: `fail_curves`, `window_months`.
+- Per X and fail mode: quintile fail rate (Wilson CI), best cut (chi-square), permutation p with the
+  outcome shuffled inside each month (pays for the cut search + removes season), week-block bootstrap
+  of the cut, Mantel-Haenszel RR/RD by month, cut from the first 70% checked on the last 30%, BH q, grade.
+- Data: 654 batches with Kappa + Viscosity (2026-05-09 .. 10-18, after the pull to 03-01 .. 10-20).
+
+**Results**
+- Golden 38%. Fail modes: Kappa high 51%, Viscosity high 25%, Viscosity low 3%, Kappa low ~0.
+  Golden rate by month: May 65%, Jun 71%, Jul-Sep 21-29%, Oct 46% -> strong season.
+- Fail QC (any): **P-factor overshoot <= 64.3 -> grade A** (fail 78% vs 52%, RR 1.49, p_perm 0.001,
+  MH RR 1.28 p<0.001, 6/6 months, later months 78% vs 62% p=0.02). Grade B: H-factor <= 333.8,
+  Alkali conc 1 <= 36.17, LP pressure <= 6.565 (future check not confirmed for alkali / LP).
+- Kappa high: P-factor overshoot A, LP pressure B. Viscosity high: 9 X grade B, all "under-cooked" side
+  (P-factor rate <= 4.41, P-factor <= 355, P-factor final <= 425, H-factor <= 334, alkali <= 36.1,
+  H&C <= 35 min, P-temp max <= 166, prehydrolysis > 70 min). Viscosity low: no X passes FDR.
+- Every limit found is a LOWER limit (cook enough). No evidence for an upper limit -> stay below data P95.
+- Combined window (overshoot > 64.3 and H-factor > 333.8): 46% of batches inside; fail 46% [40-52]
+  vs 75% [70-79] outside, Fisher p 7e-14, MH RR 1.35, lower in 6/6 months; Kappa high 39% vs 62%,
+  Viscosity high 13% vs 36%, Viscosity low 2% vs 4% (no over-cook penalty).
+
+**Found by** AI assistant (Claude), user's golden-batch question with statistical proof.
+
+---
+
+## 2026-10-28 - Outlier option for the golden window (XGboost_Model only)
+
+**What was done**
+- `config.GOLDEN_OUTLIER` (None / "2sd" / "iqr3") + `GOLDEN_OUTLIER_BY_DIGESTER`; `golden.outlier_mask`,
+  `clean_x` (one X at a time, other columns untouched), `outlier_report`, `sensitivity`. Applied in
+  `screen`, `curve`, `window_check`. Notebook: new "Outliers of X" section after Step 0.
+  Default stays None. Not done in build_master (shared by other work; cache not on this machine).
+- Added scatter cell (P-factor overshoot vs Viscosity, coloured Golden / Non-Golden).
+
+**Results**
+- 2 SD on every X at once would drop 31% of batches (654 -> 454); per X it removes 10-46 values,
+  mostly on the long side of skewed X. 3 IQR removes 0-40 per X.
+- Sensitivity (Fail QC any): P-factor overshoot cut 64.3 / 64.7 / 64.6, fail 78/52 -> 77/51, RR 1.49-1.51,
+  6/6 months in all three. H-factor cut 333.8-334.3, RR 1.44-1.47, 5/6 months. -> not driven by outliers.
+- With "iqr3" for the full screen: overshoot still A, H-factor and alkali still B, **LP pressure drops
+  from B to - (q 0.06)** -> LP pressure evidence depends on a few extreme values. Window 44% vs 74%, 6/6.
+- Extreme overshoot (200-645) batches have long HOT LIQUOR FILLING (80-125 min vs 65): real process
+  events, not sensor errors.
+
+**Found by** AI assistant (Claude), user question on outliers / 2-sigma.

@@ -15,6 +15,8 @@ Read-only: uses `../Digester_Analysis/data/batch_master.csv`. **No PI access.**
 | `explain.py` | Feature-effect table (Ridge, permutation, SHAP, drop-one), binned means | No |
 | `plots.py` | Leaderboard, SHAP, PDP, actual vs predicted → `output/*.png` | No |
 | `01_compare.ipynb` | Runs everything, shows tables and charts | No |
+| `golden.py` | Golden window: fail rate vs X, threshold + permutation p, month-adjusted (Mantel-Haenszel), future check, FDR, window | No |
+| `02_golden_window.ipynb` | Runs the golden window screen, charts and combined window check | No |
 | `update.md` | Dated log of each run | After each run |
 | `output/` | Charts (git-ignored, rebuilt every run) | — |
 
@@ -44,6 +46,22 @@ Flow: `batch_master.csv` → `data.py` → `models.py` → `explain.py` / `plots
 2. Add its name to `FEATURES`. Once it is stable, move it into `Digester_Analysis/build_master.py`.
 
 To drop a feature, comment its line out in `FEATURES`.
+
+## Golden window (`02_golden_window.ipynb`)
+
+Question: *if X is at this value, is a batch more likely to fail QC — enough to justify controlling X?*
+
+- Golden = every Y inside `GOLDEN_SPEC` (Kappa 8–10, Viscosity 700–800). Fail modes are tested separately
+  (Kappa high, Viscosity high, Viscosity low) because one X can push two Y.
+- X tested = `FEATURES` + `GOLDEN_EXTRA`, each on its own rows (a tag with no D1 data does not drop D1 for the others).
+- Evidence per X: fail rate per quintile → best cut with a **permutation p shuffled inside each month** →
+  **Mantel-Haenszel by month** → cut from early months checked on **later months** → **Benjamini-Hochberg**.
+  Grade A / B / C / –.
+- Combined window to test: `GOLDEN_WINDOW_RULES` (edit after reading the screen).
+- Settings: `GOLDEN_MIN_SIDE`, `GOLDEN_N_PERM`, `GOLDEN_N_BOOT`, `GOLDEN_FDR`, `GOLDEN_DATE_FROM/TO`.
+- Outliers of X: `GOLDEN_OUTLIER` = `None` (default) / `"2sd"` / `"iqr3"`, removed one X at a time and per digester
+  (`GOLDEN_OUTLIER_BY_DIGESTER`). The notebook shows how many each method removes and a sensitivity table.
+  Sensor-validity limits (physically impossible values) belong in `Digester_Analysis` later, not here.
 
 ## Reading the output
 

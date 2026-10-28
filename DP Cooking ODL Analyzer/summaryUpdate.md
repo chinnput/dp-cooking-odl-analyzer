@@ -515,3 +515,22 @@ The project analyzes and reduces process variation in **DP Cooking (Digesters D1
 - *Found by:* AI assistant (Copilot), follow-up "แยกตาม digester" request from the user.
 
 **Tooling note:** `editNotebook` / `runNotebookCell` were unavailable in this environment; cells were appended by editing the `.ipynb` JSON directly (Python script) and validated headless with `matplotlib` Agg against `build_master.load_outputs()`. This workaround is the reliable path for future notebook edits here.
+
+### 2026-10-28 — Golden window with statistical evidence (`XGboost_Model/golden.py`)
+
+**What was done:**
+
+- QC spec confirmed by the user: Kappa 8–10 and Viscosity 700–800, **both sides** (Viscosity > 800 is a fail). Stored as `XGboost_Model/config.GOLDEN_SPEC`.
+- New `golden.py` + `02_golden_window.ipynb`: for every X (`FEATURES` + `GOLDEN_EXTRA`) and every fail mode (any, Kappa high, Viscosity high, Viscosity low): fail rate per quintile with Wilson CI → best cut with a **permutation p (outcome shuffled inside each month)** and a week-block bootstrap range of the cut → **Mantel-Haenszel risk ratio by month** and months that agree → cut from the first 70% of time checked on the last 30% → Benjamini-Hochberg q → grade A/B/C/–; then an operating window and a combined window check (`GOLDEN_WINDOW_RULES`). Local data only (batch_master after the user's pull to 2026-03-01 … 10-20).
+
+**Results:**
+
+- 654 batches with both lab results (2026-05-09 … 10-18); golden 38%. **Why batches fail: Kappa high 51%, Viscosity high 25%, Viscosity low 3%** — both main modes are "too high", i.e. **under-cooked**. Golden rate by month: May 65%, Jun 71%, Jul–Sep 21–29%, Oct 46%.
+- Fail QC (any): **P-factor overshoot ≤ 64.3 → grade A** (fail 78% vs 52%, RR 1.49 [1.33–1.67], permutation p 0.001, MH RR 1.28 by month, 6/6 months, later months 78% vs 62% p = 0.02). Grade B: H-factor ≤ 334, Alkali conc 1 ≤ 36.2 g/l, LP pressure ≤ 6.57 bar.
+- Viscosity high: 9 X grade B, all on the under-cooked side (P-factor rate ≤ 4.41, P-factor ≤ 355, P-factor final ≤ 425, H-factor ≤ 334, alkali ≤ 36.1, H&C ≤ 35 min, P-temp max ≤ 166 °C, prehydrolysis > 70 min). Viscosity low: nothing significant.
+- All limits are **lower limits** ("cook enough"); the data holds no evidence for an upper (over-cook) limit, so recommendations must stay below the data P95.
+- **Combined window** P-factor overshoot > 64.3 **and** H-factor > 334: 46% of batches inside; Fail QC 46% [40–52%] inside vs 75% [70–79%] outside (Fisher p 7e-14), lower in **6/6 months** (MH RR 1.35); Kappa high 39% vs 62%; Viscosity high 13% vs 36%; Viscosity low 2% vs 4% (no over-cook penalty).
+- This revises the earlier reading "higher alkali / hotter prehydrolysis lowers Viscosity (bad)": under the confirmed 700–800 spec, lower Viscosity is mostly *good*, because most Viscosity fails are > 800.
+- *Found by:* AI assistant (Claude), user's golden-batch / statistical-proof question.
+
+**Next:** confirm with the process team which knob sets P-factor overshoot (P-temp SP / prehydrolysis heat) and H-factor (cook temperature / time); trial the window; re-check Kappa high (main fail) with cooking-strength features.

@@ -101,3 +101,54 @@ def pdp_top(df, feats, effects):
                  x=0.01, ha="left", color=INK)
     fig.tight_layout()
     return _save(fig, "pdp_top.png")
+
+
+# ---------------------------------------------------------------- golden window (02_golden_window.ipynb)
+def fail_curves(df, res, event="fail", top=6):
+    """Fail rate per quintile of the top X (bars with Wilson 95% CI); the cut and its range in the title."""
+    import golden
+    rows = res.head(top)
+    ncol = 3
+    nrow = int(np.ceil(len(rows) / ncol))
+    fig, axes = plt.subplots(nrow, ncol, figsize=(4.6 * ncol, 3.5 * nrow), sharey=True)
+    axes = np.atleast_1d(axes).ravel()
+    base = df[event].mean()
+    for ax, r in zip(axes, rows.itertuples()):
+        c = golden.curve(df, r.x, event)
+        pos = np.arange(len(c))
+        bad = (c["x_hi"] <= r.cut) if r.side == "<=" else (c["x_lo"] > r.cut)
+        ax.bar(pos, c["fail_rate"], width=0.8, color=[ORANGE if b else BLUE for b in bad])
+        ax.errorbar(pos, c["fail_rate"], yerr=[c["fail_rate"] - c["ci_lo"], c["ci_hi"] - c["fail_rate"]],
+                    fmt="none", ecolor=INK, elinewidth=1, capsize=3)
+        ax.axhline(base, color=MUTED, lw=1, ls="--")
+        ax.set_xticks(pos, [f"{a:.3g}-{b:.3g}" for a, b in zip(c["x_lo"], c["x_hi"])], rotation=25, fontsize=8)
+        ax.set_title(f"{r.label}  [grade {r.grade}]\nbad side {r.bad_side}  (cut range {r.cut_p5:.3g}-{r.cut_p95:.3g})",
+                     loc="left", fontsize=10, color=INK)
+        ax.set_ylim(0, 1)
+        ax.grid(axis="x", visible=False)
+    for ax in axes[len(rows):]:
+        ax.set_visible(False)
+    for ax in axes[::ncol]:
+        ax.set_ylabel(f"{golden.OUTCOMES[event]} rate")
+    fig.suptitle(f"{golden.OUTCOMES[event]} rate per quintile of X (95% CI). Orange = bins on the bad side "
+                 f"of the cut. Dashed = overall {base:.0%}", x=0.01, ha="left", color=INK)
+    fig.tight_layout()
+    return _save(fig, f"golden_curves_{event}.png")
+
+
+def window_months(per_month, title, name="golden_window_months.png"):
+    """Fail rate inside vs outside the window, month by month (the season check)."""
+    x = np.arange(len(per_month))
+    fig, ax = plt.subplots(figsize=(8, 3.4))
+    ax.bar(x - 0.2, per_month["fail_outside"], 0.38, color=ORANGE, label="Outside window")
+    ax.bar(x + 0.2, per_month["fail_inside"], 0.38, color=BLUE, label="Inside window")
+    for i, r in enumerate(per_month.itertuples()):
+        ax.text(i - 0.2, r.fail_outside + 0.02, f"{r.fail_outside:.0%}\nn={r.n_outside}", ha="center", fontsize=8, color=MUTED)
+        ax.text(i + 0.2, r.fail_inside + 0.02, f"{r.fail_inside:.0%}\nn={r.n_inside}", ha="center", fontsize=8, color=MUTED)
+    ax.set_xticks(x, per_month["month"])
+    ax.set_ylim(0, 1.15)
+    ax.set_ylabel("Fail QC rate")
+    ax.set_title(title, loc="left", color=INK)
+    ax.legend(frameon=False, loc="lower left", bbox_to_anchor=(0, 1.12), ncol=2)
+    ax.grid(axis="x", visible=False)
+    return _save(fig, name)
