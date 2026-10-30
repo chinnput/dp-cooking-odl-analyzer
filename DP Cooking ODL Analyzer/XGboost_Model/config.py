@@ -31,7 +31,7 @@ FEATURES = {
     "pfactor_rate":                                     "P-factor rate",    # derived: P-factor / PREHYDRAU minutes
     "pfactor_temp_max_prehydrolysis":                   "P-temp max",       # PM2.10xDkPFTEMP.CALC (C)
     #"mp_steam_valve_mean_prehydrolysis":                "MP valve (PH)",    # PM2.404HICk45:MV (%)
-    # "pfactor_temp_setpoint_last_prehydrolysis":       "P-temp SP",        # OPESPPT, no D1 tag -> drops all D1 rows
+    "pfactor_temp_setpoint_last_prehydrolysis":       "P-temp SP",        # OPESPPT, no D1 tag -> drops all D1 rows
     "prehydrolysis_minutes":                          "Prehyd minutes",   # no effect on Viscosity alone
     # --- prehydrolysis.py features (2026-10-27). Strong alone, but collinear with the group above:
     #     switching them on did not raise out-of-time R^2 (Ridge 0.17-0.18 vs 0.21).
@@ -50,7 +50,7 @@ USE_DIGESTER_ID = True   # add D2..D4 dummies (D1 = reference)
 # ===== Filters =====
 QUALITY_FLAG_OK = True          # keep only batches with quality_flag == "ok"
 TARGET_RANGE = (400, 2000)      # Viscosity spike filter (same as the notebooks)
-DATE_FROM = "2026-08-01"        # e.g. "2026-07-01"  (batch_start)
+DATE_FROM = "2026-05-01"        # e.g. "2026-07-01"  (batch_start)
 DATE_TO = "2026-10-16"
 
 # ===== Validation =====

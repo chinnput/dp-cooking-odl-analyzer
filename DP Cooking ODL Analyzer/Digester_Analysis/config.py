@@ -178,8 +178,8 @@ LOG_BOOK_DAY_STARTS_HOUR = 8   # a sheet runs 08:00 -> 07:00 next day: times bef
 LAB_INTERVAL = "1h"   # times to check: 10:00, 11:00, ... A time is skipped when the lab has no value.
                       # The pulled data (INTERVAL) must contain these times, e.g. 5m data has every hour.
 LAB_VALID_RANGE = {   # values outside these ranges are typos/spikes -> treated as blank
-    "press1_kappa": (5, 20),
-    "press1_viscosity": (400, 2000),
+    "press1_kappa": (5, 15),
+    "press1_viscosity": (400, 1300),
     "press1_brightness": (25, 50),
 }
 LAB_SOP_LIMITS = {    # (low, high) - same as Lab_Analysis notebook, NOT yet confirmed by the process team

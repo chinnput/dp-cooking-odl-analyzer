@@ -122,7 +122,8 @@ def fail_curves(df, res, event="fail", top=6):
                     fmt="none", ecolor=INK, elinewidth=1, capsize=3)
         ax.axhline(base, color=MUTED, lw=1, ls="--")
         ax.set_xticks(pos, [f"{a:.3g}-{b:.3g}" for a, b in zip(c["x_lo"], c["x_hi"])], rotation=25, fontsize=8)
-        ax.set_title(f"{r.label}  [grade {r.grade}]\nbad side {r.bad_side}  (cut range {r.cut_p5:.3g}-{r.cut_p95:.3g})",
+        ax.set_title(f"{r.label}  [grade {r.grade}]\nbad side {r.bad_side}  (cut range {r.cut_p5:.3g}-{r.cut_p95:.3g})"
+                     f"\nn_bad={r.n_bad} / n={r.n}",
                      loc="left", fontsize=10, color=INK)
         ax.set_ylim(0, 1)
         ax.grid(axis="x", visible=False)
@@ -134,6 +135,37 @@ def fail_curves(df, res, event="fail", top=6):
                  f"of the cut. Dashed = overall {base:.0%}", x=0.01, ha="left", color=INK)
     fig.tight_layout()
     return _save(fig, f"golden_curves_{event}.png")
+
+
+def count_curves(df, res, event="fail", top=6):
+    """Same quintiles as fail_curves, but Y = batch count (N) per bin; fail rate printed on each bar."""
+    import golden
+    rows = res.head(top)
+    ncol = 3
+    nrow = int(np.ceil(len(rows) / ncol))
+    fig, axes = plt.subplots(nrow, ncol, figsize=(4.6 * ncol, 3.5 * nrow))
+    axes = np.atleast_1d(axes).ravel()
+    base = df[event].mean()
+    for ax, r in zip(axes, rows.itertuples()):
+        c = golden.curve(df, r.x, event)
+        pos = np.arange(len(c))
+        bad = (c["x_hi"] <= r.cut) if r.side == "<=" else (c["x_lo"] > r.cut)
+        ax.bar(pos, c["n"], width=0.8, color=[ORANGE if b else BLUE for b in bad])
+        for xi, (nn, fr) in enumerate(zip(c["n"], c["fail_rate"])):
+            ax.text(xi, nn, f"{fr:.0%}", ha="center", va="bottom", fontsize=8, color=INK)
+        ax.set_xticks(pos, [f"{a:.3g}-{b:.3g}" for a, b in zip(c["x_lo"], c["x_hi"])], rotation=25, fontsize=8)
+        ax.set_title(f"{r.label}  [grade {r.grade}]\nbad side {r.bad_side}  (cut range {r.cut_p5:.3g}-{r.cut_p95:.3g})",
+                     loc="left", fontsize=10, color=INK)
+        ax.margins(y=0.15)
+        ax.grid(axis="x", visible=False)
+    for ax in axes[len(rows):]:
+        ax.set_visible(False)
+    for ax in axes[::ncol]:
+        ax.set_ylabel("Number of batches (N)")
+    fig.suptitle(f"{golden.OUTCOMES[event]}: batch count per quintile of X. Orange = bins on the bad side "
+                 f"of the cut. % on each bar = {golden.OUTCOMES[event]} rate of that bin.", x=0.01, ha="left", color=INK)
+    fig.tight_layout()
+    return _save(fig, f"golden_counts_{event}.png")
 
 
 def window_months(per_month, title, name="golden_window_months.png"):
