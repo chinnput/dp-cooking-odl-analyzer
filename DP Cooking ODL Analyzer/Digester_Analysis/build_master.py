@@ -6,6 +6,7 @@
 # Used by 01_build_master.ipynb. 02_analysis.ipynb only reads the saved CSV files.
 
 import os
+import numpy as np
 import pandas as pd
 
 import config
@@ -53,6 +54,17 @@ def build_master(df, lab):
         master["white_liquor_per_ton_chip"] = master["white_liquor_m3"] / chips.where(chips > 0)
     if "pfactor_actual_last_prehydrolysis" in master and "pfactor_setpoint_last_prehydrolysis" in master:
         master["pfactor_gap"] = master["pfactor_actual_last_prehydrolysis"] - master["pfactor_setpoint_last_prehydrolysis"]
+    # Overwrite prehydrolysis_minutes with the DCS phase-timer tag (D{dig}_prehydrolysis_time, max per
+    # batch = true length). The phase-span version is 5-min stepped and has stuck-phase outliers (up to
+    # 3840 min); the timer is continuous and resets each batch. Fall back to the span where the tag is missing.
+    timer_rows = []
+    for (dig, bid), p in phases[phases["phase"] == "PREHYDRAU"].groupby(["digester", "batch_id"]):
+        col = f"D{dig}_prehydrolysis_time"
+        seg = df.loc[p["start"].min():p["end"].max(), col].dropna() if col in df.columns else pd.Series(dtype=float)
+        timer_rows.append({"digester": dig, "batch_id": bid, "_php_timer": seg.max() if len(seg) else np.nan})
+    master = master.merge(pd.DataFrame(timer_rows), on=keys, how="left")
+    master["prehydrolysis_minutes"] = master["_php_timer"].fillna(master["prehydrolysis_minutes"])
+    master = master.drop(columns="_php_timer")
     if "pfactor_actual_last_prehydrolysis" in master:
         # P-factor built per minute of PREHYDRAU: same P-factor reached fast (hot) or slow (cool)
         minutes = master["prehydrolysis_minutes"]
@@ -60,7 +72,7 @@ def build_master(df, lab):
 
     # 5. Lab: real samples -> digester at Press 1 -> batch, with a low/good/high grade per target
     tables = {name: assign_digester(t) for name, t in lab_tables(df, lab, config.LAB_INTERVAL).items()}
-    linked = {name: link_to_batch(t, master, []) for name, t in tables.items()}
+    linked = {name: link_to_batch(t, master, [], df=df) for name, t in tables.items()}
     lab_batch = add_lab_grades(lab_per_batch(linked))
     master = master.merge(lab_batch, on=keys, how="left")
 

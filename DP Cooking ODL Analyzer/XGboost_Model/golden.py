@@ -55,6 +55,12 @@ def load_golden():
     m = m.dropna(subset=ys)
     lo, hi = config.TARGET_RANGE                        # Viscosity spike filter
     m = m[m["press1_viscosity"].between(lo, hi)]
+    for col, (x_lo, x_hi) in getattr(config, "X_VALID_RANGE", {}).items():   # drop X trip outliers
+        if col in m.columns:
+            if x_lo is not None:
+                m = m[m[col].isna() | (m[col] >= x_lo)]
+            if x_hi is not None:
+                m = m[m[col].isna() | (m[col] <= x_hi)]
     if config.GOLDEN_DATE_FROM:
         m = m[m["batch_start"] >= config.GOLDEN_DATE_FROM]
     if config.GOLDEN_DATE_TO:

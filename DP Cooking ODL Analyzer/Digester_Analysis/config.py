@@ -183,8 +183,8 @@ LAB_VALID_RANGE = {   # values outside these ranges are typos/spikes -> treated 
     "press1_brightness": (25, 50),
 }
 LAB_SOP_LIMITS = {    # (low, high) - same as Lab_Analysis notebook, NOT yet confirmed by the process team
-    "press1_kappa": (7.5, 8.5),
-    "press1_viscosity": (680, 710),
+    "press1_kappa": (9, 11),
+    "press1_viscosity": (700, 800),
     "press1_brightness": (37, 40),
 }
 

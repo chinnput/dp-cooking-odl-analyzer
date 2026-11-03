@@ -64,19 +64,68 @@ def lab_tables(df, lab, interval):
 def assign_digester(table):
     """
     Add column 'digester' at each lab time:
-    k when Dk_press1_status == k exactly and only one digester matches, otherwise blank.
+    k when round(Dk_press1_status) == k and only one digester matches, otherwise blank.
+    round() is used because PI interpolates the status tags linearly, so ~20-60% of points
+    are fractional (1.95, 3.2) and an exact == k would throw them away.
     """
-    matches = pd.DataFrame({k: table[f"D{k}_press1_status"] == k for k in (1, 2, 3, 4)})
+    matches = pd.DataFrame({k: table[f"D{k}_press1_status"].round() == k for k in (1, 2, 3, 4)})
     only_one = matches.sum(axis=1) == 1
     table = table.copy()
     table["digester"] = matches.idxmax(axis=1).where(only_one)
     return table
 
 
-def link_to_batch(table, batches, columns, max_hours=12):
+def _status_windows(df):
     """
-    For each lab sample of digester k, take digester k's most recent batch that started
-    discharging before the sample time (at most max_hours before). Adds that batch's `columns`.
+    Continuous Press 1 status windows per digester: one row per block where
+    round(Dk_press1_status) == k stays true. Columns: digester, win_start, win_end.
+    Each window is one batch physically washing at Press 1.
+    """
+    rows = []
+    for k in (1, 2, 3, 4):
+        is_k = df[f"D{k}_press1_status"].round() == k
+        block = (is_k != is_k.shift()).cumsum()[is_k]
+        for _, idx in is_k[is_k].groupby(block).groups.items():
+            rows.append({"digester": k, "win_start": idx.min(), "win_end": idx.max()})
+    return pd.DataFrame(rows).sort_values(["digester", "win_start"]).reset_index(drop=True)
+
+
+def _windows_to_batches(df, batches, columns, tolerance_hours):
+    """
+    Match each status window to the digester's batch whose discharge_start is the nearest
+    one at or before the window start, within tolerance_hours. Returns windows with batch_id
+    and `columns` attached (batch_id blank when no batch is in range).
+    """
+    win = _status_windows(df)
+    win["win_start"] = win["win_start"].astype("datetime64[ns]")
+    win["win_end"] = win["win_end"].astype("datetime64[ns]")
+    b = batches.dropna(subset=["discharge_start"]).copy()
+    b["digester"] = b["digester"].astype(int)
+    b["discharge_start"] = b["discharge_start"].astype("datetime64[ns]")
+    b = b.sort_values("discharge_start")[["digester", "batch_id", "discharge_start"] + columns]
+
+    parts = []
+    for k in (1, 2, 3, 4):
+        w = win[win["digester"] == k].sort_values("win_start")
+        m = pd.merge_asof(w, b[b["digester"] == k].drop(columns="digester"),
+                          left_on="win_start", right_on="discharge_start",
+                          direction="backward", tolerance=pd.Timedelta(hours=tolerance_hours))
+        m["digester"] = k
+        parts.append(m)
+    return pd.concat(parts, ignore_index=True)
+
+
+def link_to_batch(table, batches, columns, df=None, tolerance_hours=6, max_hours=12):
+    """
+    Link each lab sample to the batch that was washing at Press 1 at the sample time.
+
+    Primary (window_match): the sample's timestamp falls inside a Press 1 status window
+    (round(Dk_press1_status) == k); that window's batch (discharge_start nearest-before the
+    window start, within tolerance_hours) owns the sample. This follows real V/Q timing.
+
+    Fallback (merge_asof, max_hours): samples with no window match take digester k's most
+    recent batch that discharged before the sample (time-based). Needs `df`; without it only
+    the fallback is used (old behaviour).
     """
     lab = table.dropna(subset=["digester"]).reset_index()
     lab["digester"] = lab["digester"].astype(int)
@@ -91,6 +140,18 @@ def link_to_batch(table, batches, columns, max_hours=12):
     linked = pd.merge_asof(lab, b, left_on="timestamp", right_on="discharge_start",
                            by="digester", direction="backward",
                            tolerance=pd.Timedelta(hours=max_hours))
+
+    if df is not None:
+        win_b = _windows_to_batches(df, batches, columns, tolerance_hours)
+        win_b = win_b[win_b["batch_id"].notna()]
+        extra_cols = ["batch_id", "discharge_start"] + columns
+        for k in (1, 2, 3, 4):
+            rows = linked["digester"] == k
+            for _, r in win_b[win_b["digester"] == k].iterrows():
+                inside = rows & linked["timestamp"].between(r["win_start"], r["win_end"])
+                for col in extra_cols:
+                    linked.loc[inside, col] = r[col]
+
     return linked.set_index("timestamp")
 
 

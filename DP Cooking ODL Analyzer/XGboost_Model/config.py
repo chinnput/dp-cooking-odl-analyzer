@@ -50,8 +50,16 @@ USE_DIGESTER_ID = True   # add D2..D4 dummies (D1 = reference)
 # ===== Filters =====
 QUALITY_FLAG_OK = True          # keep only batches with quality_flag == "ok"
 TARGET_RANGE = (400, 2000)      # Viscosity spike filter (same as the notebooks)
-DATE_FROM = "2026-05-01"        # e.g. "2026-07-01"  (batch_start)
-DATE_TO = "2026-10-16"
+DATE_FROM = "2026-09-01"        # e.g. "2026-07-01"  (batch_start)
+DATE_TO = "2026-10-30"
+
+# Drop batches whose X is an impossible/trip outlier (physical range, not statistical).
+# None bound = no limit on that side. NaN is always kept. Applied in load_golden().
+X_VALID_RANGE = {
+    "pfactor_overshoot": (None, 134),   # 95th pct; >134 = control runaway (max 645)
+    # prehydrolysis_minutes no longer filtered: now from the DCS phase timer (PHP_T), which caps
+    # at 110 min with no trip outliers; the old <=100 would drop ~116 normal batches in 100-110.
+}
 
 # ===== Validation =====
 CV_FOLDS = 3      # TimeSeriesSplit: always train on the past, test on the future
@@ -93,8 +101,8 @@ GOLDEN_EXTRA = {
     "chip_weight_max_chip_filling": "Chip weight",      # WIk29 (t, wet)
     "pfactor_final":               "P-factor final",    # prehydrolysis.py
 }
-GOLDEN_DATE_FROM = None       # None = every batch with both lab results
-GOLDEN_DATE_TO = None
+GOLDEN_DATE_FROM = "2026-05-01"       # None = every batch with both lab results
+GOLDEN_DATE_TO = "2026-10-15"
 GOLDEN_MIN_SIDE = 0.15        # each side of a threshold keeps >= 15% of the batches (and >= 20)
 GOLDEN_N_PERM = 1000          # permutations (shuffled inside each month) for the threshold p-value
 GOLDEN_N_BOOT = 300           # week-block bootstrap rounds for the threshold CI
@@ -109,3 +117,23 @@ GOLDEN_WINDOW_RULES = [
     ("pfactor_overshoot", ">", 64.3),   # grade A for Fail QC (2026-10-28 run)
     ("h_factor", ">", 333.8),           # grade B for Fail QC
 ]
+
+# ===== Capability / Operating Window (capability.py / 03_operating_window) =====
+# "In which combined range of X does Viscosity have the best Cpk?"  Grid search of X bins,
+# Cpk of Viscosity scored per box. Reuses golden.load_golden() for the data + filters.
+CAP_TARGET = "press1_viscosity"
+CAP_SPEC = (700, 800)            # (LSL, USL); target = midpoint = 750
+CAP_TARGET2 = "press1_kappa"     # second Y, controlled together with Viscosity
+CAP_SPEC2 = (9, 11)              # Kappa (LSL, USL); target = 10
+# Scoring for 2 Y: cpk_min = min(cpk_visc, cpk_kappa). A window is good only when BOTH are good.
+CAP_X = {                        # batch_master column -> short label. Edit this list to change X.
+    "pfactor_overshoot":                                "P-factor overshoot",
+    "alkali_accumulator1_conc_mean_hot_liquor_filling": "Alkali conc 1",
+    "prehydrolysis_minutes":                            "Prehyd minutes",
+    "chip_weight_max_chip_filling":                     "Chip weight",
+    "digester":                                         "Digester",
+    "pfactor_temp_setpoint_last_prehydrolysis":         "P-temp SP",
+}
+CAP_BINS = 4            # split each X into this many quantile bins (low / mid / high)
+CAP_COMBO_SIZE = 4      # how many X used together (C(len(CAP_X), size) combinations are searched)
+CAP_MIN_N = 15          # a box with fewer batches than this is skipped (small-sample Cpk is noise)

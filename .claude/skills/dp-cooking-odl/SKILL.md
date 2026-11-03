@@ -51,7 +51,7 @@ PI ─→ MI Cube API  https://micube.scg.com/v2/api/Datacenter/PIServer/Interpo
 - **PI interpolates the status and lab tags linearly** (`Step = 0`), and AF Step 8 uses `InterpolatedValues`, so about 20% of recorded status points are fractional (0.5, 1.95, 3.2187). The proper fix is in AF and PI (`PrevVal` and/or `Step = 1`), not in Python.
 - **Notebook N counts interpolated points, not real lab samples.** Kappa and Viscosity are sampled every 4 h, Brightness every 2 h. Say this whenever you report N or significance.
 - **Spike filters:** Viscosity 400–2000, Brightness 25–50. Apply the same filter to the plot and its summary table.
-- **SOP limits** (`LAB_SOP_LIMITS`: Kappa 7.5–8.5, Viscosity 680–710, Brightness 37–40) are **unconfirmed**. Almost all data falls outside them. Don't present "% in SOP" as a verdict.
+- **Spec limits** for Kappa / Viscosity / Brightness are **set by the user** (process-team values). Use the limits the user provides for capability / Cpk work; don't substitute the old unconfirmed SOP numbers.
 - **Specific consumption** = `24 × flow / Production ODL (ADT/D)`, with production ≤ 0 set to NaN. It spikes like 1/x during slowdowns, which is the main "Abnormal" class.
 - **Lag model** = steady state, residence time = V/Q. Don't flag that as a bug, but note it breaks during slowdown and trip batches.
 - **Correlations** from hourly interpolated data with no adjustment for lag or production are **hypotheses**, not findings.

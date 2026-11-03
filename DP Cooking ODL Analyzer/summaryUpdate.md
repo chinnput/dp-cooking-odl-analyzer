@@ -17,7 +17,7 @@ The project analyzes and reduces process variation in **DP Cooking (Digesters D1
 
 ## Current State
 
-*As of 2026-10-27.*
+*As of 2026-11-03.*
 
 - **Branch:** `feat/press1-digester-exact-match`, pushed to GitHub (last pushed commit `4d9c5f9`). Not merged to `main`.
 - **Digester batch analysis (new main work):** `Digester_Analysis/` — see its `README.md` (Thai, detailed)
@@ -50,11 +50,48 @@ The project analyzes and reduces process variation in **DP Cooking (Digesters D1
   - **Per-digester surrogate check (2026-10-27):** per-digester models do not beat pooled; Kappa out-of-time R² < 0 in every set-up (Kappa is dominated by slow day-to-month drift the batch features don't capture). Viscosity drivers have the same sign in all 4 digesters. Steam flow tags are unreliable (D1–D3 negative zero offset, D4 pegged at 21). See the Progress Log entry of the same date.
   - **Viscosity surrogate (2026-10-27, focus now):** best out-of-time R² 0.11 (GBM pooled) — gate (0.30) not passed. Main driver `alkali_accumulator1_conc` (`PM2.404AIC670`, shared tag), ≈ −16 Viscosity per g/l, partly slow monthly drift. Pooled > partial pooling > per digester. Next: confirm AIC670 meaning/controllability, longer data (from Jan), alkali charge per ton.
   - **Prehydrolysis speed (2026-10-27):** P-factor rate / P-temp drive Viscosity more than prehydrolysis time or P-factor amount (within-week ρ −0.20 vs −0.01). P-temp SP 162 → 809, 163 → 780, 164 °C → 772 Viscosity (partly season). Hot vs cool at same PF setpoint −6 Visc, Kappa unchanged. Ridge with these features R² 0.21 (best, gate 0.30 not passed). Code: `XGboost_Model/`.
+  - **Operating-window capability (2026-11-03):** `XGboost_Model/03_operating_window.ipynb` + `capability.py` grid-search which X combination keeps **both** Viscosity (spec 700–800) and Kappa (spec 9–11) most capable, scored by `cpk_min = min(Cpk_visc, Cpk_kappa)`. X = P-factor overshoot, Alkali conc 1, Prehyd minutes, Chip weight, digester (categorical 5th X), P-temp SP; combo size 2, 3 qcut bins/X, min N 15. `config.X_VALID_RANGE` drops X trip outliers once in `load_golden()` (currently only `pfactor_overshoot ≤ 134`). Baseline-by-digester Cpk is low (0.16–0.25) — variation is a real process effect, not just "which pot". **This is a visualization, not an optimizer** — Cpk here is descriptive.
   - ~~`LP_pressure` all NaN~~ now populated in the cache and master (1529/1540, checked 2026-10-27). Original note: `LP_pressure` (PIC102/202/302/402, bar) was added to `config.COOKING` + `BATCH_FEATURES` (`HEAT&COOK` mean) on 2026-10-27, but the current cache has no data for these tags, so `LP_pressure_mean_heat_and_cook` is all NaN until a PI re-pull. The exact meaning of PIC102 (vs PIC104 digester_pressure) is to confirm.
 
 ---
 
 ## Progress Log
+
+### 2026-11-03 — Lab→batch linking redesigned: status-window match (V/Q-aware) replaces the 12 h time join
+
+**What was done:**
+
+- **`Digester_Analysis/lab.py`** — two changes to how a real lab sample is tied to the digester batch it came from:
+  - **`assign_digester`** now uses `round(D{k}_press1_status) == k` instead of exact `== k`. PI interpolates the status tags linearly (`Step = 0`), so 25–64% of status points are fractional (1.95, 3.2) and an exact match threw them away. `round()` recovers them; the "only one digester matches" rule is kept.
+  - **`link_to_batch`** rewritten. **Primary = window match:** build the continuous Press 1 status windows per digester (`round == k` runs, new helper `_status_windows`), match each window to the batch whose `discharge_start` is the nearest one at or before the window start within **6 h** (`_windows_to_batches`), then any lab sample whose timestamp falls inside a window inherits that window's batch. This follows the real V/Q residence time, so it can no longer pick the wrong cook cycle. **Fallback = the old `merge_asof` backward 12 h** for samples with no window (kept per the user's "keep_old" choice). The function now takes `df` (needs the status columns); without `df` it behaves exactly as before.
+- **`Digester_Analysis/build_master.py`** — step 5 call updated to `link_to_batch(t, master, [], df=df)`.
+- **Dtype fix:** `_windows_to_batches` casts `win_start` / `win_end` to `datetime64[ns]`. In the notebook `master.discharge_start` becomes `datetime64[us]` after its merges while the window edges come from `df.index` (`ns`), which raised `MergeError: incompatible merge keys` inside `merge_asof`.
+
+**Results (local cache, no PI):**
+
+- Lab samples linked to a batch: **2,692 → 3,294** (+602, +22%) — Kappa 688→839, Viscosity 685→836, Brightness 1,319→1,619.
+- `lab_per_batch`: **748 distinct batches** get a lab value (1,605 rows). ~90% of status windows find a batch within 6 h; the ~10% that don't are batches that never wash solo at Press 1 (blended in the 800 m³ FIFO discharge tank) and stay blank.
+- Overlap (two digesters `round == k` at once) is only 0.1% of rows and is dropped by the existing "only one" rule.
+
+**Found by:** prototyped the window match in a scratch script against `data/digester_2026-03-01_2026-10-20.csv.gz`, compared coverage vs the old join, then edited `lab.py` and re-ran `build_master` to confirm 3,294 / 748. Commit: `7215a5e`.
+
+### 2026-11-03 — prehydrolysis_minutes now from the DCS phase timer (PHP_T) + X trip-outlier filter + 2-decimal capability tables
+
+**What was done:**
+
+- **`Digester_Analysis/build_master.py`** — `prehydrolysis_minutes` is now the **max of the DCS phase-timer tag `D{dig}_prehydrolysis_time` (`PM2.104DIG{1-4}PHP_T`) during PREHYDRAU**, instead of the `(end − start)` phase span. The span came off the 5-min-sampled `main_sequence` tag, so it was stepped at 5 min (only ~10 distinct values) and had stuck-phase outliers up to 3840 min. The timer is continuous and resets each batch. Overwrite happens in step 4 **before** `pfactor_rate`, so `pfactor_rate` (= `pfactor_actual / prehydrolysis_minutes`) now uses the clean value too. Falls back to the old span where the tag is missing. Added `import numpy as np`.
+- **`XGboost_Model/config.py`** — added `X_VALID_RANGE` (applied once in `load_golden()`): drops batches outside a valid X range before any capability/golden analysis, NaN always kept. Now holds only `pfactor_overshoot ≤ 134` (95th pct; the real control-runaway outliers reach 645). The earlier `prehydrolysis_minutes ≤ 100` entry was **removed** — the new timer source caps at 110 min with no trip outliers, so `≤ 100` was dropping ~116 normal batches for nothing.
+- **`XGboost_Model/golden.py`** — `load_golden()` applies the generic `X_VALID_RANGE` loop right after the Viscosity spike filter.
+- **`XGboost_Model/capability.py`** — all displayed tables rounded to **2 decimals** (`baseline_by_digester`, `_bin_table`, the `search` result) and qcut bin edges / best-window labels switched from `:.3g` to `:.2f` (so `35-36.4` → `35.00-36.40`). Display only; no change to Cpk/qcut math. Also added **plain `Cp` next to `Cpk`** in the baseline table (`_stats2` now returns `cp_visc` / `cp_kappa` using the existing `cp()` helper), so you can see centering (Cp high + Cpk low) vs spread (both low); current data has both low → the spread is the dominant problem.
+- **`XGboost_Model/03_operating_window.ipynb`** — markdown rewritten for 2 Y (Viscosity + Kappa) + Cpk_min scoring + digester-as-5th-X + the X filter; re-run end-to-end on the rebuilt master.
+
+**Results:**
+
+- Rebuilt `batch_master.csv`: `prehydrolysis_minutes` now continuous (2943 distinct, max 110.00, median 75.55, std 9.94) — the 3840-min outlier is gone.
+- Golden set after the filter change: **601 → 621 batches** (regained the ~20 normal 100–110 min batches), golden 39%; `pfactor_overshoot` max 133.86 (filter working), `prehydrolysis_minutes` max 110.00.
+- Baseline Cpk by digester stays low (D1 0.25 / D2 0.17 / D3 0.16 / D4 0.23, ALL 0.19 on Viscosity), confirming the quality spread is a real process effect, not only "which pot".
+
+**Found by:** editing then running `build_master` on the local cache `Digester_Analysis/data/digester_2026-03-01_2026-10-20.csv.gz` (no PI), reloading `config`/`golden` to verify the new N and X ranges, and re-running `03_operating_window.ipynb` with the project Python. Commit: `7215a5e`.
 
 ### 2026-10-21 — Added steam_heater_temp, p factor, and a combined Kappa+Viscosity grade table
 
