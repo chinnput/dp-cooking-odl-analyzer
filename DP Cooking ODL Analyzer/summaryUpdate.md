@@ -73,7 +73,7 @@ The project analyzes and reduces process variation in **DP Cooking (Digesters D1
 - `lab_per_batch`: **748 distinct batches** get a lab value (1,605 rows). ~90% of status windows find a batch within 6 h; the ~10% that don't are batches that never wash solo at Press 1 (blended in the 800 m³ FIFO discharge tank) and stay blank.
 - Overlap (two digesters `round == k` at once) is only 0.1% of rows and is dropped by the existing "only one" rule.
 
-**Found by:** prototyped the window match in a scratch script against `data/digester_2026-03-01_2026-10-20.csv.gz`, compared coverage vs the old join, then edited `lab.py` and re-ran `build_master` to confirm 3,294 / 748. Commit: `7215a5e`.
+**Found by:** prototyped the window match in a scratch script against `data/digester_2026-03-01_2026-10-20.csv.gz`, compared coverage vs the old join, then edited `lab.py` and re-ran `build_master` to confirm 3,294 / 748. Commit: `8f234ab`.
 
 ### 2026-11-03 — prehydrolysis_minutes now from the DCS phase timer (PHP_T) + X trip-outlier filter + 2-decimal capability tables
 
@@ -91,7 +91,7 @@ The project analyzes and reduces process variation in **DP Cooking (Digesters D1
 - Golden set after the filter change: **601 → 621 batches** (regained the ~20 normal 100–110 min batches), golden 39%; `pfactor_overshoot` max 133.86 (filter working), `prehydrolysis_minutes` max 110.00.
 - Baseline Cpk by digester stays low (D1 0.25 / D2 0.17 / D3 0.16 / D4 0.23, ALL 0.19 on Viscosity), confirming the quality spread is a real process effect, not only "which pot".
 
-**Found by:** editing then running `build_master` on the local cache `Digester_Analysis/data/digester_2026-03-01_2026-10-20.csv.gz` (no PI), reloading `config`/`golden` to verify the new N and X ranges, and re-running `03_operating_window.ipynb` with the project Python. Commit: `7215a5e`.
+**Found by:** editing then running `build_master` on the local cache `Digester_Analysis/data/digester_2026-03-01_2026-10-20.csv.gz` (no PI), reloading `config`/`golden` to verify the new N and X ranges, and re-running `03_operating_window.ipynb` with the project Python. Commit: `8f234ab`.
 
 ### 2026-10-21 — Added steam_heater_temp, p factor, and a combined Kappa+Viscosity grade table
 
