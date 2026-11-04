@@ -101,8 +101,8 @@ GOLDEN_EXTRA = {
     "chip_weight_max_chip_filling": "Chip weight",      # WIk29 (t, wet)
     "pfactor_final":               "P-factor final",    # prehydrolysis.py
 }
-GOLDEN_DATE_FROM = "2026-05-01"       # None = every batch with both lab results
-GOLDEN_DATE_TO = "2026-10-15"
+GOLDEN_DATE_FROM = "2026-03-21"       # None = every batch with both lab results
+GOLDEN_DATE_TO = "2026-10-31"
 GOLDEN_MIN_SIDE = 0.15        # each side of a threshold keeps >= 15% of the batches (and >= 20)
 GOLDEN_N_PERM = 1000          # permutations (shuffled inside each month) for the threshold p-value
 GOLDEN_N_BOOT = 300           # week-block bootstrap rounds for the threshold CI
@@ -134,6 +134,11 @@ CAP_X = {                        # batch_master column -> short label. Edit this
     "digester":                                         "Digester",
     "pfactor_temp_setpoint_last_prehydrolysis":         "P-temp SP",
 }
-CAP_BINS = 4            # split each X into this many quantile bins (low / mid / high)
-CAP_COMBO_SIZE = 4      # how many X used together (C(len(CAP_X), size) combinations are searched)
+CAP_BINS = 3            # split each X into this many quantile bins (low / mid / high)
+CAP_COMBO_SIZE = 2      # how many X used together (C(len(CAP_X), size) combinations are searched)
 CAP_MIN_N = 15          # a box with fewer batches than this is skipped (small-sample Cpk is noise)
+# Bin edges are computed ONCE from the full data (not per-combo), so ranges are comparable across
+# every combo. To override a numeric X with meaningful process edges, list the cut points here, e.g.
+# CAP_FIXED_EDGES = {"prehydrolysis_minutes": [56, 70, 85, 110]}. X not listed use global quantile edges.
+CAP_FIXED_EDGES = {}
+CAP_BURST_GAP_DAYS = 7  # timeline(): a gap > this many days between a box's batches starts a new burst

@@ -191,7 +191,7 @@ LAB_SOP_LIMITS = {    # (low, high) - same as Lab_Analysis notebook, NOT yet con
 # Target band (low, high) for the "good" quality zone -> grade column (low / good / high).
 # lab column -> short name used for the grade column (e.g. press1_kappa -> kappa_grade).
 QUALITY_TARGETS = {
-    "press1_kappa": (8, 10),
+    "press1_kappa": (8, 11),
     "press1_viscosity": (700, 800),
 }
 QUALITY_GRADE_NAMES = {"press1_kappa": "kappa", "press1_viscosity": "viscosity"}

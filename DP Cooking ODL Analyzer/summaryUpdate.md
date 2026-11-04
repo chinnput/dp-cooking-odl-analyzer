@@ -17,7 +17,7 @@ The project analyzes and reduces process variation in **DP Cooking (Digesters D1
 
 ## Current State
 
-*As of 2026-11-03.*
+*As of 2026-11-04.*
 
 - **Branch:** `feat/press1-digester-exact-match`, pushed to GitHub (last pushed commit `4d9c5f9`). Not merged to `main`.
 - **Digester batch analysis (new main work):** `Digester_Analysis/` — see its `README.md` (Thai, detailed)
@@ -50,12 +50,47 @@ The project analyzes and reduces process variation in **DP Cooking (Digesters D1
   - **Per-digester surrogate check (2026-10-27):** per-digester models do not beat pooled; Kappa out-of-time R² < 0 in every set-up (Kappa is dominated by slow day-to-month drift the batch features don't capture). Viscosity drivers have the same sign in all 4 digesters. Steam flow tags are unreliable (D1–D3 negative zero offset, D4 pegged at 21). See the Progress Log entry of the same date.
   - **Viscosity surrogate (2026-10-27, focus now):** best out-of-time R² 0.11 (GBM pooled) — gate (0.30) not passed. Main driver `alkali_accumulator1_conc` (`PM2.404AIC670`, shared tag), ≈ −16 Viscosity per g/l, partly slow monthly drift. Pooled > partial pooling > per digester. Next: confirm AIC670 meaning/controllability, longer data (from Jan), alkali charge per ton.
   - **Prehydrolysis speed (2026-10-27):** P-factor rate / P-temp drive Viscosity more than prehydrolysis time or P-factor amount (within-week ρ −0.20 vs −0.01). P-temp SP 162 → 809, 163 → 780, 164 °C → 772 Viscosity (partly season). Hot vs cool at same PF setpoint −6 Visc, Kappa unchanged. Ridge with these features R² 0.21 (best, gate 0.30 not passed). Code: `XGboost_Model/`.
-  - **Operating-window capability (2026-11-03):** `XGboost_Model/03_operating_window.ipynb` + `capability.py` grid-search which X combination keeps **both** Viscosity (spec 700–800) and Kappa (spec 9–11) most capable, scored by `cpk_min = min(Cpk_visc, Cpk_kappa)`. X = P-factor overshoot, Alkali conc 1, Prehyd minutes, Chip weight, digester (categorical 5th X), P-temp SP; combo size 2, 3 qcut bins/X, min N 15. `config.X_VALID_RANGE` drops X trip outliers once in `load_golden()` (currently only `pfactor_overshoot ≤ 134`). Baseline-by-digester Cpk is low (0.16–0.25) — variation is a real process effect, not just "which pot". **This is a visualization, not an optimizer** — Cpk here is descriptive.
+  - **Operating-window capability (2026-11-04):** `XGboost_Model/03_operating_window.ipynb` + `capability.py` grid-search which X combination keeps **both** Viscosity (spec 700–800) and Kappa (spec 9–11) most capable. **Ranked by `cp_min = min(Cp_visc, Cp_kappa)`** (tightest spread; `cpk_min` still shown). X = P-factor overshoot, Alkali conc 1, Prehyd minutes, Chip weight, digester (categorical), P-temp SP; combo size 4, 3 bins/X, min N 15. Bins now use **fixed global edges** (`config.CAP_FIXED_EDGES` or one global qcut) so ranges are identical across combos and comparable. **Step 2b `sensitivity()`** = OFAT around the best box (hold 3, slide 1) in the same columns. `config.X_VALID_RANGE` drops X trip outliers once in `load_golden()` (currently only `pfactor_overshoot ≤ 134`). Baseline-by-digester Cpk is low (0.16–0.25) — variation is a real process effect, not just "which pot". **This is a visualization, not an optimizer** — Cp/Cpk here are descriptive, and the best box is time-confounded (mostly May batches).
   - ~~`LP_pressure` all NaN~~ now populated in the cache and master (1529/1540, checked 2026-10-27). Original note: `LP_pressure` (PIC102/202/302/402, bar) was added to `config.COOKING` + `BATCH_FEATURES` (`HEAT&COOK` mean) on 2026-10-27, but the current cache has no data for these tags, so `LP_pressure_mean_heat_and_cook` is all NaN until a PI re-pull. The exact meaning of PIC102 (vs PIC104 digester_pressure) is to confirm.
 
 ---
 
 ## Progress Log
+
+### 2026-11-04 — Capability: fixed global bin edges, Cp-based ranking, and an OFAT sensitivity table
+
+**What was done:**
+
+- **`XGboost_Model/config.py`** — added **`CAP_FIXED_EDGES = {}`**. Empty dict = derive the bin edges once from the whole golden set (global qcut); you can override any X with an explicit cut-point list to pin the ranges.
+- **`XGboost_Model/capability.py`**
+  - **Fixed global bin edges.** `_bins()` gained an `edges` param and uses `pd.cut(..., include_lowest=True)` when edges are given (qcut fallback kept for `_bin_table`). New `_global_edges(df, xs, bins)` computes each numeric X's edges **once** from the full df (`CAP_FIXED_EDGES` if set, else qcut-derived). `search()` computes `edges` before the combo loop and passes `edges.get(x)` into `_bins`, so **every combo now shares identical range labels** for the same X (e.g. Prehyd is always `56.08-75.07 / 75.07-83.63 / 83.63-110.00`). Before, each combo re-binned its own subset, so the ranges shifted row to row and could not be compared.
+  - **Cp-based ranking.** `_stats2` now also returns **`cp_min` = min(Cp_visc, Cp_kappa)**; `search()` sorts by `cp_min` (was `cpk_min`). Cp = potential capability if centred, so this ranks "tightest spread" first regardless of centring. Both `cp_min` and `cpk_min` are shown.
+  - **`summary()` column order** fixed to `… X … | n | cp_visc | cp_kappa | cpk_visc | cpk_kappa | cp_min | cpk_min` (the cp/cpk block now sits after `n`, not mixed into the X).
+  - **New `sensitivity(df, res, rank=0)` (OFAT).** Takes the box at `rank` (default best), holds 3 X at their chosen range and slides the 4th across every bin it really took. **Same columns as `summary()`** (all 6 X + n + cp/cpk); held X repeat their chosen range, the slid X changes row to row, X not in the combo stay NaN. The row index marks the slid X with `< chosen` / `small-n`.
+- **`XGboost_Model/03_operating_window.ipynb`** — added **Step 2b** (markdown + `display(cap.sensitivity(df, res, rank=0))`) after the search cell.
+
+**Results (local cache, no PI):**
+
+- Each X now shows exactly 3 fixed ranges across all 198 boxes — cross-row comparison is valid.
+- Sensitivity around the best box (P-factor × Prehyd × Chip × Digester 3): **Prehyd is the most critical** — sliding it 56-75 → 75-83 drops `cp_min` 0.80 → **0.27** (n=19). P-factor is least critical (62-75 still 0.75), Digester 3 ≫ 1/2.
+- **Time-confounder caveat (open):** the best box is 15/17 May batches, none after 1 Jul, so its high capability may be a "May ran well" artifact rather than an X effect. Correlations here are hypotheses, not findings.
+
+**Found by:** editing `capability.py` / `config.py`, then validating `search()` + `sensitivity()` via inline scripts with the project Python (pandas 2.3.3) on `Digester_Analysis/data/digester_2026-03-01_2026-10-20.csv.gz` (golden 760 batches, 309 golden). Notebook cells are in place but could not be re-run via the tool (model-unavailable error); run them manually to regenerate outputs.
+
+**Added later the same day — timeline, date filter, and per-digester sweet spots:**
+
+- **`XGboost_Model/config.py`** — added **`CAP_BURST_GAP_DAYS = 7`** (a gap larger than this between consecutive batches starts a new "burst").
+- **`XGboost_Model/capability.py`**
+  - **New `timeline(df, res, rank=0, gap_days=None)`.** Answers "when did this box actually run?" — finds the box's batches (same rule logic as `report`), sorts by `discharge_start`, and splits them into **bursts** (consecutive runs with gap ≤ `CAP_BURST_GAP_DAYS`). Returns one row per burst plus an `ALL` row (`first`, `last`, `span_days`, `n`, cp/cpk), and prints the burst count and busiest-month share. This exposes the time-confounder directly: a high-Cp box that is one single May burst is far less trustworthy than one spread over several months.
+  - **`search()` gained an optional `xs` param** to override which X are searched (default = all of `config.CAP_X`), so a caller can hold one X fixed and search the rest.
+  - **New `by_digester(df, top=1, …, min_n=CAP_MIN_N//2)`.** Runs `search()` **separately inside each digester** (digester dropped from the X since it is held fixed) and stacks the top `top` box of each into one table with a leading `digester` column and the same columns as `summary()`. `min_n` defaults lower because N per digester is ~a quarter of the pool. Answers "do the 4 digesters have different sweet spots?".
+- **`XGboost_Model/03_operating_window.ipynb`** — added **Step 2c** (`display(cap.timeline(df, res, rank=…))`) and **Step 2d** (`display(cap.by_digester(df, top=3))`).
+- **`Digester_Analysis/02_analysis.ipynb`** — load cell gained **`DATE_FROM` / `DATE_TO`** (both `None` = all) that filter `master` on `batch_start` right after `load_outputs()`, so a sub-window can be analysed without re-running `pull_data`. Markdown intro updated.
+
+**Results (local cache, no PI):**
+
+- `timeline` confirms the confounder: rank-0 box = 88% May (4 bursts, two of them n=1 → NaN cp); a lower-ranked box spread May–Sep (5 bursts, 51% top month) is more trustworthy despite lower cp_min.
+- `by_digester` (top 3/digester, min_n 7): **the digesters do have different sweet spots.** D3 is best (cp_min 1.05–1.18) with **short Prehyd 63–75 + high P-temp 164–166** repeating across all 3 of its top boxes; D4 is the opposite (long Prehyd, low P-temp, cp_min 0.30–0.45). **Caveat:** per-digester N is tiny (7–14/box) and D1/D4 produced only 5 passing boxes each, so the Cp numbers are noisy. Note this seems to disagree with Step 0.5 where D4 has the highest pooled `cp_visc` (0.49) — that is the *average over all* D4 batches (consistent baseline), whereas Step 2d is the *best achievable* box when X is controlled (D3 has the higher ceiling). Different questions, not a contradiction.
 
 ### 2026-11-03 — Lab→batch linking redesigned: status-window match (V/Q-aware) replaces the 12 h time join
 
