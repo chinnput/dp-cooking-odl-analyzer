@@ -1,7 +1,12 @@
-# XGboost_Model — Viscosity model comparison
+# Capability_Model — process-capability & operating-window analysis
 
-Compares XGBoost against simpler models on the same batches and the same time split,
-then shows which process X drive Press 1 **Viscosity** and whether the models agree.
+Finds which process X keep Press 1 **Viscosity** and **Kappa** most capable
+(Cp/Cpk), shows the operating window per digester, and (in `realtime_pi/`)
+predicts a finished batch's quality from its X. Also keeps the earlier model
+comparison (`01_compare.ipynb`, XGBoost vs simpler models) for reference.
+
+> Folder was renamed from `XGboost_Model` on 2026-11-05 — it no longer
+> contains only XGBoost work.
 
 Read-only: uses `../Digester_Analysis/data/batch_master.csv`. **No PI access.**
 

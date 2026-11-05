@@ -17,9 +17,10 @@ The project analyzes and reduces process variation in **DP Cooking (Digesters D1
 
 ## Current State
 
-*As of 2026-11-04.*
+*As of 2026-11-05.*
 
-- **Branch:** `feat/press1-digester-exact-match`, pushed to GitHub (last pushed commit `4d9c5f9`). Not merged to `main`.
+- **Branch:** `feat/press1-digester-exact-match`, pushed to GitHub. Not merged to `main`.
+- **`Capability_Model/`** (renamed 2026-11-05 from `XGboost_Model`, which no longer held XGBoost work): process-capability / operating-window analysis plus a lookup-based batch-quality prediction POC. See its `README.md` and `CONCEPT.md`. The notebooks (`01`–`04`) and the `capability.py` / `golden.py` / `config.py` helpers are unchanged apart from the folder name. `predict.py` + `realtime_pi/` are the new prediction layer; prediction is a **lookup against the historical boxes, not a trained model**.
 - **Digester batch analysis (new main work):** `Digester_Analysis/` — see its `README.md` (Thai, detailed)
   - `pull_data.py` pulls the digester/lab/status tags at 5 min (expanded from 99 to cover the alkali, steam % / temperature and heat-exchanger groups from `workflow.md`); `01_build_master.ipynb` builds `data/batch_master.csv` (1 row = 1 batch), `data/lab_linked.csv`, `data/phase_summary.csv` (1 row = 1 phase run) and `data/phase_summary_with_lab.csv` (same, with the batch's Press 1 lab values); `02_analysis.ipynb` reads only those CSV files.
   - `phase_summary.csv` (`batch.phase_summary`): one row per phase run with `start` / `end` / `minutes` and `mean` / `min` / `max` of every numeric sensor for that digester plus the shared sensors. Ids and phase timers (`batch_number`, `press1_status`, `*_time`) are left out (`config.PHASE_SUMMARY_SKIP`). It is the filtered raw table to pivot in Excel.
@@ -56,6 +57,21 @@ The project analyzes and reduces process variation in **DP Cooking (Digesters D1
 ---
 
 ## Progress Log
+
+### 2026-11-05 — Renamed XGboost_Model → Capability_Model and added a lookup-based prediction POC
+
+**What was done**
+- **Folder rename:** `XGboost_Model/` → `Capability_Model/` via `git mv` (history preserved; every file shows as a rename). The name was misleading — the folder had moved to capability / operating-window analysis and no longer contained XGBoost work (XGBoost was tested earlier and dropped for low performance). Updated `.gitignore` (`output/` path) and the `README.md` header. Old dated Progress Log entries are left untouched (they truthfully record the name at that time). Internal imports are same-folder relative, so the rename needed no code edits.
+- **Prediction POC (`predict.py`):** scores a **finished** batch against the historical boxes from `capability.search()`. `score(res, x)` returns every box whose X-ranges the batch satisfies (sorted by `cp_min`); `consensus(scored)` is the N-weighted mean of the boxes' `visc_mean` / `kappa_mean` with `cp_min` = the worst box (honest floor); `predict(x, by_digester=True)` builds `res` from same-digester history and scores in one call; `backtest()` is a leave-one-out check. It is a **lookup, not a trained model** — the "model" is just the box table, rebuilt from golden anytime.
+- **Realtime skeleton (`realtime_pi/`):** `config.py` (readable PI endpoint / payload template / `TAG_MAP` with TODOs so the user can compare the JSON shape with the real MI Cube API), `fetch_current.py` (PI fetch **guarded off** by `ALLOW_PI_FETCH=False`, plus `from_csv()` and a manual-X demo), `__init__.py`. The agent never calls PI; this is for the user to wire up.
+- **Docs:** `CONCEPT.md` (Thai, simple) explains the idea and shows the backtest table. Added a `04_predict.ipynb` demo notebook (one-batch score, all-boxes score, backtest).
+- **Timing:** predict **after discharge** (all X are final — `pfactor_overshoot` runs into Hot Liquor Filling, so X is only complete at end of HLF; waiting for full discharge is the safe choice). The Press 1 lab Y is still hours away, so it stays a genuine look-ahead.
+
+**Results**
+- Backtest (leave-one-out, `by_digester=True`, 760 golden batches): coverage 760/760 (100%); **Viscosity MAE 27.7 vs baseline 33.0** (predict-the-mean) and **Kappa MAE 0.68 vs 0.71** — the lookup beats guessing the mean, so the boxes carry real signal. In/out-of-spec agreement 76%. Gate passed.
+- Demo (no PI, manual X, D3): batch lands in box *Prehyd 63–75 × P-temp 164–166* → Viscosity ≈ 759, Kappa ≈ 9.8; multi-box consensus ≈ 769 / 10.0.
+
+*Found by: pair work, 2026-11-05. Commit: (this commit).*
 
 ### 2026-11-04 — Capability: fixed global bin edges, Cp-based ranking, and an OFAT sensitivity table
 
