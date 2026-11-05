@@ -243,7 +243,9 @@ def summary(res, top=10):
         return res
     metrics = ("n", "visc_mean", "cp_visc", "cpk_visc", "kappa_mean", "cp_kappa", "cpk_kappa",
                "cp_min", "cpk_min")
-    x_cols = [c for c in res.columns if c not in ("combo", "rules") + metrics]
+    present = [c for c in res.columns if c not in ("combo", "rules") + metrics]
+    x_cols = [config.CAP_X[k] for k in config.CAP_X if config.CAP_X[k] in present]
+    x_cols += [c for c in present if c not in x_cols]        # any extra, keep at the end
     cols = ["combo"] + x_cols + ["n", "cp_visc", "cp_kappa", "cpk_visc", "cpk_kappa", "cp_min", "cpk_min"]
     out = res.head(top)[cols].copy()
     for c in ("cp_visc", "cp_kappa", "cpk_visc", "cpk_kappa", "cp_min", "cpk_min"):
@@ -449,6 +451,9 @@ def by_digester(df=None, top=1, combo_size=None, bins=None, min_n=None, dig_col=
         print("no digester produced a box; lower min_n or combo_size.")
         return pd.DataFrame()
     out = pd.concat(frames, ignore_index=True)
+    metrics = ["n", "cp_visc", "cp_kappa", "cpk_visc", "cpk_kappa", "cp_min", "cpk_min"]
+    x_cols = [config.CAP_X[k] for k in config.CAP_X if config.CAP_X[k] in out.columns]
+    out = out[["digester", "combo"] + x_cols + metrics]     # keep X in CAP_X order after concat
     print(f"by_digester: top {top} box per digester  "
           f"(digester dropped from X, combo size {combo_size}, {bins} bins/X, min N {min_n})")
     return out
