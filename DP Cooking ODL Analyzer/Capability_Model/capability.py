@@ -246,10 +246,12 @@ def summary(res, top=10):
     present = [c for c in res.columns if c not in ("combo", "rules") + metrics]
     x_cols = [config.CAP_X[k] for k in config.CAP_X if config.CAP_X[k] in present]
     x_cols += [c for c in present if c not in x_cols]        # any extra, keep at the end
-    cols = ["combo"] + x_cols + ["n", "cp_visc", "cp_kappa", "cpk_visc", "cpk_kappa", "cp_min", "cpk_min"]
+    cols = ["combo"] + x_cols + ["n", "cp_kappa", "cp_visc", "cpk_kappa", "cpk_visc", "cp_min", "cpk_min"]
     out = res.head(top)[cols].copy()
-    for c in ("cp_visc", "cp_kappa", "cpk_visc", "cpk_kappa", "cp_min", "cpk_min"):
+    for c in ("cp_kappa", "cp_visc", "cpk_kappa", "cpk_visc", "cp_min", "cpk_min"):
         out[c] = out[c].round(2)
+    for c in x_cols:                                          # X not in the combo -> show "-" not NaN
+        out[c] = out[c].astype(object).where(out[c].notna(), "-")
     return out
 
 
@@ -339,10 +341,12 @@ def sensitivity(df=None, res=None, rank=0, combo_size=None, bins=None, min_n=Non
             index.append(f"{config.CAP_X.get(varied, varied)}{tag}")
 
     out = pd.DataFrame(rows, index=index)
-    cols = x_labels + ["n", "cp_visc", "cp_kappa", "cpk_visc", "cpk_kappa", "cp_min", "cpk_min"]
+    cols = x_labels + ["n", "cp_kappa", "cp_visc", "cpk_kappa", "cpk_visc", "cp_min", "cpk_min"]
     out = out[cols]
-    for c in ("cp_visc", "cp_kappa", "cpk_visc", "cpk_kappa", "cp_min", "cpk_min"):
+    for c in ("cp_kappa", "cp_visc", "cpk_kappa", "cpk_visc", "cp_min", "cpk_min"):
         out[c] = out[c].round(2)
+    for c in x_labels:                                       # X not in the combo -> show "-" not NaN
+        out[c] = out[c].astype(object).where(out[c].notna(), "-")
     chosen_combo = " x ".join(config.CAP_X.get(x, x) for x in combo)
     print(f"sensitivity around rank {rank}: {chosen_combo}  (hold 3, slide 1; index marks the slid X)")
     return out
@@ -389,8 +393,8 @@ def timeline(df=None, res=None, rank=0, gap_days=None, time_col="discharge_start
             "last": tg.max().date(),
             "span_days": int((tg.max() - tg.min()).days),
             "n": s["n"],
-            "cp_visc": s["cp_visc"], "cp_kappa": s["cp_kappa"],
-            "cpk_visc": s["cpk_visc"], "cpk_kappa": s["cpk_kappa"],
+            "cp_kappa": s["cp_kappa"], "cp_visc": s["cp_visc"],
+            "cpk_kappa": s["cpk_kappa"], "cpk_visc": s["cpk_visc"],
             "cp_min": s["cp_min"], "cpk_min": s["cpk_min"],
         })
     s = _stats2(box)
@@ -399,13 +403,13 @@ def timeline(df=None, res=None, rank=0, gap_days=None, time_col="discharge_start
         "first": t.min().date(), "last": t.max().date(),
         "span_days": int((t.max() - t.min()).days),
         "n": s["n"],
-        "cp_visc": s["cp_visc"], "cp_kappa": s["cp_kappa"],
-        "cpk_visc": s["cpk_visc"], "cpk_kappa": s["cpk_kappa"],
+        "cp_kappa": s["cp_kappa"], "cp_visc": s["cp_visc"],
+        "cpk_kappa": s["cpk_kappa"], "cpk_visc": s["cpk_visc"],
         "cp_min": s["cp_min"], "cpk_min": s["cpk_min"],
     })
 
     out = pd.DataFrame(rows).set_index("burst")
-    for c in ("cp_visc", "cp_kappa", "cpk_visc", "cpk_kappa", "cp_min", "cpk_min"):
+    for c in ("cp_kappa", "cp_visc", "cpk_kappa", "cpk_visc", "cp_min", "cpk_min"):
         out[c] = out[c].round(2)
 
     n_bursts = int(burst_id.max()) + 1
@@ -451,7 +455,7 @@ def by_digester(df=None, top=1, combo_size=None, bins=None, min_n=None, dig_col=
         print("no digester produced a box; lower min_n or combo_size.")
         return pd.DataFrame()
     out = pd.concat(frames, ignore_index=True)
-    metrics = ["n", "cp_visc", "cp_kappa", "cpk_visc", "cpk_kappa", "cp_min", "cpk_min"]
+    metrics = ["n", "cp_kappa", "cp_visc", "cpk_kappa", "cpk_visc", "cp_min", "cpk_min"]
     x_cols = [config.CAP_X[k] for k in config.CAP_X if config.CAP_X[k] in out.columns]
     out = out[["digester", "combo"] + x_cols + metrics]     # keep X in CAP_X order after concat
     print(f"by_digester: top {top} box per digester  "

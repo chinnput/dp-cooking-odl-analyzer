@@ -1,0 +1,3981 @@
+{
+  "train_to": "2026-10-01",
+  "trained_on": "2026-11-06 15:36:39",
+  "n_train_batches": 665,
+  "train_from": "2026-05-09",
+  "train_last": "2026-09-30",
+  "cap_x": {
+    "pfactor_overshoot": "P-factor overshoot",
+    "alkali_accumulator1_conc_mean_hot_liquor_filling": "Alkali conc 1",
+    "prehydrolysis_minutes": "Prehyd minutes",
+    "chip_weight_max_chip_filling": "Chip weight",
+    "digester": "Digester",
+    "pfactor_temp_setpoint_last_prehydrolysis": "P-temp SP"
+  },
+  "cap_spec": [
+    700,
+    800
+  ],
+  "cap_spec2": [
+    9,
+    11
+  ],
+  "boxes_by_digester": {
+    "1": [
+      {
+        "combo": "Alkali conc 1 x Prehyd minutes",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            36.978,
+            38.124
+          ],
+          [
+            "prehydrolysis_minutes",
+            72.233,
+            77.949
+          ]
+        ],
+        "n": 23,
+        "visc_mean": 755.6521739130435,
+        "kappa_mean": 10.008695652173913,
+        "cp_visc": 0.6971116477531911,
+        "cp_kappa": 0.42681725681550764,
+        "cp_min": 0.42681725681550764
+      },
+      {
+        "combo": "P-factor overshoot x Prehyd minutes",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            78.886,
+            130.792
+          ],
+          [
+            "prehydrolysis_minutes",
+            72.233,
+            77.949
+          ]
+        ],
+        "n": 25,
+        "visc_mean": 762.72,
+        "kappa_mean": 9.732000000000001,
+        "cp_visc": 0.5453373420690624,
+        "cp_kappa": 0.42369838529361475,
+        "cp_min": 0.42369838529361475
+      },
+      {
+        "combo": "Prehyd minutes x Chip weight",
+        "rules": [
+          [
+            "prehydrolysis_minutes",
+            72.233,
+            77.949
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            94.128,
+            112.58
+          ]
+        ],
+        "n": 17,
+        "visc_mean": 774.1764705882352,
+        "kappa_mean": 10.052941176470586,
+        "cp_visc": 0.5951794866984544,
+        "cp_kappa": 0.421587425752324,
+        "cp_min": 0.421587425752324
+      },
+      {
+        "combo": "Alkali conc 1 x Prehyd minutes",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            34.78,
+            36.306
+          ],
+          [
+            "prehydrolysis_minutes",
+            72.233,
+            77.949
+          ]
+        ],
+        "n": 17,
+        "visc_mean": 792.8235294117648,
+        "kappa_mean": 9.735294117647058,
+        "cp_visc": 0.6922519324916013,
+        "cp_kappa": 0.4114986536905593,
+        "cp_min": 0.4114986536905593
+      },
+      {
+        "combo": "Prehyd minutes x Chip weight",
+        "rules": [
+          [
+            "prehydrolysis_minutes",
+            72.233,
+            77.949
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            89.471,
+            94.128
+          ]
+        ],
+        "n": 18,
+        "visc_mean": 773.8333333333334,
+        "kappa_mean": 10.022222222222222,
+        "cp_visc": 0.6198526107384529,
+        "cp_kappa": 0.4093736078310906,
+        "cp_min": 0.4093736078310906
+      },
+      {
+        "combo": "Alkali conc 1 x Chip weight",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            34.78,
+            36.306
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            94.128,
+            112.58
+          ]
+        ],
+        "n": 24,
+        "visc_mean": 805.3333333333334,
+        "kappa_mean": 9.779166666666667,
+        "cp_visc": 0.40888879196711264,
+        "cp_kappa": 0.4195324772290895,
+        "cp_min": 0.40888879196711264
+      },
+      {
+        "combo": "P-factor overshoot x Chip weight",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            42.596000000000004,
+            69.424
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            74.526,
+            89.471
+          ]
+        ],
+        "n": 15,
+        "visc_mean": 770.4,
+        "kappa_mean": 9.646666666666667,
+        "cp_visc": 0.7858238963185668,
+        "cp_kappa": 0.40175780523992877,
+        "cp_min": 0.40175780523992877
+      },
+      {
+        "combo": "Prehyd minutes x Chip weight",
+        "rules": [
+          [
+            "prehydrolysis_minutes",
+            72.233,
+            77.949
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            74.526,
+            89.471
+          ]
+        ],
+        "n": 27,
+        "visc_mean": 760.3333333333334,
+        "kappa_mean": 9.7,
+        "cp_visc": 0.6215950357912631,
+        "cp_kappa": 0.40017241910958057,
+        "cp_min": 0.40017241910958057
+      },
+      {
+        "combo": "P-factor overshoot x Prehyd minutes",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            42.596000000000004,
+            69.424
+          ],
+          [
+            "prehydrolysis_minutes",
+            61.1,
+            72.233
+          ]
+        ],
+        "n": 17,
+        "visc_mean": 785.4117647058823,
+        "kappa_mean": 9.717647058823529,
+        "cp_visc": 0.45226990402665185,
+        "cp_kappa": 0.40011534398935644,
+        "cp_min": 0.40011534398935644
+      },
+      {
+        "combo": "P-factor overshoot x Alkali conc 1",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            42.596000000000004,
+            69.424
+          ],
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            34.78,
+            36.306
+          ]
+        ],
+        "n": 24,
+        "visc_mean": 793.5,
+        "kappa_mean": 9.75,
+        "cp_visc": 0.400022819343865,
+        "cp_kappa": 0.4738834398329823,
+        "cp_min": 0.400022819343865
+      },
+      {
+        "combo": "P-factor overshoot x Chip weight",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            42.596000000000004,
+            69.424
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            94.128,
+            112.58
+          ]
+        ],
+        "n": 20,
+        "visc_mean": 795.85,
+        "kappa_mean": 10.110000000000001,
+        "cp_visc": 0.39838227964231265,
+        "cp_kappa": 0.5292093141257846,
+        "cp_min": 0.39838227964231265
+      },
+      {
+        "combo": "Alkali conc 1 x Chip weight",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            36.978,
+            38.124
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            94.128,
+            112.58
+          ]
+        ],
+        "n": 21,
+        "visc_mean": 758.7142857142857,
+        "kappa_mean": 10.266666666666667,
+        "cp_visc": 0.4277141410238286,
+        "cp_kappa": 0.392746197707459,
+        "cp_min": 0.392746197707459
+      },
+      {
+        "combo": "P-factor overshoot x Prehyd minutes",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            42.596000000000004,
+            69.424
+          ],
+          [
+            "prehydrolysis_minutes",
+            77.949,
+            108.691
+          ]
+        ],
+        "n": 34,
+        "visc_mean": 779.7941176470588,
+        "kappa_mean": 9.83235294117647,
+        "cp_visc": 0.4486833170491722,
+        "cp_kappa": 0.3901014379977525,
+        "cp_min": 0.3901014379977525
+      },
+      {
+        "combo": "P-factor overshoot x Chip weight",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            78.886,
+            130.792
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            74.526,
+            89.471
+          ]
+        ],
+        "n": 29,
+        "visc_mean": 759.1034482758621,
+        "kappa_mean": 9.813793103448274,
+        "cp_visc": 0.6451167812042107,
+        "cp_kappa": 0.38605563808789956,
+        "cp_min": 0.38605563808789956
+      },
+      {
+        "combo": "Prehyd minutes x Chip weight",
+        "rules": [
+          [
+            "prehydrolysis_minutes",
+            61.1,
+            72.233
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            94.128,
+            112.58
+          ]
+        ],
+        "n": 19,
+        "visc_mean": 788.578947368421,
+        "kappa_mean": 9.61578947368421,
+        "cp_visc": 0.40616438382640024,
+        "cp_kappa": 0.38511043358259217,
+        "cp_min": 0.38511043358259217
+      },
+      {
+        "combo": "Alkali conc 1 x Chip weight",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            34.78,
+            36.306
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            74.526,
+            89.471
+          ]
+        ],
+        "n": 17,
+        "visc_mean": 782.5294117647059,
+        "kappa_mean": 9.821764705882353,
+        "cp_visc": 0.6078659032676669,
+        "cp_kappa": 0.38326129613847637,
+        "cp_min": 0.38326129613847637
+      },
+      {
+        "combo": "P-factor overshoot x Chip weight",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            42.596000000000004,
+            69.424
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            89.471,
+            94.128
+          ]
+        ],
+        "n": 29,
+        "visc_mean": 776.9310344827586,
+        "kappa_mean": 9.720689655172414,
+        "cp_visc": 0.5270099324353552,
+        "cp_kappa": 0.3828313142570754,
+        "cp_min": 0.3828313142570754
+      },
+      {
+        "combo": "P-factor overshoot x Alkali conc 1",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            42.596000000000004,
+            69.424
+          ],
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            36.306,
+            36.978
+          ]
+        ],
+        "n": 18,
+        "visc_mean": 782.5,
+        "kappa_mean": 9.86111111111111,
+        "cp_visc": 0.9492636430543673,
+        "cp_kappa": 0.38172813280746914,
+        "cp_min": 0.38172813280746914
+      },
+      {
+        "combo": "P-factor overshoot x Chip weight",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            69.424,
+            78.886
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            94.128,
+            112.58
+          ]
+        ],
+        "n": 22,
+        "visc_mean": 785.7727272727273,
+        "kappa_mean": 10.022727272727272,
+        "cp_visc": 0.43391496445483624,
+        "cp_kappa": 0.38094632301502496,
+        "cp_min": 0.38094632301502496
+      },
+      {
+        "combo": "P-factor overshoot x Alkali conc 1",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            42.596000000000004,
+            69.424
+          ],
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            36.978,
+            38.124
+          ]
+        ],
+        "n": 22,
+        "visc_mean": 767.0454545454545,
+        "kappa_mean": 9.877272727272727,
+        "cp_visc": 0.528420009964897,
+        "cp_kappa": 0.3788317181760613,
+        "cp_min": 0.3788317181760613
+      },
+      {
+        "combo": "Alkali conc 1 x Prehyd minutes",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            36.978,
+            38.124
+          ],
+          [
+            "prehydrolysis_minutes",
+            61.1,
+            72.233
+          ]
+        ],
+        "n": 19,
+        "visc_mean": 750.3157894736842,
+        "kappa_mean": 9.736842105263158,
+        "cp_visc": 0.40556619185946613,
+        "cp_kappa": 0.3787198183854728,
+        "cp_min": 0.3787198183854728
+      },
+      {
+        "combo": "Alkali conc 1 x Prehyd minutes",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            36.306,
+            36.978
+          ],
+          [
+            "prehydrolysis_minutes",
+            72.233,
+            77.949
+          ]
+        ],
+        "n": 22,
+        "visc_mean": 761.8636363636364,
+        "kappa_mean": 9.886363636363638,
+        "cp_visc": 0.774821097984704,
+        "cp_kappa": 0.37712753486133427,
+        "cp_min": 0.37712753486133427
+      },
+      {
+        "combo": "Alkali conc 1 x Prehyd minutes",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            34.78,
+            36.306
+          ],
+          [
+            "prehydrolysis_minutes",
+            77.949,
+            108.691
+          ]
+        ],
+        "n": 24,
+        "visc_mean": 800.2916666666666,
+        "kappa_mean": 9.865416666666667,
+        "cp_visc": 0.37173788675372693,
+        "cp_kappa": 0.412372067735988,
+        "cp_min": 0.37173788675372693
+      },
+      {
+        "combo": "P-factor overshoot x Alkali conc 1",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            69.424,
+            78.886
+          ],
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            36.978,
+            38.124
+          ]
+        ],
+        "n": 23,
+        "visc_mean": 761.695652173913,
+        "kappa_mean": 10.130434782608694,
+        "cp_visc": 0.7101741720088702,
+        "cp_kappa": 0.3672034954827345,
+        "cp_min": 0.3672034954827345
+      },
+      {
+        "combo": "P-factor overshoot x Prehyd minutes",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            69.424,
+            78.886
+          ],
+          [
+            "prehydrolysis_minutes",
+            72.233,
+            77.949
+          ]
+        ],
+        "n": 25,
+        "visc_mean": 766.76,
+        "kappa_mean": 10.024,
+        "cp_visc": 0.6661658981294998,
+        "cp_kappa": 0.36638148860034336,
+        "cp_min": 0.36638148860034336
+      },
+      {
+        "combo": "Alkali conc 1 x Chip weight",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            34.78,
+            36.306
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            89.471,
+            94.128
+          ]
+        ],
+        "n": 22,
+        "visc_mean": 796.3636363636364,
+        "kappa_mean": 9.759090909090908,
+        "cp_visc": 0.4160906627048589,
+        "cp_kappa": 0.35832153247556203,
+        "cp_min": 0.35832153247556203
+      },
+      {
+        "combo": "Prehyd minutes x Chip weight",
+        "rules": [
+          [
+            "prehydrolysis_minutes",
+            77.949,
+            108.691
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            94.128,
+            112.58
+          ]
+        ],
+        "n": 27,
+        "visc_mean": 785.3703703703703,
+        "kappa_mean": 10.15925925925926,
+        "cp_visc": 0.35762295745638134,
+        "cp_kappa": 0.35622945424521624,
+        "cp_min": 0.35622945424521624
+      },
+      {
+        "combo": "Prehyd minutes x Chip weight",
+        "rules": [
+          [
+            "prehydrolysis_minutes",
+            77.949,
+            108.691
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            89.471,
+            94.128
+          ]
+        ],
+        "n": 18,
+        "visc_mean": 784.3333333333334,
+        "kappa_mean": 9.805555555555554,
+        "cp_visc": 0.3502943296789332,
+        "cp_kappa": 0.3792975443815411,
+        "cp_min": 0.3502943296789332
+      },
+      {
+        "combo": "Alkali conc 1 x Prehyd minutes",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            34.78,
+            36.306
+          ],
+          [
+            "prehydrolysis_minutes",
+            61.1,
+            72.233
+          ]
+        ],
+        "n": 22,
+        "visc_mean": 793.9090909090909,
+        "kappa_mean": 9.731818181818182,
+        "cp_visc": 0.4211027239221486,
+        "cp_kappa": 0.34999900568605524,
+        "cp_min": 0.34999900568605524
+      },
+      {
+        "combo": "Alkali conc 1 x Prehyd minutes",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            36.306,
+            36.978
+          ],
+          [
+            "prehydrolysis_minutes",
+            77.949,
+            108.691
+          ]
+        ],
+        "n": 20,
+        "visc_mean": 773.25,
+        "kappa_mean": 9.940000000000001,
+        "cp_visc": 0.6182051829608594,
+        "cp_kappa": 0.3482419666270299,
+        "cp_min": 0.3482419666270299
+      },
+      {
+        "combo": "P-factor overshoot x Alkali conc 1",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            78.886,
+            130.792
+          ],
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            36.306,
+            36.978
+          ]
+        ],
+        "n": 34,
+        "visc_mean": 764.2941176470588,
+        "kappa_mean": 9.73235294117647,
+        "cp_visc": 0.6390654600198457,
+        "cp_kappa": 0.3457383807420588,
+        "cp_min": 0.3457383807420588
+      },
+      {
+        "combo": "P-factor overshoot x Prehyd minutes",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            78.886,
+            130.792
+          ],
+          [
+            "prehydrolysis_minutes",
+            61.1,
+            72.233
+          ]
+        ],
+        "n": 20,
+        "visc_mean": 757.3,
+        "kappa_mean": 9.43,
+        "cp_visc": 0.3453879587910895,
+        "cp_kappa": 0.4254700822252119,
+        "cp_min": 0.3453879587910895
+      },
+      {
+        "combo": "Prehyd minutes x Chip weight",
+        "rules": [
+          [
+            "prehydrolysis_minutes",
+            61.1,
+            72.233
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            74.526,
+            89.471
+          ]
+        ],
+        "n": 18,
+        "visc_mean": 771.1111111111111,
+        "kappa_mean": 9.738888888888887,
+        "cp_visc": 0.5495227689132374,
+        "cp_kappa": 0.34228137812996506,
+        "cp_min": 0.34228137812996506
+      },
+      {
+        "combo": "P-factor overshoot x Alkali conc 1",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            78.886,
+            130.792
+          ],
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            36.978,
+            38.124
+          ]
+        ],
+        "n": 17,
+        "visc_mean": 733.1764705882352,
+        "kappa_mean": 9.899999999999999,
+        "cp_visc": 0.37706045320732245,
+        "cp_kappa": 0.34042861412544356,
+        "cp_min": 0.34042861412544356
+      },
+      {
+        "combo": "Alkali conc 1 x Chip weight",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            36.306,
+            36.978
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            94.128,
+            112.58
+          ]
+        ],
+        "n": 19,
+        "visc_mean": 781.3157894736842,
+        "kappa_mean": 9.873684210526317,
+        "cp_visc": 0.7422244218719398,
+        "cp_kappa": 0.33429262426825984,
+        "cp_min": 0.33429262426825984
+      },
+      {
+        "combo": "Alkali conc 1 x Chip weight",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            36.978,
+            38.124
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            89.471,
+            94.128
+          ]
+        ],
+        "n": 27,
+        "visc_mean": 758.8518518518518,
+        "kappa_mean": 9.966666666666667,
+        "cp_visc": 0.4183626253684082,
+        "cp_kappa": 0.33130079405759794,
+        "cp_min": 0.33130079405759794
+      },
+      {
+        "combo": "Prehyd minutes x Chip weight",
+        "rules": [
+          [
+            "prehydrolysis_minutes",
+            77.949,
+            108.691
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            74.526,
+            89.471
+          ]
+        ],
+        "n": 18,
+        "visc_mean": 767.4444444444445,
+        "kappa_mean": 9.898333333333333,
+        "cp_visc": 0.6556085796270641,
+        "cp_kappa": 0.3291313038162057,
+        "cp_min": 0.3291313038162057
+      },
+      {
+        "combo": "P-factor overshoot x Alkali conc 1",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            69.424,
+            78.886
+          ],
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            34.78,
+            36.306
+          ]
+        ],
+        "n": 26,
+        "visc_mean": 802.7692307692307,
+        "kappa_mean": 9.833461538461538,
+        "cp_visc": 0.45242697016638256,
+        "cp_kappa": 0.3233243077742066,
+        "cp_min": 0.3233243077742066
+      },
+      {
+        "combo": "Alkali conc 1 x Chip weight",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            36.306,
+            36.978
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            74.526,
+            89.471
+          ]
+        ],
+        "n": 32,
+        "visc_mean": 765.125,
+        "kappa_mean": 9.828125,
+        "cp_visc": 0.6390541280763474,
+        "cp_kappa": 0.3207276979598113,
+        "cp_min": 0.3207276979598113
+      },
+      {
+        "combo": "P-factor overshoot x Prehyd minutes",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            78.886,
+            130.792
+          ],
+          [
+            "prehydrolysis_minutes",
+            77.949,
+            108.691
+          ]
+        ],
+        "n": 19,
+        "visc_mean": 761.6315789473684,
+        "kappa_mean": 10.210526315789474,
+        "cp_visc": 0.4750669297684288,
+        "cp_kappa": 0.31175578937414633,
+        "cp_min": 0.31175578937414633
+      },
+      {
+        "combo": "Prehyd minutes x Chip weight",
+        "rules": [
+          [
+            "prehydrolysis_minutes",
+            61.1,
+            72.233
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            89.471,
+            94.128
+          ]
+        ],
+        "n": 27,
+        "visc_mean": 766.2222222222222,
+        "kappa_mean": 9.662962962962965,
+        "cp_visc": 0.3855942145109269,
+        "cp_kappa": 0.30714384358888913,
+        "cp_min": 0.30714384358888913
+      },
+      {
+        "combo": "P-factor overshoot x Chip weight",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            69.424,
+            78.886
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            74.526,
+            89.471
+          ]
+        ],
+        "n": 19,
+        "visc_mean": 771.2105263157895,
+        "kappa_mean": 9.793157894736842,
+        "cp_visc": 0.5061211236737807,
+        "cp_kappa": 0.3068581299283211,
+        "cp_min": 0.3068581299283211
+      },
+      {
+        "combo": "P-factor overshoot x Chip weight",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            78.886,
+            130.792
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            94.128,
+            112.58
+          ]
+        ],
+        "n": 22,
+        "visc_mean": 768.2727272727273,
+        "kappa_mean": 9.781818181818183,
+        "cp_visc": 0.44401528756421427,
+        "cp_kappa": 0.3062856773983028,
+        "cp_min": 0.3062856773983028
+      },
+      {
+        "combo": "Alkali conc 1 x Prehyd minutes",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            36.978,
+            38.124
+          ],
+          [
+            "prehydrolysis_minutes",
+            77.949,
+            108.691
+          ]
+        ],
+        "n": 19,
+        "visc_mean": 761.3157894736842,
+        "kappa_mean": 10.178947368421053,
+        "cp_visc": 0.3926789382672137,
+        "cp_kappa": 0.3061988085182914,
+        "cp_min": 0.3061988085182914
+      },
+      {
+        "combo": "Alkali conc 1 x Prehyd minutes",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            36.306,
+            36.978
+          ],
+          [
+            "prehydrolysis_minutes",
+            61.1,
+            72.233
+          ]
+        ],
+        "n": 23,
+        "visc_mean": 775.1739130434783,
+        "kappa_mean": 9.556521739130435,
+        "cp_visc": 0.5885987876397674,
+        "cp_kappa": 0.3013565371077149,
+        "cp_min": 0.3013565371077149
+      },
+      {
+        "combo": "P-factor overshoot x Chip weight",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            69.424,
+            78.886
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            89.471,
+            94.128
+          ]
+        ],
+        "n": 21,
+        "visc_mean": 782.6190476190476,
+        "kappa_mean": 9.99047619047619,
+        "cp_visc": 0.4450624034272359,
+        "cp_kappa": 0.2876445423855711,
+        "cp_min": 0.2876445423855711
+      },
+      {
+        "combo": "P-factor overshoot x Prehyd minutes",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            69.424,
+            78.886
+          ],
+          [
+            "prehydrolysis_minutes",
+            61.1,
+            72.233
+          ]
+        ],
+        "n": 27,
+        "visc_mean": 779.7407407407408,
+        "kappa_mean": 9.81851851851852,
+        "cp_visc": 0.5302044321326702,
+        "cp_kappa": 0.283986789533081,
+        "cp_min": 0.283986789533081
+      }
+    ],
+    "2": [
+      {
+        "combo": "P-factor overshoot x Alkali conc 1",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            67.312,
+            120.238
+          ],
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            34.961000000000006,
+            36.443
+          ]
+        ],
+        "n": 18,
+        "visc_mean": 802.0555555555555,
+        "kappa_mean": 10.149444444444445,
+        "cp_visc": 0.46717032181660173,
+        "cp_kappa": 0.4972260143015866,
+        "cp_min": 0.46717032181660173
+      },
+      {
+        "combo": "Alkali conc 1 x Chip weight",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            36.977,
+            38.011
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            80.49499999999999,
+            89.225
+          ]
+        ],
+        "n": 26,
+        "visc_mean": 757.2692307692307,
+        "kappa_mean": 9.96923076923077,
+        "cp_visc": 0.5682874448339361,
+        "cp_kappa": 0.45102101829123625,
+        "cp_min": 0.45102101829123625
+      },
+      {
+        "combo": "P-factor overshoot x Alkali conc 1",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            56.108,
+            67.312
+          ],
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            36.977,
+            38.011
+          ]
+        ],
+        "n": 21,
+        "visc_mean": 766.3809523809524,
+        "kappa_mean": 10.228571428571428,
+        "cp_visc": 0.6431950308875652,
+        "cp_kappa": 0.43763421701117583,
+        "cp_min": 0.43763421701117583
+      },
+      {
+        "combo": "P-factor overshoot x Prehyd minutes",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            56.108,
+            67.312
+          ],
+          [
+            "prehydrolysis_minutes",
+            73.116,
+            83.975
+          ]
+        ],
+        "n": 17,
+        "visc_mean": 776.5882352941177,
+        "kappa_mean": 10.205882352941176,
+        "cp_visc": 0.4573498171527079,
+        "cp_kappa": 0.43699615584848167,
+        "cp_min": 0.43699615584848167
+      },
+      {
+        "combo": "Prehyd minutes x Chip weight",
+        "rules": [
+          [
+            "prehydrolysis_minutes",
+            73.116,
+            83.975
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            93.713,
+            110.586
+          ]
+        ],
+        "n": 20,
+        "visc_mean": 810.2,
+        "kappa_mean": 10.2945,
+        "cp_visc": 0.4283729598002056,
+        "cp_kappa": 0.5260954914042093,
+        "cp_min": 0.4283729598002056
+      },
+      {
+        "combo": "P-factor overshoot x P-temp SP",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            56.108,
+            67.312
+          ],
+          [
+            "pfactor_temp_setpoint_last_prehydrolysis",
+            164.0,
+            166.0
+          ]
+        ],
+        "n": 32,
+        "visc_mean": 749.78125,
+        "kappa_mean": 9.88125,
+        "cp_visc": 0.42805700019912724,
+        "cp_kappa": 0.4344532310189929,
+        "cp_min": 0.42805700019912724
+      },
+      {
+        "combo": "Alkali conc 1 x Prehyd minutes",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            34.961000000000006,
+            36.443
+          ],
+          [
+            "prehydrolysis_minutes",
+            73.116,
+            83.975
+          ]
+        ],
+        "n": 32,
+        "visc_mean": 809.6875,
+        "kappa_mean": 10.2715625,
+        "cp_visc": 0.45322559423940095,
+        "cp_kappa": 0.42177612837514955,
+        "cp_min": 0.42177612837514955
+      },
+      {
+        "combo": "Chip weight x P-temp SP",
+        "rules": [
+          [
+            "chip_weight_max_chip_filling",
+            80.49499999999999,
+            89.225
+          ],
+          [
+            "pfactor_temp_setpoint_last_prehydrolysis",
+            164.0,
+            166.0
+          ]
+        ],
+        "n": 24,
+        "visc_mean": 744.125,
+        "kappa_mean": 9.920833333333334,
+        "cp_visc": 0.42040393885234,
+        "cp_kappa": 0.5457698809226396,
+        "cp_min": 0.42040393885234
+      },
+      {
+        "combo": "Chip weight x P-temp SP",
+        "rules": [
+          [
+            "chip_weight_max_chip_filling",
+            93.713,
+            110.586
+          ],
+          [
+            "pfactor_temp_setpoint_last_prehydrolysis",
+            163.0,
+            164.0
+          ]
+        ],
+        "n": 15,
+        "visc_mean": 779.5333333333333,
+        "kappa_mean": 10.826666666666666,
+        "cp_visc": 0.5975362642105071,
+        "cp_kappa": 0.41926391560403553,
+        "cp_min": 0.41926391560403553
+      },
+      {
+        "combo": "Alkali conc 1 x P-temp SP",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            34.961000000000006,
+            36.443
+          ],
+          [
+            "pfactor_temp_setpoint_last_prehydrolysis",
+            161.998,
+            163.0
+          ]
+        ],
+        "n": 47,
+        "visc_mean": 816.4042553191489,
+        "kappa_mean": 10.29468085106383,
+        "cp_visc": 0.4150196700277755,
+        "cp_kappa": 0.4279320976171288,
+        "cp_min": 0.4150196700277755
+      },
+      {
+        "combo": "P-factor overshoot x Alkali conc 1",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            67.312,
+            120.238
+          ],
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            36.443,
+            36.977
+          ]
+        ],
+        "n": 18,
+        "visc_mean": 777.6111111111111,
+        "kappa_mean": 10.13888888888889,
+        "cp_visc": 0.46418362113705725,
+        "cp_kappa": 0.4070032485572755,
+        "cp_min": 0.4070032485572755
+      },
+      {
+        "combo": "Prehyd minutes x P-temp SP",
+        "rules": [
+          [
+            "prehydrolysis_minutes",
+            73.116,
+            83.975
+          ],
+          [
+            "pfactor_temp_setpoint_last_prehydrolysis",
+            161.998,
+            163.0
+          ]
+        ],
+        "n": 50,
+        "visc_mean": 806.18,
+        "kappa_mean": 10.3978,
+        "cp_visc": 0.49549309563090027,
+        "cp_kappa": 0.40513986508725774,
+        "cp_min": 0.40513986508725774
+      },
+      {
+        "combo": "P-factor overshoot x Alkali conc 1",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            25.915,
+            56.108
+          ],
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            36.977,
+            38.011
+          ]
+        ],
+        "n": 15,
+        "visc_mean": 777.2666666666667,
+        "kappa_mean": 10.646666666666668,
+        "cp_visc": 0.40232930947564205,
+        "cp_kappa": 0.4377599972079417,
+        "cp_min": 0.40232930947564205
+      },
+      {
+        "combo": "Prehyd minutes x P-temp SP",
+        "rules": [
+          [
+            "prehydrolysis_minutes",
+            56.081,
+            73.116
+          ],
+          [
+            "pfactor_temp_setpoint_last_prehydrolysis",
+            164.0,
+            166.0
+          ]
+        ],
+        "n": 37,
+        "visc_mean": 754.8648648648649,
+        "kappa_mean": 9.981081081081081,
+        "cp_visc": 0.4601102964351681,
+        "cp_kappa": 0.4005069079039473,
+        "cp_min": 0.4005069079039473
+      },
+      {
+        "combo": "P-factor overshoot x Prehyd minutes",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            67.312,
+            120.238
+          ],
+          [
+            "prehydrolysis_minutes",
+            56.081,
+            73.116
+          ]
+        ],
+        "n": 27,
+        "visc_mean": 750.7777777777778,
+        "kappa_mean": 10.07777777777778,
+        "cp_visc": 0.6080715077260683,
+        "cp_kappa": 0.39987697985254184,
+        "cp_min": 0.39987697985254184
+      },
+      {
+        "combo": "Prehyd minutes x Chip weight",
+        "rules": [
+          [
+            "prehydrolysis_minutes",
+            56.081,
+            73.116
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            80.49499999999999,
+            89.225
+          ]
+        ],
+        "n": 32,
+        "visc_mean": 758.03125,
+        "kappa_mean": 10.087499999999999,
+        "cp_visc": 0.39219462188627346,
+        "cp_kappa": 0.4515236409857309,
+        "cp_min": 0.39219462188627346
+      },
+      {
+        "combo": "Chip weight x P-temp SP",
+        "rules": [
+          [
+            "chip_weight_max_chip_filling",
+            80.49499999999999,
+            89.225
+          ],
+          [
+            "pfactor_temp_setpoint_last_prehydrolysis",
+            161.998,
+            163.0
+          ]
+        ],
+        "n": 27,
+        "visc_mean": 802.0,
+        "kappa_mean": 10.592592592592593,
+        "cp_visc": 0.47115813326736866,
+        "cp_kappa": 0.39201583213037466,
+        "cp_min": 0.39201583213037466
+      },
+      {
+        "combo": "Alkali conc 1 x Prehyd minutes",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            36.443,
+            36.977
+          ],
+          [
+            "prehydrolysis_minutes",
+            56.081,
+            73.116
+          ]
+        ],
+        "n": 25,
+        "visc_mean": 762.28,
+        "kappa_mean": 10.032,
+        "cp_visc": 0.39187203415804167,
+        "cp_kappa": 0.4576095954636088,
+        "cp_min": 0.39187203415804167
+      },
+      {
+        "combo": "P-factor overshoot x Alkali conc 1",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            25.915,
+            56.108
+          ],
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            34.961000000000006,
+            36.443
+          ]
+        ],
+        "n": 28,
+        "visc_mean": 817.0357142857143,
+        "kappa_mean": 10.320000000000002,
+        "cp_visc": 0.38908065443808415,
+        "cp_kappa": 0.4245732706434579,
+        "cp_min": 0.38908065443808415
+      },
+      {
+        "combo": "Alkali conc 1 x P-temp SP",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            36.977,
+            38.011
+          ],
+          [
+            "pfactor_temp_setpoint_last_prehydrolysis",
+            161.998,
+            163.0
+          ]
+        ],
+        "n": 33,
+        "visc_mean": 769.6969696969697,
+        "kappa_mean": 10.521212121212123,
+        "cp_visc": 0.3884810955824708,
+        "cp_kappa": 0.43587008252784726,
+        "cp_min": 0.3884810955824708
+      },
+      {
+        "combo": "Alkali conc 1 x Prehyd minutes",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            36.977,
+            38.011
+          ],
+          [
+            "prehydrolysis_minutes",
+            83.975,
+            110.0
+          ]
+        ],
+        "n": 23,
+        "visc_mean": 762.8695652173913,
+        "kappa_mean": 10.660869565217393,
+        "cp_visc": 0.3868908305201253,
+        "cp_kappa": 0.44882194707119394,
+        "cp_min": 0.3868908305201253
+      },
+      {
+        "combo": "Chip weight x P-temp SP",
+        "rules": [
+          [
+            "chip_weight_max_chip_filling",
+            89.225,
+            93.713
+          ],
+          [
+            "pfactor_temp_setpoint_last_prehydrolysis",
+            161.998,
+            163.0
+          ]
+        ],
+        "n": 37,
+        "visc_mean": 800.3513513513514,
+        "kappa_mean": 10.294594594594594,
+        "cp_visc": 0.42733313164856884,
+        "cp_kappa": 0.3859097326073874,
+        "cp_min": 0.3859097326073874
+      },
+      {
+        "combo": "Alkali conc 1 x Prehyd minutes",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            36.977,
+            38.011
+          ],
+          [
+            "prehydrolysis_minutes",
+            56.081,
+            73.116
+          ]
+        ],
+        "n": 25,
+        "visc_mean": 745.44,
+        "kappa_mean": 9.996,
+        "cp_visc": 0.6829282073139894,
+        "cp_kappa": 0.3845840957620437,
+        "cp_min": 0.3845840957620437
+      },
+      {
+        "combo": "Alkali conc 1 x Chip weight",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            34.961000000000006,
+            36.443
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            89.225,
+            93.713
+          ]
+        ],
+        "n": 23,
+        "visc_mean": 802.1304347826087,
+        "kappa_mean": 9.891304347826088,
+        "cp_visc": 0.3848973396479578,
+        "cp_kappa": 0.3807883919021063,
+        "cp_min": 0.3807883919021063
+      },
+      {
+        "combo": "P-factor overshoot x Prehyd minutes",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            25.915,
+            56.108
+          ],
+          [
+            "prehydrolysis_minutes",
+            73.116,
+            83.975
+          ]
+        ],
+        "n": 25,
+        "visc_mean": 810.08,
+        "kappa_mean": 10.292,
+        "cp_visc": 0.4729374305905587,
+        "cp_kappa": 0.3802968691245991,
+        "cp_min": 0.3802968691245991
+      },
+      {
+        "combo": "P-factor overshoot x Prehyd minutes",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            56.108,
+            67.312
+          ],
+          [
+            "prehydrolysis_minutes",
+            56.081,
+            73.116
+          ]
+        ],
+        "n": 31,
+        "visc_mean": 758.7096774193549,
+        "kappa_mean": 9.935483870967744,
+        "cp_visc": 0.4077088933068129,
+        "cp_kappa": 0.37945021018205866,
+        "cp_min": 0.37945021018205866
+      },
+      {
+        "combo": "P-factor overshoot x Prehyd minutes",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            56.108,
+            67.312
+          ],
+          [
+            "prehydrolysis_minutes",
+            83.975,
+            110.0
+          ]
+        ],
+        "n": 15,
+        "visc_mean": 773.9333333333333,
+        "kappa_mean": 10.353333333333333,
+        "cp_visc": 0.37612640535256137,
+        "cp_kappa": 0.3924997788684906,
+        "cp_min": 0.37612640535256137
+      },
+      {
+        "combo": "P-factor overshoot x Chip weight",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            67.312,
+            120.238
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            80.49499999999999,
+            89.225
+          ]
+        ],
+        "n": 15,
+        "visc_mean": 751.4,
+        "kappa_mean": 9.966666666666667,
+        "cp_visc": 0.5004498921955909,
+        "cp_kappa": 0.3744654309470487,
+        "cp_min": 0.3744654309470487
+      },
+      {
+        "combo": "P-factor overshoot x Chip weight",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            56.108,
+            67.312
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            80.49499999999999,
+            89.225
+          ]
+        ],
+        "n": 34,
+        "visc_mean": 761.7647058823529,
+        "kappa_mean": 10.070588235294117,
+        "cp_visc": 0.37267201760245205,
+        "cp_kappa": 0.4077797220250842,
+        "cp_min": 0.37267201760245205
+      },
+      {
+        "combo": "P-factor overshoot x Chip weight",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            56.108,
+            67.312
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            89.225,
+            93.713
+          ]
+        ],
+        "n": 19,
+        "visc_mean": 769.2631578947369,
+        "kappa_mean": 9.836842105263157,
+        "cp_visc": 0.4528487269144319,
+        "cp_kappa": 0.37236510149280877,
+        "cp_min": 0.37236510149280877
+      },
+      {
+        "combo": "Prehyd minutes x Chip weight",
+        "rules": [
+          [
+            "prehydrolysis_minutes",
+            73.116,
+            83.975
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            80.49499999999999,
+            89.225
+          ]
+        ],
+        "n": 18,
+        "visc_mean": 772.7777777777778,
+        "kappa_mean": 10.216666666666665,
+        "cp_visc": 0.5626026015948188,
+        "cp_kappa": 0.3707070401702472,
+        "cp_min": 0.3707070401702472
+      },
+      {
+        "combo": "Alkali conc 1 x Prehyd minutes",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            36.443,
+            36.977
+          ],
+          [
+            "prehydrolysis_minutes",
+            73.116,
+            83.975
+          ]
+        ],
+        "n": 17,
+        "visc_mean": 778.8235294117648,
+        "kappa_mean": 10.229411764705882,
+        "cp_visc": 0.4568946897610326,
+        "cp_kappa": 0.36705335594692995,
+        "cp_min": 0.36705335594692995
+      },
+      {
+        "combo": "P-factor overshoot x P-temp SP",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            67.312,
+            120.238
+          ],
+          [
+            "pfactor_temp_setpoint_last_prehydrolysis",
+            161.998,
+            163.0
+          ]
+        ],
+        "n": 34,
+        "visc_mean": 781.8823529411765,
+        "kappa_mean": 10.376176470588236,
+        "cp_visc": 0.3624758254131184,
+        "cp_kappa": 0.4208643305718801,
+        "cp_min": 0.3624758254131184
+      },
+      {
+        "combo": "Alkali conc 1 x P-temp SP",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            36.443,
+            36.977
+          ],
+          [
+            "pfactor_temp_setpoint_last_prehydrolysis",
+            161.998,
+            163.0
+          ]
+        ],
+        "n": 29,
+        "visc_mean": 790.551724137931,
+        "kappa_mean": 10.427586206896553,
+        "cp_visc": 0.36191233161665576,
+        "cp_kappa": 0.38418797848312686,
+        "cp_min": 0.36191233161665576
+      },
+      {
+        "combo": "P-factor overshoot x Alkali conc 1",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            56.108,
+            67.312
+          ],
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            36.443,
+            36.977
+          ]
+        ],
+        "n": 25,
+        "visc_mean": 758.8,
+        "kappa_mean": 10.024,
+        "cp_visc": 0.3598193296983908,
+        "cp_kappa": 0.451772391518411,
+        "cp_min": 0.3598193296983908
+      },
+      {
+        "combo": "Prehyd minutes x Chip weight",
+        "rules": [
+          [
+            "prehydrolysis_minutes",
+            56.081,
+            73.116
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            89.225,
+            93.713
+          ]
+        ],
+        "n": 26,
+        "visc_mean": 754.7307692307693,
+        "kappa_mean": 9.86923076923077,
+        "cp_visc": 0.5842939268556242,
+        "cp_kappa": 0.3576555648250708,
+        "cp_min": 0.3576555648250708
+      },
+      {
+        "combo": "P-factor overshoot x P-temp SP",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            56.108,
+            67.312
+          ],
+          [
+            "pfactor_temp_setpoint_last_prehydrolysis",
+            161.998,
+            163.0
+          ]
+        ],
+        "n": 19,
+        "visc_mean": 799.9473684210526,
+        "kappa_mean": 10.505263157894738,
+        "cp_visc": 0.4758782107994721,
+        "cp_kappa": 0.35703501510740854,
+        "cp_min": 0.35703501510740854
+      },
+      {
+        "combo": "Alkali conc 1 x Chip weight",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            36.443,
+            36.977
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            89.225,
+            93.713
+          ]
+        ],
+        "n": 23,
+        "visc_mean": 773.0,
+        "kappa_mean": 9.995652173913042,
+        "cp_visc": 0.44912522105795716,
+        "cp_kappa": 0.35360755400123417,
+        "cp_min": 0.35360755400123417
+      },
+      {
+        "combo": "Alkali conc 1 x Chip weight",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            34.961000000000006,
+            36.443
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            93.713,
+            110.586
+          ]
+        ],
+        "n": 23,
+        "visc_mean": 804.0,
+        "kappa_mean": 10.35,
+        "cp_visc": 0.35349876318711826,
+        "cp_kappa": 0.5173147094360846,
+        "cp_min": 0.35349876318711826
+      },
+      {
+        "combo": "Alkali conc 1 x Chip weight",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            36.977,
+            38.011
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            93.713,
+            110.586
+          ]
+        ],
+        "n": 20,
+        "visc_mean": 760.9,
+        "kappa_mean": 10.690000000000001,
+        "cp_visc": 0.3493684731134705,
+        "cp_kappa": 0.41947020371085497,
+        "cp_min": 0.3493684731134705
+      },
+      {
+        "combo": "Alkali conc 1 x P-temp SP",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            36.443,
+            36.977
+          ],
+          [
+            "pfactor_temp_setpoint_last_prehydrolysis",
+            164.0,
+            166.0
+          ]
+        ],
+        "n": 27,
+        "visc_mean": 757.4074074074074,
+        "kappa_mean": 9.933333333333334,
+        "cp_visc": 0.34893746138623455,
+        "cp_kappa": 0.4418090030716839,
+        "cp_min": 0.34893746138623455
+      },
+      {
+        "combo": "P-factor overshoot x Chip weight",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            67.312,
+            120.238
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            93.713,
+            110.586
+          ]
+        ],
+        "n": 26,
+        "visc_mean": 788.8461538461538,
+        "kappa_mean": 10.218846153846155,
+        "cp_visc": 0.34837514508323103,
+        "cp_kappa": 0.45332613261874666,
+        "cp_min": 0.34837514508323103
+      },
+      {
+        "combo": "Alkali conc 1 x Chip weight",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            34.961000000000006,
+            36.443
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            80.49499999999999,
+            89.225
+          ]
+        ],
+        "n": 17,
+        "visc_mean": 802.3529411764706,
+        "kappa_mean": 10.441176470588236,
+        "cp_visc": 0.3928379030250105,
+        "cp_kappa": 0.34822049297037566,
+        "cp_min": 0.34822049297037566
+      },
+      {
+        "combo": "P-factor overshoot x Prehyd minutes",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            67.312,
+            120.238
+          ],
+          [
+            "prehydrolysis_minutes",
+            73.116,
+            83.975
+          ]
+        ],
+        "n": 22,
+        "visc_mean": 791.1818181818181,
+        "kappa_mean": 10.263181818181817,
+        "cp_visc": 0.41445673994552823,
+        "cp_kappa": 0.3465542635324042,
+        "cp_min": 0.3465542635324042
+      },
+      {
+        "combo": "P-factor overshoot x Chip weight",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            25.915,
+            56.108
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            89.225,
+            93.713
+          ]
+        ],
+        "n": 22,
+        "visc_mean": 809.3181818181819,
+        "kappa_mean": 10.090909090909092,
+        "cp_visc": 0.44785816079876933,
+        "cp_kappa": 0.34557818493554227,
+        "cp_min": 0.34557818493554227
+      },
+      {
+        "combo": "P-factor overshoot x P-temp SP",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            67.312,
+            120.238
+          ],
+          [
+            "pfactor_temp_setpoint_last_prehydrolysis",
+            164.0,
+            166.0
+          ]
+        ],
+        "n": 15,
+        "visc_mean": 758.8666666666667,
+        "kappa_mean": 9.946666666666665,
+        "cp_visc": 0.4464417907917443,
+        "cp_kappa": 0.3410028342811931,
+        "cp_min": 0.3410028342811931
+      },
+      {
+        "combo": "P-factor overshoot x P-temp SP",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            25.915,
+            56.108
+          ],
+          [
+            "pfactor_temp_setpoint_last_prehydrolysis",
+            161.998,
+            163.0
+          ]
+        ],
+        "n": 57,
+        "visc_mean": 801.280701754386,
+        "kappa_mean": 10.371228070175437,
+        "cp_visc": 0.3374741022946237,
+        "cp_kappa": 0.43989847758973544,
+        "cp_min": 0.3374741022946237
+      },
+      {
+        "combo": "Alkali conc 1 x Prehyd minutes",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            34.961000000000006,
+            36.443
+          ],
+          [
+            "prehydrolysis_minutes",
+            83.975,
+            110.0
+          ]
+        ],
+        "n": 18,
+        "visc_mean": 815.5,
+        "kappa_mean": 10.253333333333334,
+        "cp_visc": 0.33562138372606437,
+        "cp_kappa": 0.3958497789047343,
+        "cp_min": 0.33562138372606437
+      },
+      {
+        "combo": "Alkali conc 1 x P-temp SP",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            36.977,
+            38.011
+          ],
+          [
+            "pfactor_temp_setpoint_last_prehydrolysis",
+            163.0,
+            164.0
+          ]
+        ],
+        "n": 21,
+        "visc_mean": 755.2857142857143,
+        "kappa_mean": 10.0,
+        "cp_visc": 0.5847361902457942,
+        "cp_kappa": 0.3355213564882079,
+        "cp_min": 0.3355213564882079
+      },
+      {
+        "combo": "Prehyd minutes x Chip weight",
+        "rules": [
+          [
+            "prehydrolysis_minutes",
+            73.116,
+            83.975
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            89.225,
+            93.713
+          ]
+        ],
+        "n": 26,
+        "visc_mean": 797.9230769230769,
+        "kappa_mean": 10.261538461538462,
+        "cp_visc": 0.4199880128602804,
+        "cp_kappa": 0.3279878020677969,
+        "cp_min": 0.3279878020677969
+      },
+      {
+        "combo": "Alkali conc 1 x Chip weight",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            36.443,
+            36.977
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            93.713,
+            110.586
+          ]
+        ],
+        "n": 20,
+        "visc_mean": 789.85,
+        "kappa_mean": 10.379999999999999,
+        "cp_visc": 0.3275819991892753,
+        "cp_kappa": 0.4199254455402224,
+        "cp_min": 0.3275819991892753
+      },
+      {
+        "combo": "Alkali conc 1 x Chip weight",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            36.443,
+            36.977
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            80.49499999999999,
+            89.225
+          ]
+        ],
+        "n": 20,
+        "visc_mean": 759.0,
+        "kappa_mean": 10.195,
+        "cp_visc": 0.32727122857607427,
+        "cp_kappa": 0.48299568801804604,
+        "cp_min": 0.32727122857607427
+      },
+      {
+        "combo": "P-factor overshoot x Chip weight",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            67.312,
+            120.238
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            89.225,
+            93.713
+          ]
+        ],
+        "n": 22,
+        "visc_mean": 763.2727272727273,
+        "kappa_mean": 10.20909090909091,
+        "cp_visc": 0.45147738212020844,
+        "cp_kappa": 0.3270236145058097,
+        "cp_min": 0.3270236145058097
+      },
+      {
+        "combo": "Alkali conc 1 x Prehyd minutes",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            36.977,
+            38.011
+          ],
+          [
+            "prehydrolysis_minutes",
+            73.116,
+            83.975
+          ]
+        ],
+        "n": 15,
+        "visc_mean": 780.6666666666666,
+        "kappa_mean": 10.26666666666667,
+        "cp_visc": 0.4507876991307969,
+        "cp_kappa": 0.32559548307310276,
+        "cp_min": 0.32559548307310276
+      },
+      {
+        "combo": "Chip weight x P-temp SP",
+        "rules": [
+          [
+            "chip_weight_max_chip_filling",
+            89.225,
+            93.713
+          ],
+          [
+            "pfactor_temp_setpoint_last_prehydrolysis",
+            164.0,
+            166.0
+          ]
+        ],
+        "n": 21,
+        "visc_mean": 758.1428571428571,
+        "kappa_mean": 9.86190476190476,
+        "cp_visc": 0.550914197869651,
+        "cp_kappa": 0.32112558188259044,
+        "cp_min": 0.32112558188259044
+      },
+      {
+        "combo": "P-factor overshoot x Alkali conc 1",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            67.312,
+            120.238
+          ],
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            36.977,
+            38.011
+          ]
+        ],
+        "n": 27,
+        "visc_mean": 745.8888888888889,
+        "kappa_mean": 10.17037037037037,
+        "cp_visc": 0.43597609199494014,
+        "cp_kappa": 0.3207713048391,
+        "cp_min": 0.3207713048391
+      },
+      {
+        "combo": "P-factor overshoot x Alkali conc 1",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            25.915,
+            56.108
+          ],
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            36.443,
+            36.977
+          ]
+        ],
+        "n": 20,
+        "visc_mean": 789.45,
+        "kappa_mean": 10.415,
+        "cp_visc": 0.31231367225301293,
+        "cp_kappa": 0.36386180938829377,
+        "cp_min": 0.31231367225301293
+      },
+      {
+        "combo": "Alkali conc 1 x Chip weight",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            36.977,
+            38.011
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            89.225,
+            93.713
+          ]
+        ],
+        "n": 17,
+        "visc_mean": 763.8235294117648,
+        "kappa_mean": 10.358823529411765,
+        "cp_visc": 0.4605652013066859,
+        "cp_kappa": 0.309482421803782,
+        "cp_min": 0.309482421803782
+      },
+      {
+        "combo": "Prehyd minutes x Chip weight",
+        "rules": [
+          [
+            "prehydrolysis_minutes",
+            83.975,
+            110.0
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            93.713,
+            110.586
+          ]
+        ],
+        "n": 39,
+        "visc_mean": 775.8205128205128,
+        "kappa_mean": 10.57846153846154,
+        "cp_visc": 0.30659610640845786,
+        "cp_kappa": 0.43493888629387756,
+        "cp_min": 0.30659610640845786
+      },
+      {
+        "combo": "P-factor overshoot x Alkali conc 1",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            56.108,
+            67.312
+          ],
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            34.961000000000006,
+            36.443
+          ]
+        ],
+        "n": 17,
+        "visc_mean": 780.4117647058823,
+        "kappa_mean": 10.082352941176469,
+        "cp_visc": 0.3636092839727372,
+        "cp_kappa": 0.302837134817748,
+        "cp_min": 0.302837134817748
+      },
+      {
+        "combo": "P-factor overshoot x Prehyd minutes",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            25.915,
+            56.108
+          ],
+          [
+            "prehydrolysis_minutes",
+            83.975,
+            110.0
+          ]
+        ],
+        "n": 34,
+        "visc_mean": 792.2941176470588,
+        "kappa_mean": 10.569411764705885,
+        "cp_visc": 0.2954922591352401,
+        "cp_kappa": 0.42493821461227266,
+        "cp_min": 0.2954922591352401
+      },
+      {
+        "combo": "Prehyd minutes x P-temp SP",
+        "rules": [
+          [
+            "prehydrolysis_minutes",
+            83.975,
+            110.0
+          ],
+          [
+            "pfactor_temp_setpoint_last_prehydrolysis",
+            161.998,
+            163.0
+          ]
+        ],
+        "n": 46,
+        "visc_mean": 790.3478260869565,
+        "kappa_mean": 10.373043478260872,
+        "cp_visc": 0.2945578407465263,
+        "cp_kappa": 0.4399852840774306,
+        "cp_min": 0.2945578407465263
+      },
+      {
+        "combo": "Chip weight x P-temp SP",
+        "rules": [
+          [
+            "chip_weight_max_chip_filling",
+            93.713,
+            110.586
+          ],
+          [
+            "pfactor_temp_setpoint_last_prehydrolysis",
+            161.998,
+            163.0
+          ]
+        ],
+        "n": 46,
+        "visc_mean": 786.7173913043479,
+        "kappa_mean": 10.361956521739133,
+        "cp_visc": 0.2944608827355452,
+        "cp_kappa": 0.4801799787964336,
+        "cp_min": 0.2944608827355452
+      },
+      {
+        "combo": "Alkali conc 1 x Prehyd minutes",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            36.443,
+            36.977
+          ],
+          [
+            "prehydrolysis_minutes",
+            83.975,
+            110.0
+          ]
+        ],
+        "n": 21,
+        "visc_mean": 783.7619047619048,
+        "kappa_mean": 10.31904761904762,
+        "cp_visc": 0.28632022286087916,
+        "cp_kappa": 0.38195293080278775,
+        "cp_min": 0.28632022286087916
+      },
+      {
+        "combo": "P-factor overshoot x Chip weight",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            25.915,
+            56.108
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            93.713,
+            110.586
+          ]
+        ],
+        "n": 28,
+        "visc_mean": 783.6071428571429,
+        "kappa_mean": 10.584285714285716,
+        "cp_visc": 0.2812086828560023,
+        "cp_kappa": 0.43449952721614904,
+        "cp_min": 0.2812086828560023
+      }
+    ],
+    "3": [
+      {
+        "combo": "Alkali conc 1 x Prehyd minutes",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            35.102000000000004,
+            36.43
+          ],
+          [
+            "prehydrolysis_minutes",
+            63.229,
+            73.885
+          ]
+        ],
+        "n": 15,
+        "visc_mean": 763.9333333333333,
+        "kappa_mean": 10.053333333333335,
+        "cp_visc": 0.6584062621364041,
+        "cp_kappa": 0.7860902321663491,
+        "cp_min": 0.6584062621364041
+      },
+      {
+        "combo": "Prehyd minutes x P-temp SP",
+        "rules": [
+          [
+            "prehydrolysis_minutes",
+            63.229,
+            73.885
+          ],
+          [
+            "pfactor_temp_setpoint_last_prehydrolysis",
+            164.0,
+            166.0
+          ]
+        ],
+        "n": 50,
+        "visc_mean": 758.26,
+        "kappa_mean": 9.786000000000001,
+        "cp_visc": 0.7365457837433972,
+        "cp_kappa": 0.655260114705876,
+        "cp_min": 0.655260114705876
+      },
+      {
+        "combo": "P-factor overshoot x Prehyd minutes",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            62.644,
+            79.311
+          ],
+          [
+            "prehydrolysis_minutes",
+            63.229,
+            73.885
+          ]
+        ],
+        "n": 29,
+        "visc_mean": 755.9310344827586,
+        "kappa_mean": 9.786206896551725,
+        "cp_visc": 0.7323452688211182,
+        "cp_kappa": 0.6392011639441858,
+        "cp_min": 0.6392011639441858
+      },
+      {
+        "combo": "Chip weight x P-temp SP",
+        "rules": [
+          [
+            "chip_weight_max_chip_filling",
+            86.625,
+            98.421
+          ],
+          [
+            "pfactor_temp_setpoint_last_prehydrolysis",
+            164.0,
+            166.0
+          ]
+        ],
+        "n": 19,
+        "visc_mean": 758.1052631578947,
+        "kappa_mean": 9.715789473684211,
+        "cp_visc": 0.9128869448762031,
+        "cp_kappa": 0.6346639967781731,
+        "cp_min": 0.6346639967781731
+      },
+      {
+        "combo": "Prehyd minutes x Chip weight",
+        "rules": [
+          [
+            "prehydrolysis_minutes",
+            63.229,
+            73.885
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            86.625,
+            98.421
+          ]
+        ],
+        "n": 20,
+        "visc_mean": 760.7,
+        "kappa_mean": 9.965,
+        "cp_visc": 1.070652313656561,
+        "cp_kappa": 0.6009588197668222,
+        "cp_min": 0.6009588197668222
+      },
+      {
+        "combo": "Prehyd minutes x Chip weight",
+        "rules": [
+          [
+            "prehydrolysis_minutes",
+            63.229,
+            73.885
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            59.721000000000004,
+            81.987
+          ]
+        ],
+        "n": 29,
+        "visc_mean": 757.8620689655172,
+        "kappa_mean": 9.851724137931035,
+        "cp_visc": 0.599327536151732,
+        "cp_kappa": 0.5901648563605504,
+        "cp_min": 0.5901648563605504
+      },
+      {
+        "combo": "Alkali conc 1 x P-temp SP",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            36.43,
+            37.029
+          ],
+          [
+            "pfactor_temp_setpoint_last_prehydrolysis",
+            164.0,
+            166.0
+          ]
+        ],
+        "n": 37,
+        "visc_mean": 758.1621621621622,
+        "kappa_mean": 9.643243243243242,
+        "cp_visc": 0.7251513972831529,
+        "cp_kappa": 0.5894908082470397,
+        "cp_min": 0.5894908082470397
+      },
+      {
+        "combo": "Alkali conc 1 x Prehyd minutes",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            36.43,
+            37.029
+          ],
+          [
+            "prehydrolysis_minutes",
+            63.229,
+            73.885
+          ]
+        ],
+        "n": 39,
+        "visc_mean": 758.2307692307693,
+        "kappa_mean": 9.766666666666667,
+        "cp_visc": 0.774413339961292,
+        "cp_kappa": 0.5732912532881485,
+        "cp_min": 0.5732912532881485
+      },
+      {
+        "combo": "P-factor overshoot x P-temp SP",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            62.644,
+            79.311
+          ],
+          [
+            "pfactor_temp_setpoint_last_prehydrolysis",
+            164.0,
+            166.0
+          ]
+        ],
+        "n": 21,
+        "visc_mean": 758.0,
+        "kappa_mean": 9.833333333333334,
+        "cp_visc": 0.6627023104062869,
+        "cp_kappa": 0.563973543493677,
+        "cp_min": 0.563973543493677
+      },
+      {
+        "combo": "P-factor overshoot x P-temp SP",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            79.311,
+            124.088
+          ],
+          [
+            "pfactor_temp_setpoint_last_prehydrolysis",
+            164.0,
+            166.0
+          ]
+        ],
+        "n": 33,
+        "visc_mean": 757.4848484848485,
+        "kappa_mean": 9.748484848484848,
+        "cp_visc": 0.7392763606644495,
+        "cp_kappa": 0.5507379669821216,
+        "cp_min": 0.5507379669821216
+      },
+      {
+        "combo": "P-factor overshoot x Prehyd minutes",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            79.311,
+            124.088
+          ],
+          [
+            "prehydrolysis_minutes",
+            63.229,
+            73.885
+          ]
+        ],
+        "n": 35,
+        "visc_mean": 757.1714285714286,
+        "kappa_mean": 9.857142857142858,
+        "cp_visc": 0.6729186810697781,
+        "cp_kappa": 0.5478722069073462,
+        "cp_min": 0.5478722069073462
+      },
+      {
+        "combo": "Prehyd minutes x Chip weight",
+        "rules": [
+          [
+            "prehydrolysis_minutes",
+            63.229,
+            73.885
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            81.987,
+            86.625
+          ]
+        ],
+        "n": 18,
+        "visc_mean": 753.2222222222222,
+        "kappa_mean": 9.71111111111111,
+        "cp_visc": 0.6826558368933452,
+        "cp_kappa": 0.5467905913201536,
+        "cp_min": 0.5467905913201536
+      },
+      {
+        "combo": "Chip weight x P-temp SP",
+        "rules": [
+          [
+            "chip_weight_max_chip_filling",
+            59.721000000000004,
+            81.987
+          ],
+          [
+            "pfactor_temp_setpoint_last_prehydrolysis",
+            163.0,
+            164.0
+          ]
+        ],
+        "n": 16,
+        "visc_mean": 756.375,
+        "kappa_mean": 9.662500000000001,
+        "cp_visc": 0.6064349403995568,
+        "cp_kappa": 0.546643999632102,
+        "cp_min": 0.546643999632102
+      },
+      {
+        "combo": "Chip weight x P-temp SP",
+        "rules": [
+          [
+            "chip_weight_max_chip_filling",
+            81.987,
+            86.625
+          ],
+          [
+            "pfactor_temp_setpoint_last_prehydrolysis",
+            164.0,
+            166.0
+          ]
+        ],
+        "n": 17,
+        "visc_mean": 757.2352941176471,
+        "kappa_mean": 9.658823529411764,
+        "cp_visc": 0.6341142316033155,
+        "cp_kappa": 0.5461007177287993,
+        "cp_min": 0.5461007177287993
+      },
+      {
+        "combo": "Chip weight x P-temp SP",
+        "rules": [
+          [
+            "chip_weight_max_chip_filling",
+            59.721000000000004,
+            81.987
+          ],
+          [
+            "pfactor_temp_setpoint_last_prehydrolysis",
+            164.0,
+            166.0
+          ]
+        ],
+        "n": 19,
+        "visc_mean": 758.1052631578947,
+        "kappa_mean": 9.973684210526315,
+        "cp_visc": 0.64755677634774,
+        "cp_kappa": 0.5369503047229169,
+        "cp_min": 0.5369503047229169
+      },
+      {
+        "combo": "P-factor overshoot x Alkali conc 1",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            62.644,
+            79.311
+          ],
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            36.43,
+            37.029
+          ]
+        ],
+        "n": 29,
+        "visc_mean": 768.1379310344828,
+        "kappa_mean": 9.931034482758623,
+        "cp_visc": 0.7599501536964693,
+        "cp_kappa": 0.5209862390873276,
+        "cp_min": 0.5209862390873276
+      },
+      {
+        "combo": "P-factor overshoot x Chip weight",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            62.644,
+            79.311
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            59.721000000000004,
+            81.987
+          ]
+        ],
+        "n": 23,
+        "visc_mean": 762.4782608695652,
+        "kappa_mean": 9.795652173913044,
+        "cp_visc": 0.7348187853325944,
+        "cp_kappa": 0.5017532498754966,
+        "cp_min": 0.5017532498754966
+      },
+      {
+        "combo": "Alkali conc 1 x P-temp SP",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            37.029,
+            38.121
+          ],
+          [
+            "pfactor_temp_setpoint_last_prehydrolysis",
+            163.0,
+            164.0
+          ]
+        ],
+        "n": 16,
+        "visc_mean": 746.0625,
+        "kappa_mean": 9.8125,
+        "cp_visc": 0.7565896291474118,
+        "cp_kappa": 0.4818787490218396,
+        "cp_min": 0.4818787490218396
+      },
+      {
+        "combo": "P-factor overshoot x Chip weight",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            62.644,
+            79.311
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            81.987,
+            86.625
+          ]
+        ],
+        "n": 24,
+        "visc_mean": 774.625,
+        "kappa_mean": 10.095833333333333,
+        "cp_visc": 0.45587865402163025,
+        "cp_kappa": 0.5367734840354818,
+        "cp_min": 0.45587865402163025
+      },
+      {
+        "combo": "P-factor overshoot x Alkali conc 1",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            62.644,
+            79.311
+          ],
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            37.029,
+            38.121
+          ]
+        ],
+        "n": 22,
+        "visc_mean": 765.6818181818181,
+        "kappa_mean": 9.972727272727274,
+        "cp_visc": 0.4453083968723447,
+        "cp_kappa": 0.437264040461426,
+        "cp_min": 0.437264040461426
+      },
+      {
+        "combo": "P-factor overshoot x Chip weight",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            27.711,
+            62.644
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            81.987,
+            86.625
+          ]
+        ],
+        "n": 23,
+        "visc_mean": 812.0869565217391,
+        "kappa_mean": 10.660869565217393,
+        "cp_visc": 0.4343391397959652,
+        "cp_kappa": 0.4525669438841288,
+        "cp_min": 0.4343391397959652
+      },
+      {
+        "combo": "P-factor overshoot x P-temp SP",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            62.644,
+            79.311
+          ],
+          [
+            "pfactor_temp_setpoint_last_prehydrolysis",
+            161.998,
+            163.0
+          ]
+        ],
+        "n": 33,
+        "visc_mean": 792.0909090909091,
+        "kappa_mean": 10.33939393939394,
+        "cp_visc": 0.4212634114932228,
+        "cp_kappa": 0.4367620558243396,
+        "cp_min": 0.4212634114932228
+      },
+      {
+        "combo": "Prehyd minutes x Chip weight",
+        "rules": [
+          [
+            "prehydrolysis_minutes",
+            82.199,
+            109.575
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            81.987,
+            86.625
+          ]
+        ],
+        "n": 22,
+        "visc_mean": 802.5454545454545,
+        "kappa_mean": 10.500000000000002,
+        "cp_visc": 0.4039802512586136,
+        "cp_kappa": 0.41149426219340396,
+        "cp_min": 0.4039802512586136
+      },
+      {
+        "combo": "P-factor overshoot x Prehyd minutes",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            62.644,
+            79.311
+          ],
+          [
+            "prehydrolysis_minutes",
+            73.885,
+            82.199
+          ]
+        ],
+        "n": 23,
+        "visc_mean": 790.7826086956521,
+        "kappa_mean": 10.273913043478263,
+        "cp_visc": 0.4035795747992801,
+        "cp_kappa": 0.4049800196110859,
+        "cp_min": 0.4035795747992801
+      },
+      {
+        "combo": "Alkali conc 1 x Chip weight",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            37.029,
+            38.121
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            81.987,
+            86.625
+          ]
+        ],
+        "n": 25,
+        "visc_mean": 781.48,
+        "kappa_mean": 10.436,
+        "cp_visc": 0.42568471861801266,
+        "cp_kappa": 0.40010884441053324,
+        "cp_min": 0.40010884441053324
+      },
+      {
+        "combo": "Alkali conc 1 x Chip weight",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            36.43,
+            37.029
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            81.987,
+            86.625
+          ]
+        ],
+        "n": 18,
+        "visc_mean": 767.6666666666666,
+        "kappa_mean": 9.78888888888889,
+        "cp_visc": 0.5259029073882624,
+        "cp_kappa": 0.39678276465385515,
+        "cp_min": 0.39678276465385515
+      },
+      {
+        "combo": "Alkali conc 1 x Prehyd minutes",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            35.102000000000004,
+            36.43
+          ],
+          [
+            "prehydrolysis_minutes",
+            82.199,
+            109.575
+          ]
+        ],
+        "n": 35,
+        "visc_mean": 823.7428571428571,
+        "kappa_mean": 10.428571428571429,
+        "cp_visc": 0.3900281604204983,
+        "cp_kappa": 0.43084469893559274,
+        "cp_min": 0.3900281604204983
+      },
+      {
+        "combo": "Chip weight x P-temp SP",
+        "rules": [
+          [
+            "chip_weight_max_chip_filling",
+            86.625,
+            98.421
+          ],
+          [
+            "pfactor_temp_setpoint_last_prehydrolysis",
+            161.998,
+            163.0
+          ]
+        ],
+        "n": 40,
+        "visc_mean": 812.975,
+        "kappa_mean": 10.444999999999999,
+        "cp_visc": 0.3891271067634944,
+        "cp_kappa": 0.40047592496975143,
+        "cp_min": 0.3891271067634944
+      },
+      {
+        "combo": "Prehyd minutes x Chip weight",
+        "rules": [
+          [
+            "prehydrolysis_minutes",
+            82.199,
+            109.575
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            86.625,
+            98.421
+          ]
+        ],
+        "n": 23,
+        "visc_mean": 821.8260869565217,
+        "kappa_mean": 10.31304347826087,
+        "cp_visc": 0.4053041087118811,
+        "cp_kappa": 0.38390000406767094,
+        "cp_min": 0.38390000406767094
+      },
+      {
+        "combo": "P-factor overshoot x Chip weight",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            79.311,
+            124.088
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            86.625,
+            98.421
+          ]
+        ],
+        "n": 33,
+        "visc_mean": 779.5151515151515,
+        "kappa_mean": 10.148484848484848,
+        "cp_visc": 0.42705115058265414,
+        "cp_kappa": 0.383604313264173,
+        "cp_min": 0.383604313264173
+      },
+      {
+        "combo": "Prehyd minutes x P-temp SP",
+        "rules": [
+          [
+            "prehydrolysis_minutes",
+            82.199,
+            109.575
+          ],
+          [
+            "pfactor_temp_setpoint_last_prehydrolysis",
+            161.998,
+            163.0
+          ]
+        ],
+        "n": 65,
+        "visc_mean": 809.3076923076923,
+        "kappa_mean": 10.443846153846154,
+        "cp_visc": 0.40672747008524496,
+        "cp_kappa": 0.3829207353117046,
+        "cp_min": 0.3829207353117046
+      },
+      {
+        "combo": "Alkali conc 1 x Chip weight",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            35.102000000000004,
+            36.43
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            81.987,
+            86.625
+          ]
+        ],
+        "n": 24,
+        "visc_mean": 804.125,
+        "kappa_mean": 10.295833333333334,
+        "cp_visc": 0.3982877186135166,
+        "cp_kappa": 0.37606991691579295,
+        "cp_min": 0.37606991691579295
+      },
+      {
+        "combo": "P-factor overshoot x Alkali conc 1",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            79.311,
+            124.088
+          ],
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            36.43,
+            37.029
+          ]
+        ],
+        "n": 26,
+        "visc_mean": 765.8461538461538,
+        "kappa_mean": 9.8,
+        "cp_visc": 0.48837957004025284,
+        "cp_kappa": 0.37436645290198556,
+        "cp_min": 0.37436645290198556
+      },
+      {
+        "combo": "Chip weight x P-temp SP",
+        "rules": [
+          [
+            "chip_weight_max_chip_filling",
+            81.987,
+            86.625
+          ],
+          [
+            "pfactor_temp_setpoint_last_prehydrolysis",
+            161.998,
+            163.0
+          ]
+        ],
+        "n": 45,
+        "visc_mean": 801.9555555555555,
+        "kappa_mean": 10.41777777777778,
+        "cp_visc": 0.45083265147621754,
+        "cp_kappa": 0.37096529861187605,
+        "cp_min": 0.37096529861187605
+      },
+      {
+        "combo": "P-factor overshoot x Prehyd minutes",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            27.711,
+            62.644
+          ],
+          [
+            "prehydrolysis_minutes",
+            82.199,
+            109.575
+          ]
+        ],
+        "n": 42,
+        "visc_mean": 818.0714285714286,
+        "kappa_mean": 10.472619047619048,
+        "cp_visc": 0.45600974306017095,
+        "cp_kappa": 0.3705321193205726,
+        "cp_min": 0.3705321193205726
+      },
+      {
+        "combo": "Alkali conc 1 x Chip weight",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            36.43,
+            37.029
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            59.721000000000004,
+            81.987
+          ]
+        ],
+        "n": 28,
+        "visc_mean": 782.6071428571429,
+        "kappa_mean": 10.137500000000001,
+        "cp_visc": 0.47170735928697927,
+        "cp_kappa": 0.36749869150601183,
+        "cp_min": 0.36749869150601183
+      },
+      {
+        "combo": "P-factor overshoot x Alkali conc 1",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            79.311,
+            124.088
+          ],
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            35.102000000000004,
+            36.43
+          ]
+        ],
+        "n": 28,
+        "visc_mean": 785.6428571428571,
+        "kappa_mean": 10.160714285714286,
+        "cp_visc": 0.3870877056179857,
+        "cp_kappa": 0.36332193524757356,
+        "cp_min": 0.36332193524757356
+      },
+      {
+        "combo": "P-factor overshoot x Chip weight",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            62.644,
+            79.311
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            86.625,
+            98.421
+          ]
+        ],
+        "n": 19,
+        "visc_mean": 788.421052631579,
+        "kappa_mean": 10.394736842105264,
+        "cp_visc": 0.35544839858810284,
+        "cp_kappa": 0.4456681645572787,
+        "cp_min": 0.35544839858810284
+      },
+      {
+        "combo": "P-factor overshoot x P-temp SP",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            27.711,
+            62.644
+          ],
+          [
+            "pfactor_temp_setpoint_last_prehydrolysis",
+            161.998,
+            163.0
+          ]
+        ],
+        "n": 62,
+        "visc_mean": 811.0,
+        "kappa_mean": 10.516935483870968,
+        "cp_visc": 0.3870636294803855,
+        "cp_kappa": 0.34966546623295014,
+        "cp_min": 0.34966546623295014
+      },
+      {
+        "combo": "Prehyd minutes x Chip weight",
+        "rules": [
+          [
+            "prehydrolysis_minutes",
+            82.199,
+            109.575
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            59.721000000000004,
+            81.987
+          ]
+        ],
+        "n": 21,
+        "visc_mean": 806.952380952381,
+        "kappa_mean": 10.530952380952382,
+        "cp_visc": 0.4848675669857633,
+        "cp_kappa": 0.3479745928169917,
+        "cp_min": 0.3479745928169917
+      },
+      {
+        "combo": "Alkali conc 1 x Chip weight",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            35.102000000000004,
+            36.43
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            86.625,
+            98.421
+          ]
+        ],
+        "n": 32,
+        "visc_mean": 812.875,
+        "kappa_mean": 10.334375000000001,
+        "cp_visc": 0.34747651060420537,
+        "cp_kappa": 0.4457926490973781,
+        "cp_min": 0.34747651060420537
+      },
+      {
+        "combo": "Alkali conc 1 x P-temp SP",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            35.102000000000004,
+            36.43
+          ],
+          [
+            "pfactor_temp_setpoint_last_prehydrolysis",
+            161.998,
+            163.0
+          ]
+        ],
+        "n": 50,
+        "visc_mean": 818.2,
+        "kappa_mean": 10.398,
+        "cp_visc": 0.34381603963342383,
+        "cp_kappa": 0.4003412034250971,
+        "cp_min": 0.34381603963342383
+      },
+      {
+        "combo": "Prehyd minutes x Chip weight",
+        "rules": [
+          [
+            "prehydrolysis_minutes",
+            73.885,
+            82.199
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            81.987,
+            86.625
+          ]
+        ],
+        "n": 27,
+        "visc_mean": 794.074074074074,
+        "kappa_mean": 10.31111111111111,
+        "cp_visc": 0.4505020176707927,
+        "cp_kappa": 0.3422237822202266,
+        "cp_min": 0.3422237822202266
+      },
+      {
+        "combo": "Alkali conc 1 x Chip weight",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            36.43,
+            37.029
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            86.625,
+            98.421
+          ]
+        ],
+        "n": 21,
+        "visc_mean": 769.4761904761905,
+        "kappa_mean": 10.076190476190476,
+        "cp_visc": 0.6255937579924664,
+        "cp_kappa": 0.34200992781284184,
+        "cp_min": 0.34200992781284184
+      },
+      {
+        "combo": "Alkali conc 1 x Prehyd minutes",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            37.029,
+            38.121
+          ],
+          [
+            "prehydrolysis_minutes",
+            82.199,
+            109.575
+          ]
+        ],
+        "n": 22,
+        "visc_mean": 793.8636363636364,
+        "kappa_mean": 10.30909090909091,
+        "cp_visc": 0.5286017620483067,
+        "cp_kappa": 0.3395491487433034,
+        "cp_min": 0.3395491487433034
+      },
+      {
+        "combo": "P-factor overshoot x Alkali conc 1",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            62.644,
+            79.311
+          ],
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            35.102000000000004,
+            36.43
+          ]
+        ],
+        "n": 15,
+        "visc_mean": 799.1333333333333,
+        "kappa_mean": 10.513333333333334,
+        "cp_visc": 0.3393508582183828,
+        "cp_kappa": 0.5568090503396761,
+        "cp_min": 0.3393508582183828
+      },
+      {
+        "combo": "Prehyd minutes x Chip weight",
+        "rules": [
+          [
+            "prehydrolysis_minutes",
+            73.885,
+            82.199
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            86.625,
+            98.421
+          ]
+        ],
+        "n": 22,
+        "visc_mean": 791.0,
+        "kappa_mean": 10.409090909090908,
+        "cp_visc": 0.3430502174452917,
+        "cp_kappa": 0.3372243728657581,
+        "cp_min": 0.3372243728657581
+      },
+      {
+        "combo": "Alkali conc 1 x P-temp SP",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            36.43,
+            37.029
+          ],
+          [
+            "pfactor_temp_setpoint_last_prehydrolysis",
+            161.998,
+            163.0
+          ]
+        ],
+        "n": 22,
+        "visc_mean": 800.2272727272727,
+        "kappa_mean": 10.538636363636364,
+        "cp_visc": 0.5587596704186981,
+        "cp_kappa": 0.3331774182633633,
+        "cp_min": 0.3331774182633633
+      },
+      {
+        "combo": "Prehyd minutes x P-temp SP",
+        "rules": [
+          [
+            "prehydrolysis_minutes",
+            73.885,
+            82.199
+          ],
+          [
+            "pfactor_temp_setpoint_last_prehydrolysis",
+            161.998,
+            163.0
+          ]
+        ],
+        "n": 48,
+        "visc_mean": 801.9375,
+        "kappa_mean": 10.395833333333334,
+        "cp_visc": 0.3791948036845236,
+        "cp_kappa": 0.3307426923665729,
+        "cp_min": 0.3307426923665729
+      },
+      {
+        "combo": "Alkali conc 1 x P-temp SP",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            37.029,
+            38.121
+          ],
+          [
+            "pfactor_temp_setpoint_last_prehydrolysis",
+            161.998,
+            163.0
+          ]
+        ],
+        "n": 46,
+        "visc_mean": 793.8260869565217,
+        "kappa_mean": 10.358695652173912,
+        "cp_visc": 0.4975057453593062,
+        "cp_kappa": 0.3289348337884773,
+        "cp_min": 0.3289348337884773
+      },
+      {
+        "combo": "Alkali conc 1 x Prehyd minutes",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            37.029,
+            38.121
+          ],
+          [
+            "prehydrolysis_minutes",
+            73.885,
+            82.199
+          ]
+        ],
+        "n": 30,
+        "visc_mean": 781.6666666666666,
+        "kappa_mean": 10.280000000000001,
+        "cp_visc": 0.42613648223111034,
+        "cp_kappa": 0.32204836303549605,
+        "cp_min": 0.32204836303549605
+      },
+      {
+        "combo": "P-factor overshoot x P-temp SP",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            79.311,
+            124.088
+          ],
+          [
+            "pfactor_temp_setpoint_last_prehydrolysis",
+            161.998,
+            163.0
+          ]
+        ],
+        "n": 24,
+        "visc_mean": 805.5833333333334,
+        "kappa_mean": 10.225,
+        "cp_visc": 0.4277367709110105,
+        "cp_kappa": 0.3139664776776737,
+        "cp_min": 0.3139664776776737
+      },
+      {
+        "combo": "Alkali conc 1 x Chip weight",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            37.029,
+            38.121
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            59.721000000000004,
+            81.987
+          ]
+        ],
+        "n": 28,
+        "visc_mean": 776.8214285714286,
+        "kappa_mean": 9.971428571428573,
+        "cp_visc": 0.4618680163321812,
+        "cp_kappa": 0.31020048384222915,
+        "cp_min": 0.31020048384222915
+      },
+      {
+        "combo": "P-factor overshoot x Alkali conc 1",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            27.711,
+            62.644
+          ],
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            37.029,
+            38.121
+          ]
+        ],
+        "n": 31,
+        "visc_mean": 797.741935483871,
+        "kappa_mean": 10.451612903225806,
+        "cp_visc": 0.5409665063375804,
+        "cp_kappa": 0.3099493893967299,
+        "cp_min": 0.3099493893967299
+      },
+      {
+        "combo": "P-factor overshoot x Chip weight",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            79.311,
+            124.088
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            81.987,
+            86.625
+          ]
+        ],
+        "n": 20,
+        "visc_mean": 769.25,
+        "kappa_mean": 9.835,
+        "cp_visc": 0.500371795864671,
+        "cp_kappa": 0.30452079096620815,
+        "cp_min": 0.30452079096620815
+      },
+      {
+        "combo": "P-factor overshoot x Alkali conc 1",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            27.711,
+            62.644
+          ],
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            35.102000000000004,
+            36.43
+          ]
+        ],
+        "n": 25,
+        "visc_mean": 823.68,
+        "kappa_mean": 10.332,
+        "cp_visc": 0.303412023170084,
+        "cp_kappa": 0.5322161423774324,
+        "cp_min": 0.303412023170084
+      },
+      {
+        "combo": "Chip weight x P-temp SP",
+        "rules": [
+          [
+            "chip_weight_max_chip_filling",
+            59.721000000000004,
+            81.987
+          ],
+          [
+            "pfactor_temp_setpoint_last_prehydrolysis",
+            161.998,
+            163.0
+          ]
+        ],
+        "n": 33,
+        "visc_mean": 800.7272727272727,
+        "kappa_mean": 10.353030303030302,
+        "cp_visc": 0.3725483677366627,
+        "cp_kappa": 0.30198043370873173,
+        "cp_min": 0.30198043370873173
+      },
+      {
+        "combo": "P-factor overshoot x Chip weight",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            27.711,
+            62.644
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            59.721000000000004,
+            81.987
+          ]
+        ],
+        "n": 31,
+        "visc_mean": 798.3548387096774,
+        "kappa_mean": 10.38225806451613,
+        "cp_visc": 0.37862787981549867,
+        "cp_kappa": 0.30058610831270344,
+        "cp_min": 0.30058610831270344
+      },
+      {
+        "combo": "P-factor overshoot x Prehyd minutes",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            27.711,
+            62.644
+          ],
+          [
+            "prehydrolysis_minutes",
+            73.885,
+            82.199
+          ]
+        ],
+        "n": 23,
+        "visc_mean": 797.304347826087,
+        "kappa_mean": 10.447826086956521,
+        "cp_visc": 0.3376116800735722,
+        "cp_kappa": 0.29979643268232725,
+        "cp_min": 0.29979643268232725
+      },
+      {
+        "combo": "P-factor overshoot x Prehyd minutes",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            79.311,
+            124.088
+          ],
+          [
+            "prehydrolysis_minutes",
+            73.885,
+            82.199
+          ]
+        ],
+        "n": 21,
+        "visc_mean": 777.2380952380952,
+        "kappa_mean": 9.985714285714286,
+        "cp_visc": 0.38712709640448184,
+        "cp_kappa": 0.2887886095569579,
+        "cp_min": 0.2887886095569579
+      },
+      {
+        "combo": "Prehyd minutes x Chip weight",
+        "rules": [
+          [
+            "prehydrolysis_minutes",
+            73.885,
+            82.199
+          ],
+          [
+            "chip_weight_max_chip_filling",
+            59.721000000000004,
+            81.987
+          ]
+        ],
+        "n": 18,
+        "visc_mean": 778.1111111111111,
+        "kappa_mean": 9.938888888888888,
+        "cp_visc": 0.32503508656338254,
+        "cp_kappa": 0.28325289306558016,
+        "cp_min": 0.28325289306558016
+      },
+      {
+        "combo": "Alkali conc 1 x Prehyd minutes",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            36.43,
+            37.029
+          ],
+          [
+            "prehydrolysis_minutes",
+            73.885,
+            82.199
+          ]
+        ],
+        "n": 19,
+        "visc_mean": 795.3157894736842,
+        "kappa_mean": 10.168421052631578,
+        "cp_visc": 0.4926633803628032,
+        "cp_kappa": 0.2779867075786789,
+        "cp_min": 0.2779867075786789
+      },
+      {
+        "combo": "Alkali conc 1 x Prehyd minutes",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            35.102000000000004,
+            36.43
+          ],
+          [
+            "prehydrolysis_minutes",
+            73.885,
+            82.199
+          ]
+        ],
+        "n": 18,
+        "visc_mean": 793.7222222222222,
+        "kappa_mean": 10.261111111111113,
+        "cp_visc": 0.2694620426198738,
+        "cp_kappa": 0.36701699927176,
+        "cp_min": 0.2694620426198738
+      }
+    ],
+    "4": [
+      {
+        "combo": "Prehyd minutes x P-temp SP",
+        "rules": [
+          [
+            "prehydrolysis_minutes",
+            84.637,
+            108.84
+          ],
+          [
+            "pfactor_temp_setpoint_last_prehydrolysis",
+            161.998,
+            163.0
+          ]
+        ],
+        "n": 24,
+        "visc_mean": 777.7916666666666,
+        "kappa_mean": 10.533333333333333,
+        "cp_visc": 0.6645674448627735,
+        "cp_kappa": 0.5378737547981207,
+        "cp_min": 0.5378737547981207
+      },
+      {
+        "combo": "P-factor overshoot x P-temp SP",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            57.746,
+            69.509
+          ],
+          [
+            "pfactor_temp_setpoint_last_prehydrolysis",
+            161.998,
+            163.0
+          ]
+        ],
+        "n": 20,
+        "visc_mean": 796.0,
+        "kappa_mean": 10.669999999999998,
+        "cp_visc": 0.727502374533336,
+        "cp_kappa": 0.40800141692696,
+        "cp_min": 0.40800141692696
+      },
+      {
+        "combo": "Alkali conc 1 x P-temp SP",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            36.979,
+            38.053
+          ],
+          [
+            "pfactor_temp_setpoint_last_prehydrolysis",
+            161.998,
+            163.0
+          ]
+        ],
+        "n": 20,
+        "visc_mean": 770.75,
+        "kappa_mean": 10.535,
+        "cp_visc": 0.538804974579253,
+        "cp_kappa": 0.4076239240737984,
+        "cp_min": 0.4076239240737984
+      },
+      {
+        "combo": "Chip weight x P-temp SP",
+        "rules": [
+          [
+            "chip_weight_max_chip_filling",
+            50.011,
+            68.802
+          ],
+          [
+            "pfactor_temp_setpoint_last_prehydrolysis",
+            161.998,
+            163.0
+          ]
+        ],
+        "n": 18,
+        "visc_mean": 797.4444444444445,
+        "kappa_mean": 10.683333333333332,
+        "cp_visc": 0.5851727295859068,
+        "cp_kappa": 0.4055437439346959,
+        "cp_min": 0.4055437439346959
+      },
+      {
+        "combo": "Prehyd minutes x P-temp SP",
+        "rules": [
+          [
+            "prehydrolysis_minutes",
+            58.982,
+            81.582
+          ],
+          [
+            "pfactor_temp_setpoint_last_prehydrolysis",
+            163.0,
+            166.0
+          ]
+        ],
+        "n": 16,
+        "visc_mean": 763.5625,
+        "kappa_mean": 9.9125,
+        "cp_visc": 0.4951329361277011,
+        "cp_kappa": 0.38964817989014483,
+        "cp_min": 0.38964817989014483
+      },
+      {
+        "combo": "Chip weight x P-temp SP",
+        "rules": [
+          [
+            "chip_weight_max_chip_filling",
+            72.381,
+            84.169
+          ],
+          [
+            "pfactor_temp_setpoint_last_prehydrolysis",
+            161.998,
+            163.0
+          ]
+        ],
+        "n": 20,
+        "visc_mean": 775.95,
+        "kappa_mean": 10.36,
+        "cp_visc": 0.5587183253093649,
+        "cp_kappa": 0.38546865772211114,
+        "cp_min": 0.38546865772211114
+      },
+      {
+        "combo": "Alkali conc 1 x P-temp SP",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            36.382,
+            36.979
+          ],
+          [
+            "pfactor_temp_setpoint_last_prehydrolysis",
+            161.998,
+            163.0
+          ]
+        ],
+        "n": 17,
+        "visc_mean": 791.9411764705883,
+        "kappa_mean": 10.717647058823529,
+        "cp_visc": 0.5942218808500057,
+        "cp_kappa": 0.38165862175252946,
+        "cp_min": 0.38165862175252946
+      },
+      {
+        "combo": "P-factor overshoot x P-temp SP",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            45.794000000000004,
+            57.746
+          ],
+          [
+            "pfactor_temp_setpoint_last_prehydrolysis",
+            161.998,
+            163.0
+          ]
+        ],
+        "n": 24,
+        "visc_mean": 784.3333333333334,
+        "kappa_mean": 10.245833333333332,
+        "cp_visc": 0.4931415662803801,
+        "cp_kappa": 0.3708725395767145,
+        "cp_min": 0.3708725395767145
+      },
+      {
+        "combo": "P-factor overshoot x Prehyd minutes",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            69.509,
+            133.856
+          ],
+          [
+            "prehydrolysis_minutes",
+            58.982,
+            81.582
+          ]
+        ],
+        "n": 18,
+        "visc_mean": 768.0,
+        "kappa_mean": 10.044444444444444,
+        "cp_visc": 0.5427582695160192,
+        "cp_kappa": 0.3476969762786652,
+        "cp_min": 0.3476969762786652
+      },
+      {
+        "combo": "Alkali conc 1 x P-temp SP",
+        "rules": [
+          [
+            "alkali_accumulator1_conc_mean_hot_liquor_filling",
+            35.266000000000005,
+            36.382
+          ],
+          [
+            "pfactor_temp_setpoint_last_prehydrolysis",
+            161.998,
+            163.0
+          ]
+        ],
+        "n": 22,
+        "visc_mean": 796.5,
+        "kappa_mean": 10.072727272727274,
+        "cp_visc": 0.7060535297224969,
+        "cp_kappa": 0.3425630262725852,
+        "cp_min": 0.3425630262725852
+      },
+      {
+        "combo": "P-factor overshoot x Prehyd minutes",
+        "rules": [
+          [
+            "pfactor_overshoot",
+            45.794000000000004,
+            57.746
+          ],
+          [
+            "prehydrolysis_minutes",
+            81.582,
+            84.637
+          ]
+        ],
+        "n": 16,
+        "visc_mean": 787.0,
+        "kappa_mean": 10.037500000000001,
+        "cp_visc": 0.45109895258770133,
+        "cp_kappa": 0.32815117863152404,
+        "cp_min": 0.32815117863152404
+      },
+      {
+        "combo": "Chip weight x P-temp SP",
+        "rules": [
+          [
+            "chip_weight_max_chip_filling",
+            68.802,
+            72.381
+          ],
+          [
+            "pfactor_temp_setpoint_last_prehydrolysis",
+            161.998,
+            163.0
+          ]
+        ],
+        "n": 20,
+        "visc_mean": 788.65,
+        "kappa_mean": 10.229999999999999,
+        "cp_visc": 0.6146811381598823,
+        "cp_kappa": 0.3134860283174396,
+        "cp_min": 0.3134860283174396
+      },
+      {
+        "combo": "Prehyd minutes x P-temp SP",
+        "rules": [
+          [
+            "prehydrolysis_minutes",
+            81.582,
+            84.637
+          ],
+          [
+            "pfactor_temp_setpoint_last_prehydrolysis",
+            161.998,
+            163.0
+          ]
+        ],
+        "n": 23,
+        "visc_mean": 792.6086956521739,
+        "kappa_mean": 10.286956521739132,
+        "cp_visc": 0.48182402676169833,
+        "cp_kappa": 0.29242380946767654,
+        "cp_min": 0.29242380946767654
+      }
+    ]
+  }
+}

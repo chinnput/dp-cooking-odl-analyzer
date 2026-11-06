@@ -1,0 +1,28 @@
+{
+  "model_train_to": "2026-10-01",
+  "test_from": "2026-10-01",
+  "test_to": "2026-10-18",
+  "n_test": 95,
+  "n_covered": 84,
+  "coverage": 0.884,
+  "mae_visc": 42.9,
+  "base_visc": 25.1,
+  "visc_beats_baseline": false,
+  "visc_mape_pct": 5.9,
+  "visc_accuracy_pct": 94.1,
+  "visc_r2": -1.53,
+  "mae_kappa": 0.64,
+  "base_kappa": 0.65,
+  "kappa_beats_baseline": true,
+  "kappa_mape_pct": 6.3,
+  "kappa_accuracy_pct": 93.7,
+  "kappa_r2": 0.031,
+  "visc_spec_agreement": 0.857,
+  "kappa_spec_agreement": 0.786,
+  "per_digester": {
+    "1": 23,
+    "2": 26,
+    "3": 23,
+    "4": 12
+  }
+}

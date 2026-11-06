@@ -17,10 +17,11 @@ The project analyzes and reduces process variation in **DP Cooking (Digesters D1
 
 ## Current State
 
-*As of 2026-11-05.*
+*As of 2026-11-06.*
 
 - **Branch:** `feat/press1-digester-exact-match`, pushed to GitHub. Not merged to `main`.
 - **`Capability_Model/`** (renamed 2026-11-05 from `XGboost_Model`, which no longer held XGBoost work): process-capability / operating-window analysis plus a lookup-based batch-quality prediction POC. See its `README.md` and `CONCEPT.md`. The notebooks (`01`–`04`) and the `capability.py` / `golden.py` / `config.py` helpers are unchanged apart from the folder name. `predict.py` + `realtime_pi/` are the new prediction layer; prediction is a **lookup against the historical boxes, not a trained model**.
+  - **`realtime_pi/`** = the separated TRAIN / TEST / PREDICT layer: `build_model.py` (train boxes on `batch_start < train_to`, save `boxes.json`), `backtest_oot.py` (out-of-time backtest, CSV-only, no PI), `fetch_current.py` (realtime: pulls only X from PI, predicts, never pulls Y). All X/Y come from `batch_master.csv`; `fetch_current.py` is the only file that touches PI (user runs it). **Backtest result (train ≤2026-10-01, test 2026-10-01→10-18, 95 batch, coverage 0.884):** Viscosity `r2 −1.53` (worse than baseline — accuracy% 94% is misleading because Visc base is 700–800), Kappa `r2 +0.031` (just beats baseline). spec-agreement Visc 85.7% / Kappa 78.6%. Reading: the current X set does **not** predict Viscosity; Kappa only marginally. This is expected for the "Just Visualize" phase.
 - **Digester batch analysis (new main work):** `Digester_Analysis/` — see its `README.md` (Thai, detailed)
   - `pull_data.py` pulls the digester/lab/status tags at 5 min (expanded from 99 to cover the alkali, steam % / temperature and heat-exchanger groups from `workflow.md`); `01_build_master.ipynb` builds `data/batch_master.csv` (1 row = 1 batch), `data/lab_linked.csv`, `data/phase_summary.csv` (1 row = 1 phase run) and `data/phase_summary_with_lab.csv` (same, with the batch's Press 1 lab values); `02_analysis.ipynb` reads only those CSV files.
   - `phase_summary.csv` (`batch.phase_summary`): one row per phase run with `start` / `end` / `minutes` and `mean` / `min` / `max` of every numeric sensor for that digester plus the shared sensors. Ids and phase timers (`batch_number`, `press1_status`, `*_time`) are left out (`config.PHASE_SUMMARY_SKIP`). It is the filtered raw table to pivot in Excel.
@@ -57,6 +58,31 @@ The project analyzes and reduces process variation in **DP Cooking (Digesters D1
 ---
 
 ## Progress Log
+
+### 2026-11-06 — realtime_pi hardening (pfactor/timestamps/JSON/phase-window) + backtest accuracy metrics; Cp-gap & drift-monitoring plan
+
+**What was done:**
+
+- **`realtime_pi/fetch_current.py` fixes** (realtime PI prediction tool; user runs it, agent has no PI):
+  - **`pfactor_overshoot` aligned to the CSV/training definition.** It now computes `max(pfactor_actual over PREHYDRAU+HLF) − pfactor_setpoint(last in PREHYDRAU)`, matching `Digester_Analysis/prehydrolysis.py`. Before, realtime used `pf(end HLF) − pf(end prehyd)` (did **not** subtract setpoint), so the model (trained on the CSV definition) was being fed a different X. Added `PFACTOR_SETPOINT_TAG` (all D1–D4, `PM2.*04D{k}OPESPPF.CALC`) to `realtime_pi/config.py` + `tags_for()`.
+  - **`_phase_window()` now returns only the LAST contiguous run** of a phase (splits MAINSEQ into runs via `(seq != seq.shift()).cumsum()`, like `batch.py`). Before, a fetch window spanning 2 batches merged both DISCHARGE blocks (seen as a ~6h50m discharge) **and** contaminated the X reductions across batches.
+  - **Results now include real timestamps:** `discharge_start` / `discharge_end` (from the MAINSEQ DISCHARGE window) + `predicted_at`. Internal keys use a leading `_` so they don't affect box scoring.
+  - **NaN → null in results JSON:** added `_json_safe()` (non-finite → None) + `allow_nan=False` so the JSON is strict-valid. A batch that falls into no box (e.g. D1, which lacks the P-temp SP tag) now writes `null`, not `NaN`.
+- **`realtime_pi/backtest_oot.py` accuracy metrics added** (CSV-only, no PI): `visc_mape_pct` / `kappa_mape_pct` (guards true==0), `visc_accuracy_pct` / `kappa_accuracy_pct` = 100−MAPE, and **`visc_r2` / `kappa_r2`**. MAE + baseline + spec_agreement kept alongside so the percentage isn't read in isolation.
+
+**Results:**
+
+- Backtest (train ≤2026-10-01, test 2026-10-01→10-18, **95 batch, coverage 0.884**): `mae_visc 42.9` vs `base_visc 25.1`, **`visc_r2 −1.53`** (worse than predict-the-mean); `mae_kappa 0.64` vs `base_kappa 0.65`, **`kappa_r2 +0.031`** (just beats baseline). `visc_accuracy_pct 94.1` / `kappa_accuracy_pct 93.7` look high only because the Y bases are large (Visc 700–800, Kappa 9–11) — **R² is the honest metric.** spec-agreement Visc 85.7% / Kappa 78.6%.
+- **Reading:** the current 6 X (`pfactor_overshoot`, `alkali_conc 1`, `prehyd_minutes`, `chip_weight`, `digester`, `P-temp SP`) do **not** explain Viscosity (R²<0) and barely explain Kappa. Prediction stays a lookup, not a model; consistent with the "Just Visualize, Not Optimize" phase.
+
+**Discussion — how to push Cp into the spec gap (σ↓), and a drift-monitoring idea (planning only, nothing built):**
+
+- **Cp vs Cpk:** the goal is Cp (narrow σ), not centering. The existing `capability.search()` already ranks boxes by `cp_min = min(Cp_visc, Cp_kappa)`, which is exactly "which operating window keeps **both** Y tight." Plan: `baseline()` σ → `search()` for narrow-σ boxes → keep only windows built from **controllable** X (**P-temp SP, prehyd minutes** are true DCS knobs; P-factor / alkali are indirect; **digester is a grouping, not a knob**) → `report()` inside-vs-outside to confirm σ really drops → present as a hypothesis window, not a setpoint order.
+- **Drift / trend monitoring (user's idea, recommended):** instead of a static window, watch **X per batch over time (rolling, per digester)** and flag when the recent window drifts/widens — an earlier warning than Cp. Must watch **X** (known at discharge) not Y (lab lags ~4 h), roll by **batch count** not calendar days (few batches/day), and keep it **per digester**. This fits the current phase (alert a human, never auto-adjust). Not yet implemented; proposed level 1 = trend charts of X+Y per batch per digester with rolling mean/σ(10) + spec lines.
+
+**Found by:** AI assistant (Copilot), user's realtime-vs-lab accuracy and "push Cp into the gap / detect drift" questions.
+
+**Next:** (optional) build the level-1 drift trend charts (CSV-only); confirm with the process team which DCS knob moves P-temp SP / prehyd minutes before trialing any Cp window; consider adding controllable X beyond the current 6 to see if Viscosity σ becomes explainable.
 
 ### 2026-11-05 — Renamed XGboost_Model → Capability_Model and added a lookup-based prediction POC
 
